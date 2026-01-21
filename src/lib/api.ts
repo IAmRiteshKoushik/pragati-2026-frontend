@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL
     ? `${String(import.meta.env.VITE_BACKEND_URL).replace(/\/+$/, '')}/api`
+    // May include versioning (eg : v1)
     : '/api',
   timeout: 10000,
 });
@@ -36,6 +37,9 @@ api.interceptors.response.use(
     if (status === 401) {
       toast.error('Session expired. Please login again.');
       localStorage.removeItem('token');
+
+      // Refresh token ???
+
       window.location.href = '/login';
     } else {
       toast.error(message);

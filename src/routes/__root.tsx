@@ -13,10 +13,30 @@ interface MyRouterContext {
   queryClient: QueryClient
 }
 
+// Routes without navbar
+const routesWithoutNavbar = [
+  '/login',
+  '/signup',
+  '/forgot-password',
+  '/reset-password',
+  '/otp',
+  '/reset-otp',
+  '/coming-soon',
+  '/maintenance',
+  '/404',
+]
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  component: () => (
+  component: RootComponent,
+})
+
+function RootComponent() {
+  const pathname = window.location.pathname
+  const showNavbar = !routesWithoutNavbar.includes(pathname)
+
+  return (
     <>
-      <Header />
+      {showNavbar && <Header />}
       <Outlet />
       <Toaster position="top-right" />
       <TanStackDevtools
@@ -32,5 +52,5 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         ]}
       />
     </>
-  ),
-})
+  )
+}
