@@ -8,10 +8,11 @@ export default function Header() {
 
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
+      <header className="p-4 flex items-center bg-gray-900 text-white shadow-lg relative z-50">
         <button
+          type="button"
           onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+          className="p-2 hover:bg-gray-800 rounded-lg transition-colors text-white"
           aria-label="Open menu"
         >
           <Menu size={24} />
@@ -35,6 +36,7 @@ export default function Header() {
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <h2 className="text-xl font-bold">Navigation</h2>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
             aria-label="Close menu"
