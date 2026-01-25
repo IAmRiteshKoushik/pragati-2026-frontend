@@ -13,6 +13,8 @@ import Footer from '../components/Footer'
 import TanStackQueryDevtools from '../providers/tanstack-query-devtools'
 
 import type { QueryClient } from '@tanstack/react-query'
+import ClickSpark from '@/components/ClickSpark'
+import RetroCursor from '@/components/RetroCursor'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -54,6 +56,8 @@ function RootComponent() {
       <Outlet />
       {showFooter && <Footer />}
       <Toaster position="top-right" />
+      <ClickSpark />
+      <RetroCursor />
       <TanStackDevtools
         config={{
           position: 'bottom-right',
