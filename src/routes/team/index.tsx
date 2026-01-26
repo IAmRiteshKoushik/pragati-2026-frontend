@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import { useSwipeable } from "react-swipeable";
 import { motion, AnimatePresence } from "framer-motion";
-import ProfileCard from "../../components/teams/ProfileCard";
+import ProfileCard from "../../components/team/ProfileCard";
 import { RadianceLoader } from "../../components/ui/RadianceLoader";
 
-export const Route = createFileRoute('/teams/')({
+export const Route = createFileRoute('/team/')({
   component: TeamsPage,
 })
 
@@ -88,13 +88,11 @@ function TeamsPage() {
   const currentData = jsonData[currentVertical];
 
   return (
-    <div className="min-h-screen bg-[#0a0614] overflow-x-hidden relative flex flex-col items-center font-['Montserrat'] selection:bg-[#ff4fd8] selection:text-black">
+    <div className="min-h-screen bg-black overflow-x-hidden relative flex flex-col items-center font-vcr selection:bg-retro-cyan selection:text-black">
       
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-linear-to-b from-[#0b0620] via-[#1a0733] to-[#06050b]" />
-
-          <div className="absolute inset-y-0 left-1/2 w-[28vw] max-w-70 -translate-x-1/2 bg-linear-to-b from-[#ff7a18]/0 via-[#ff4fd8]/35 to-[#2de2e6]/0 blur-2xl opacity-80" />
+          <div className="absolute inset-0 bg-linear-to-b from-black via-[#1a0733] to-black" />
 
           <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(circle_at_20%_20%,rgba(255,79,216,0.9)_1px,transparent_1px),radial-gradient(circle_at_80%_30%,rgba(45,226,230,0.9)_1px,transparent_1px),radial-gradient(circle_at_40%_80%,rgba(255,122,24,0.9)_1px,transparent_1px)] bg-size-[180px_180px]" />
           
@@ -124,7 +122,7 @@ function TeamsPage() {
                   initial={{ opacity: 0, y: -50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "backOut" }}
-                className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-linear-to-b from-white via-[#ff4fd8] to-[#2de2e6] drop-shadow-[0_0_18px_rgba(255,79,216,0.45)] tracking-tighter"
+                className="text-5xl md:text-7xl font-black text-retro-yellow drop-shadow-[3px_3px_0px_rgba(168,85,247,0.8)] tracking-tighter uppercase"
               >
                   RADIANCE
               </motion.h1>
@@ -132,7 +130,7 @@ function TeamsPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.8 }}
                   transition={{ delay: 0.5, duration: 1 }}
-                className="text-[#ff7a18] text-lg md:text-xl font-bold tracking-[0.5em] mt-2 uppercase drop-shadow-[0_0_10px_rgba(255,122,24,0.35)]"
+                className="text-retro-cyan text-lg md:text-xl font-bold tracking-[0.5em] mt-2 uppercase drop-shadow-[0_0_5px_rgba(0,255,255,0.8)]"
               >
                   Pragati '26
               </motion.p>
@@ -146,12 +144,14 @@ function TeamsPage() {
             className="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-12 sticky top-4 z-40"
           >
             {/* Mobile Nav */}
-            <div className="lg:hidden flex items-center justify-between gap-4 bg-[#140a29]/85 backdrop-blur-md p-3 rounded-2xl border border-[#2de2e6]/20 shadow-[0_0_30px_rgba(255,79,216,0.12)]">
-             <button type="button" onClick={handlePrev} disabled={activeIndex === 0} className="p-3 text-[#2de2e6] disabled:opacity-30"><IoArrowBack /></button>
+            <div className="lg:hidden relative flex items-center justify-between gap-4 bg-black/60 backdrop-blur-sm p-3 rounded-sm border-2 border-retro-cyan/50">
+             <div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-retro-cyan" />
+             <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-retro-cyan" />
+             <button type="button" onClick={handlePrev} disabled={activeIndex === 0} className="p-3 text-retro-cyan disabled:opacity-30"><IoArrowBack /></button>
                 <div className="flex-1 text-center font-bold text-white uppercase tracking-wider text-sm">
-               {verticals[activeIndex]} <span className="text-[#ff4fd8]">•</span> TEAM
+               {verticals[activeIndex]} <span className="text-retro-pink">•</span> TEAM
                 </div>
-             <button type="button" onClick={handleNext} disabled={activeIndex === verticals.length - 1} className="p-3 text-[#2de2e6] disabled:opacity-30"><IoArrowForward /></button>
+             <button type="button" onClick={handleNext} disabled={activeIndex === verticals.length - 1} className="p-3 text-retro-cyan disabled:opacity-30"><IoArrowForward /></button>
             </div>
 
             {/* Desktop Nav */}
@@ -161,26 +161,20 @@ function TeamsPage() {
                     type="button"
                         key={name}
                         onClick={() => setActiveIndex(index)}
-                        className={`relative px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition-all duration-300 transform clip-path-slant group`}
-                        style={{
-                            clipPath: "polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)", 
-                        }}
+                        className={`relative px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 ${
+                          activeIndex === index 
+                            ? 'bg-[#7c3aed] border-black text-white shadow-[4px_4px_0_rgba(0,0,0,1)]' 
+                            : 'bg-black/40 border-retro-cyan/50 text-retro-cyan hover:border-retro-pink hover:text-retro-pink'
+                        } backdrop-blur-sm group`}
                     >   
-                        {/* Selected Background */}
-                        {activeIndex === index && (
-                            <motion.div 
-                                layoutId="activeTab"
-                      className="absolute inset-0 bg-linear-to-r from-[#ff4fd8] via-[#ff7a18] to-[#2de2e6] z-[-1]"
-                            />
+                        {/* Corner pixels */}
+                        {activeIndex !== index && (
+                          <>
+                            <div className="absolute -top-0.5 -left-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
+                            <div className="absolute -bottom-0.5 -right-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
+                          </>
                         )}
-                        {/* Hover Background */}
-                         {activeIndex !== index && (
-                     <div className="absolute inset-0 bg-[#ff4fd8]/10 opacity-0 group-hover:opacity-100 transition-opacity z-[-1]" />
-                         )}
-
-                  <span className={activeIndex === index ? "text-[#0a0614]" : "text-[#2de2e6]"}>
-                            {name}
-                        </span>
+                        {name}
                     </button>
                 ))}
             </div>
@@ -188,7 +182,7 @@ function TeamsPage() {
 
           {/* Title with Glitch Effect */}
           <div className="w-full max-w-7xl px-6 mb-8 flex items-center gap-4 overflow-hidden">
-            <div className="h-px flex-1 bg-linear-to-r from-transparent to-[#2de2e6]/30" />
+            <div className="h-0.5 flex-1 bg-linear-to-r from-transparent to-retro-cyan/30" />
                <AnimatePresence mode='wait'>
                     <motion.h2 
                         key={currentVertical}
@@ -196,12 +190,12 @@ function TeamsPage() {
                         animate={{ opacity: 1, x: 0, skewX: 0 }}
                         exit={{ opacity: 0, x: 20, skewX: 20 }}
                         transition={{ duration: 0.3 }}
-                        className="text-3xl md:text-4xl text-white font-bold uppercase tracking-widest text-center"
+                        className="text-3xl md:text-4xl text-white font-bold uppercase tracking-widest text-center drop-shadow-[2px_2px_0px_rgba(45,226,230,0.8)]"
                     >
-                        {currentData?.name} <span className="text-[#ff4fd8]">Team</span>
+                        {currentData?.name} <span className="text-retro-pink">Team</span>
                     </motion.h2>
                </AnimatePresence>
-                     <div className="h-px flex-1 bg-linear-to-l from-transparent to-[#2de2e6]/30" />
+                     <div className="h-0.5 flex-1 bg-linear-to-l from-transparent to-retro-cyan/30" />
           </div>
 
           {/* Cards */}
@@ -223,15 +217,15 @@ function TeamsPage() {
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center"
                 >
                     {currentData?.members.map((member, index) => (
-                         <motion.div
+                      <motion.div
                         key={`${member.name}-${index}`}
                             variants={{
                                 hidden: { opacity: 0, y: 20, scale: 0.9 },
                                 show: { opacity: 1, y: 0, scale: 1 }
                             }}
-                            className="w-full flex justify-center perspective-[1000px]"
-                         >
-                            <ProfileCard
+                          className="w-full flex justify-center perspective-[1000px]"
+                      >
+                      <ProfileCard
                           name={member.name}
                           dept={member.dept}
                           year={member.year}
@@ -242,8 +236,8 @@ function TeamsPage() {
                           github={member.github}
                           image={member.image}
                           role={member.role}
-                            />
-                        </motion.div>
+                      />
+                    </motion.div>
                     ))}
                 </motion.div>
             </AnimatePresence>
