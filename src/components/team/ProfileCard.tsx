@@ -66,14 +66,14 @@ const ProfileCard = ({
                 <div className="flex-1 bg-[#2de2e6] rounded-[1px]" />
                 <div className="flex-1 bg-[#2de2e6] rounded-[1px] group-hover:bg-gray-600" />
               </div>
-              <div className="w-[2px] h-1 bg-gray-500 rounded-r-sm" />
+              <div className="w-0.5 h-1 bg-gray-500 rounded-r-sm" />
             </div>
             
             {/* Volume bars */}
             <div className="flex items-end gap-px h-2">
-              <div className="w-[2px] h-1 bg-gray-500" />
-              <div className="w-[2px] h-1.5 bg-gray-500" />
-              <div className="w-[2px] h-2 bg-[#2de2e6]" />
+              <div className="w-0.5 h-1 bg-gray-500" />
+              <div className="w-0.5 h-1.5 bg-gray-500" />
+              <div className="w-0.5 h-2 bg-[#2de2e6]" />
             </div>
           </div>
           
