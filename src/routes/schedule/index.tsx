@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/schedule/')({
-  component: SchedulePage,
-})
+export const Route = createFileRoute("/schedule/")({
+	component: SchedulePage,
+});
 
 function SchedulePage() {
-  return (
-    <div>
-      <h1>Schedule</h1>
-    </div>
-  )
+	return (
+		<div>
+			<h1>Schedule</h1>
+		</div>
+	);
 }
