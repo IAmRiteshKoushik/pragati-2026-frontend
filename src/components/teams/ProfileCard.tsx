@@ -8,6 +8,7 @@ type ProfileCardProps = {
   role?: string;
   dept?: string;
   year?: number;
+  tagline?: string;
   contactEmail?: string;
   instagram?: string;
   linkedin?: string;
@@ -20,6 +21,7 @@ const ProfileCard = ({
   role,
   dept,
   year,
+  tagline,
   contactEmail,
   instagram,
   linkedin,
@@ -48,8 +50,33 @@ const ProfileCard = ({
     >
       <div className="absolute inset-0 bg-linear-to-b from-[#ff4fd8]/0 via-[#ff4fd8]/6 to-[#2de2e6]/6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
+      <div className="absolute top-1/4 right-1/4 size-32 opacity-[0.08] pointer-events-none">
+        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,transparent_20%,rgba(255,255,255,0.12)_22%,transparent_24%,transparent_40%,rgba(255,255,255,0.08)_42%,transparent_44%,transparent_60%,rgba(255,255,255,0.06)_62%,transparent_64%)]" />
+        <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,rgba(255,79,216,0.15),rgba(45,226,230,0.15),rgba(255,122,24,0.15),rgba(255,79,216,0.15))]" />
+      </div>
+
+      {/* Scanlines overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px)',
+        }}
+      />
+
       <div className="absolute -top-20 -right-20 size-52 bg-[#ff4fd8]/20 blur-3xl rounded-full opacity-60" />
       <div className="absolute -bottom-20 -left-20 size-56 bg-[#2de2e6]/15 blur-3xl rounded-full opacity-60" />
+
+      {/* Colorful pixel accent bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 flex opacity-40 pointer-events-none">
+        <div className="flex-1 bg-[#ff4fd8]" />
+        <div className="flex-1 bg-[#2de2e6]" />
+        <div className="flex-1 bg-[#ff7a18]" />
+        <div className="flex-1 bg-[#b25cff]" />
+        <div className="flex-1 bg-[#ffcc33]" />
+        <div className="flex-1 bg-[#ff4fd8]" />
+        <div className="flex-1 bg-[#2de2e6]" />
+        <div className="flex-1 bg-[#ff7a18]" />
+      </div>
 
       <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#ff4fd8] rounded-tl-3xl opacity-80 z-20 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#2de2e6] rounded-br-3xl opacity-80 z-20 pointer-events-none" />
@@ -90,9 +117,19 @@ const ProfileCard = ({
              
              <div className="w-12 h-0.5 bg-linear-to-r from-[#ff4fd8] to-[#2de2e6] rounded-full shadow-[0_0_12px_rgba(45,226,230,0.45)] mb-3 opacity-60 group-hover:opacity-100 transition-opacity" />
              
-             <div className="flex flex-col items-center gap-1">
-                <p className="text-[#ff7a18] text-xs font-extrabold uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,122,24,0.25)]">{role}</p>
-                <p className="text-gray-300/70 text-[10px] tracking-[0.2em] font-mono">{details}</p>
+             <div className="relative flex flex-col items-center gap-1 min-h-9">
+                {/* Default: role + dept */}
+                <div className="flex flex-col items-center gap-1 transition-opacity duration-300 group-hover:opacity-0">
+                  <p className="text-[#ff7a18] text-xs font-extrabold uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,122,24,0.25)] text-center">{role}</p>
+                  <p className="text-gray-300/70 text-[10px] tracking-[0.2em] font-mono text-center">{details}</p>
+                </div>
+
+                {/* Hover: tagline */}
+                {tagline && (
+                  <p className="absolute inset-0 flex items-center justify-center text-white/85 text-xs text-center max-w-[28ch] leading-snug italic opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    "{tagline}"
+                  </p>
+                )}
              </div>
         </div>
       </div>
@@ -101,7 +138,7 @@ const ProfileCard = ({
       <div className="absolute inset-0 flex items-end justify-center pb-24 opacity-0 group-hover:pb-32 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
           <div className="flex gap-4 bg-black/70 px-4 py-2 rounded-full backdrop-blur-md border border-[#ff4fd8]/25 pointer-events-auto transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-[0_0_25px_rgba(255,79,216,0.12)]">
             {linkedin && (
-            <a href={linkedin} target="_blank" rel="noreferrer" className="text-white hover:text-[#2de2e6] hover:scale-110 transition-all p-1">
+            <a href={linkedin} target="_blank" rel="noreferrer" className="text-white hover:text-[#00d9ff] hover:scale-110 transition-all p-1">
                     <FaLinkedin size={18} />
                 </a>
             )}
@@ -111,12 +148,12 @@ const ProfileCard = ({
                 </a>
             )}
             {contactEmail && (
-            <a href={`mailto:${contactEmail}`} className="text-white hover:text-[#ff7a18] hover:scale-110 transition-all p-1">
+            <a href={`mailto:${contactEmail}`} className="text-white hover:text-[#ffa726] hover:scale-110 transition-all p-1">
                     <FaEnvelope size={18} />
                 </a>
             )}
             {github && (
-            <a href={github} target="_blank" rel="noreferrer" className="text-white hover:text-[#2de2e6] hover:scale-110 transition-all p-1">
+            <a href={github} target="_blank" rel="noreferrer" className="text-white hover:text-[#b25cff] hover:scale-110 transition-all p-1">
                     <FaGithub size={18} />
                 </a>
             )}

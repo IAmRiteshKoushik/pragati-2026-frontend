@@ -15,6 +15,7 @@ type TeamMember = {
   role?: string;
   dept?: string;
   year?: number;
+  tagline?: string;
   contactEmail?: string;
   instagram?: string;
   linkedin?: string;
@@ -234,10 +235,11 @@ function TeamsPage() {
                           name={member.name}
                           dept={member.dept}
                           year={member.year}
-                                contactEmail={member.contactEmail}
-                                instagram={member.instagram}
-                                linkedin={member.linkedin}
-                                github={member.github}
+                          tagline={member.tagline}
+                          contactEmail={member.contactEmail}
+                          instagram={member.instagram}
+                          linkedin={member.linkedin}
+                          github={member.github}
                           image={member.image}
                           role={member.role}
                             />
