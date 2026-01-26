@@ -194,7 +194,6 @@ function InfiniteScrollRow({
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const positionRef = useRef(direction === 'left' ? 0 : -33.33)
   const animationRef = useRef<number | undefined>(undefined)
-  const frameCountRef = useRef(0)
   const containerCacheRef = useRef<{ centerX: number; maxDistance: number } | null>(null)
 
   useEffect(() => {
@@ -217,15 +216,14 @@ function InfiniteScrollRow({
     const cache = containerCacheRef.current
     if (!cache) return
 
-    const cardData: { card: HTMLDivElement; cardCenterX: number }[] = []
-    cardRefs.current.forEach((card) => {
-      if (card) {
-        const cardRect = card.getBoundingClientRect()
-        cardData.push({ card, cardCenterX: cardRect.left + cardRect.width / 2 })
-      }
-    })
+    const cardCount = cardRefs.current.length
+    for (let i = 0; i < cardCount; i++) {
+      const card = cardRefs.current[i]
+      if (!card) continue
 
-    cardData.forEach(({ card, cardCenterX }) => {
+      const cardRect = card.getBoundingClientRect()
+      const cardCenterX = cardRect.left + cardRect.width / 2
+      
       const distanceFromCenter = Math.abs(cardCenterX - cache.centerX)
       const normalizedDistance = Math.min(distanceFromCenter / cache.maxDistance, 1)
       const scale = 1.15 - normalizedDistance * 0.45
@@ -249,7 +247,7 @@ function InfiniteScrollRow({
           frame.classList.remove('shadow-2xl')
         }
       }
-    })
+    }
   }, [])
 
   useEffect(() => {
@@ -259,7 +257,6 @@ function InfiniteScrollRow({
     const animate = (currentTime: number) => {
       const delta = currentTime - lastTime
       lastTime = currentTime
-      frameCountRef.current++
 
       if (direction === 'left') {
         positionRef.current -= speed * delta * 0.01
@@ -292,7 +289,7 @@ function InfiniteScrollRow({
   }
 
   return (
-    <div className="relative overflow-hidden py-4 sm:py-6 md:py-8" ref={containerRef}>
+    <div className="relative overflow-hidden py-8 sm:py-10 md:py-12" ref={containerRef}>
       <div className="absolute top-0 left-0 right-0 h-1 z-10 bg-gradient-to-r from-transparent via-amber-700/90 to-transparent shadow-md" />
 
       <div className="absolute inset-y-0 left-0 w-16 sm:w-24 md:w-40 z-30 pointer-events-none bg-gradient-to-r from-[#0f0f2e] via-[#0f0f2e]/80 to-transparent" />
