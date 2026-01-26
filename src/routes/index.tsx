@@ -3,9 +3,9 @@ import GallerySection from '@/components/GallerySection'
 import HeroSection from '@/components/hero-section'
 import Navbar from '@/components/Navbar'
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: App,
-})
+});
 
 function App() {
   return (
@@ -16,5 +16,5 @@ function App() {
       like About, Events, Team, Sponsors, FAQ, Footer */}
       <GallerySection />
     </div>
-  )
+  );
 }
