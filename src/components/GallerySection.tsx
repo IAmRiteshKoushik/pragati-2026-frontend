@@ -116,7 +116,7 @@ function PolaroidCard({
     >
       <motion.div
         animate={{
-          rotate: [-2, 2, -2],
+          rotate: [-4, 4, -4],
         }}
         transition={{
           duration: swingDuration,
@@ -129,8 +129,8 @@ function PolaroidCard({
         <div 
           className="thread-container absolute left-1/2 -translate-x-1/2 z-10"
           style={{
-            top: 'calc(-3.5rem - var(--thread-extra, 0px))',
-            height: 'calc(4.5rem + var(--thread-extra, 0px))',
+            top: 'calc(-3.5rem - var(--thread-extra, 0px) - var(--thread-scale-compensation, 0px))',
+            height: 'calc(4.5rem + var(--thread-extra, 0px) + var(--thread-scale-compensation, 0px))',
           }}
         >
           <div className="w-0.5 h-full bg-amber-700 rounded-full" />
@@ -226,7 +226,7 @@ function InfiniteScrollRow({
       
       const distanceFromCenter = Math.abs(cardCenterX - cache.centerX)
       const normalizedDistance = Math.min(distanceFromCenter / cache.maxDistance, 1)
-      const scale = 1.15 - normalizedDistance * 0.45
+      const scale = 1.15 - normalizedDistance * 0.6
       const opacity = 1 - normalizedDistance * 0.4
       const zIndex = Math.floor((1 - normalizedDistance) * 20)
 
@@ -235,7 +235,9 @@ function InfiniteScrollRow({
       card.style.zIndex = String(zIndex)
       
       const threadExtra = normalizedDistance * 60
+      const scaleCompensation = (1 - normalizedDistance) * 20
       card.style.setProperty('--thread-extra', `${threadExtra.toFixed(2)}px`)
+      card.style.setProperty('--thread-scale-compensation', `${scaleCompensation.toFixed(2)}px`)
 
       const frame = card.querySelector('.polaroid-frame > div') as HTMLElement
       if (frame) {
