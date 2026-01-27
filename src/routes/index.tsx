@@ -3,6 +3,7 @@ import GallerySection from "@/components/GallerySection";
 import HeroSection from "@/components/hero-section";
 import Navbar from "@/components/Navbar";
 import About from "@/components/home-page/About";
+import RetroMarquee from "@/components/RetroMarquee";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -13,7 +14,9 @@ function App() {
     <div className="flex flex-col">
       <Navbar />
       <HeroSection />
+      <RetroMarquee text="Pragati '26 | Pragati '26 | Pragati '26 |  Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 |  Pragati '26 | Pragati '26 | Pragati '26 | "/>
       <About />
+      <RetroMarquee text="Pragati '26 | Pragati '26 | Pragati '26 |  Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 | Pragati '26 |  Pragati '26 | Pragati '26 | Pragati '26 | "/>
       {/* Other sections go here
       like About, Events, Team, Sponsors, FAQ, Footer */}
       <GallerySection />
