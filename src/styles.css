@@ -262,6 +262,35 @@ code {
   }
 }
 
+@layer utilities {
+  .neon-card-border {
+    border-color: #ff00ff;
+  }
+  .neon-card-bg {
+    background-color: rgba(20, 10, 30, 0.9);
+  }
+  .neon-card-shadow {
+    box-shadow: 
+      0 0 10px #ff00ff,
+      inset 0 0 20px rgba(255, 0, 255, 0.3);
+  }
+  .neon-card-shadow-thick {
+    box-shadow: 
+      0 0 25px #ff00ff,
+      0 0 50px rgba(255, 0, 255, 0.6),
+      inset 0 0 30px rgba(255, 0, 255, 0.4);
+  }
+  .neon-orange {
+    color: #ffaa00;
+  }
+  .neon-cyan-glow {
+    color: #00ffff;
+    text-shadow: 
+      0 0 10px #00ffff,
+      0 0 20px rgba(0, 255, 255, 0.5);
+  }
+}
+
 @media (pointer: fine) {
   body, a, button, input {
     cursor: none !important;
