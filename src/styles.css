@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
 
 @import 'tailwindcss';
@@ -20,7 +21,7 @@
   font-display: swap;
 }
 
-/* @custom-variant dark (&:is(.dark *)); */
+@custom-variant dark (&:is(.dark *));
 
 /* Responsive defaults */
 *,
@@ -46,7 +47,7 @@ code {
     source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* :root {
+:root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -115,9 +116,9 @@ code {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.442 0.017 285.786);
-} */
+}
 
-/* @theme inline {
+@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -154,16 +155,78 @@ code {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-} */
+}
 
-/* @layer base {
+@layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-} */
+}
+
+@layer components {
+
+  /* Glass effect with Animated Gradient Border - Purple Theme */
+  .retro-glass {
+    background: rgba(45, 10, 60, 0.4);
+    /* Darker purple tint for inner glass */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    /* border: 1px solid rgba(126, 34, 206, 0.3); */
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* Reveal Animation */
+  .form-reveal-animation {
+    animation: form-reveal-scifi 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+/* Animations - Purple Theme */
+@keyframes neon-pulse-purple {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    filter: blur(5px) brightness(1.5);
+    box-shadow: 0 0 5px #7e22ce, 0 0 10px #7e22ce;
+  }
+
+  50% {
+    opacity: 1;
+    filter: blur(8px) brightness(2.0);
+    box-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+  }
+}
+
+@keyframes purple-hue-shift {
+
+  0%,
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+
+  50% {
+    filter: hue-rotate(10deg) saturate(1.3);
+  }
+}
+
+@keyframes form-reveal-scifi {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+  }
+}
 
 @theme {
   /* for night theme */
@@ -172,11 +235,12 @@ code {
   --color-retro-orange: #ff8c00;
   --color-retro-yellow: #f4d03f;
   --color-retro-cyan: #00ffff;
-  
+
 
   /* --bg-retro-gradient: linear-gradient(to bottom, #f4d03f 0%, #ff8c00 50%, #ff00ff 100%); */
   --font-vcr: "vcr", monospace;
   --font-jersey15: "jersey15", monospace;
+  --font-press-start: "Press Start 2P", cursive;
 }
 
 @layer utilities {
@@ -262,8 +326,41 @@ code {
   }
 }
 
+@layer utilities {
+  .neon-card-border {
+    border-color: #ff00ff;
+  }
+  .neon-card-bg {
+    background-color: rgba(20, 10, 30, 0.9);
+  }
+  .neon-card-shadow {
+    box-shadow: 
+      0 0 10px #ff00ff,
+      inset 0 0 20px rgba(255, 0, 255, 0.3);
+  }
+  .neon-card-shadow-thick {
+    box-shadow: 
+      0 0 25px #ff00ff,
+      0 0 50px rgba(255, 0, 255, 0.6),
+      inset 0 0 30px rgba(255, 0, 255, 0.4);
+  }
+  .neon-orange {
+    color: #ffaa00;
+  }
+  .neon-cyan-glow {
+    color: #00ffff;
+    text-shadow: 
+      0 0 10px #00ffff,
+      0 0 20px rgba(0, 255, 255, 0.5);
+  }
+}
+
 @media (pointer: fine) {
-  body, a, button, input {
+
+  body,
+  a,
+  button,
+  input {
     cursor: none !important;
   }
 }
