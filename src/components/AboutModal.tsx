@@ -97,7 +97,7 @@ const AboutModal = ({ selectedTopic, onClose }: AboutModalProps) => {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.8, opacity: 0, y: 50 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="font-['VT323',monospace] text-[#00ff00] w-[90vw] max-w-[1400px] h-[85vh] relative z-10 border-4 bg-black/95 flex flex-col"
+          className="font-['VT323',monospace] text-[#00ff00] w-screen h-[88vh] relative z-10 border-4 bg-black/95 flex flex-col -mb-64"
           style={{
             borderColor: "#00ff00",
             boxShadow:
