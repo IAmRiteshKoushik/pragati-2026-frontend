@@ -1,20 +1,20 @@
-import { createFileRoute } from '@tanstack/react-router'
-import GallerySection from '@/components/GallerySection'
-import HeroSection from '@/components/hero-section'
-import Navbar from '@/components/Navbar'
+import { createFileRoute } from "@tanstack/react-router";
+import About from "@/components/home/About";
+import GallerySection from "@/components/home/GallerySection";
+import HeroSection from "@/components/home/hero-section";
+import Navbar from "@/components/Navbar";
 
 export const Route = createFileRoute("/")({
-  component: App,
+	component: App,
 });
 
 function App() {
-  return (
-    <div className='flex flex-col'>
-      <Navbar />
-      <HeroSection />
-      {/* Other sections go here
-      like About, Events, Team, Sponsors, FAQ, Footer */}
-      <GallerySection />
-    </div>
-  );
+	return (
+		<div className="flex flex-col">
+			<Navbar />
+			<HeroSection />
+			<About />
+			<GallerySection />
+		</div>
+	);
 }

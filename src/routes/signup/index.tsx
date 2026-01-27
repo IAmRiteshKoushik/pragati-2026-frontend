@@ -1,12 +1,11 @@
-
 import { createFileRoute } from '@tanstack/react-router'
 import SignUpFormDesktop from '../../components/auth/SignUpFormDesktop'
 import SignUpFormMobile from '../../components/auth/SignUpFormMobile'
 import { useSignUp } from '../../hooks/useSignUp'
 
-export const Route = createFileRoute('/signup/')({
-  component: SignupPage,
-})
+export const Route = createFileRoute("/signup/")({
+	component: SignupPage,
+});
 
 function SignupPage() {
   const { mutate: signUp, isPending } = useSignUp()
