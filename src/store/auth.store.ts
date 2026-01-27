@@ -1,11 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { User } from '@/types/login';
 
-interface User {
-  email: string;
-  name: string;
-  student_id?: string;
-}
 type AuthStoreState = {
   user: User | null;
   isHydrated: boolean;
@@ -17,7 +13,7 @@ type AuthStoreState = {
 export const useAuthStore = create<AuthStoreState>()(
   persist(
     (set) => ({
-      user: null,   //put some default user if you want for testing. and clear the local storage.
+      user: null,
       isHydrated: false,
       setUser: (user: User | null) => set({ user }),
       logout: () => set({ user: null }),

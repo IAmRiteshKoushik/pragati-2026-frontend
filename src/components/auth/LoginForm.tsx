@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
@@ -17,22 +16,18 @@ import {
     FormMessage,
 } from '../ui/form';
 import RetroWindowWrapper from '../RetroWindowWrapper';
-
-const loginSchema = z.object({
-    email: z.string().min(1, { message: 'Please enter a valid email' }).email({ message: 'Please enter a valid email' }),
-    password: z.string().min(8, { message: 'Password must be atleast 8 characters' }),
-});
+import { type LoginFormValues, loginFormSchema } from '@/types/login'; // Import from central types
 
 interface LoginFormProps {
-    onSubmit: (data: z.infer<typeof loginSchema>) => void;
+    onSubmit: (data: LoginFormValues) => void; // Use LoginFormValues
     isSubmitting: boolean;
 }
 
 const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
-    const form = useForm<z.infer<typeof loginSchema>>({
-        resolver: zodResolver(loginSchema),
+    const form = useForm<LoginFormValues>({ // Use LoginFormValues
+        resolver: zodResolver(loginFormSchema), // Use imported schema
         defaultValues: {
             email: '',
             password: '',

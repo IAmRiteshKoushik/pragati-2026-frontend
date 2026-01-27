@@ -353,14 +353,10 @@ const BeatDropOverlay: React.FC<OverlayProps> = ({ isOpen, onClose }) => {
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const [scrolled, setScrolled] = useState<boolean>(false);
-
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  // Audio Ref
-
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+	// Audio Ref
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     audioRef.current = new Audio(AUDIO_URL);
@@ -370,7 +366,6 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
@@ -406,9 +401,7 @@ const Navbar: React.FC = () => {
       <BeatDropOverlay isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 ${
-          scrolled ? "py-3" : "py-6"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 py-6`}
       >
         <div className="max-w-[95%] mx-auto flex justify-end items-center gap-6">
           {/* --- MUSIC BUTTON --- */}
