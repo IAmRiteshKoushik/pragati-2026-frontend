@@ -10,8 +10,8 @@ import {
 import { NavbarAuth } from "./NavbarAuth"; // Assumes NavbarAuth is in the same directory
 
 interface OverlayProps {
-  isOpen: boolean;
-  onClose: () => void;
+	isOpen: boolean;
+	onClose: () => void;
 }
 interface MenuItemProps {
   text: string;
@@ -40,23 +40,23 @@ const CRTOverlay = () => (
 );
 
 const PartyDecorations = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 150 };
-  const springX = useSpring(mouseX, springConfig);
-  const springY = useSpring(mouseY, springConfig);
+	const mouseX = useMotionValue(0);
+	const mouseY = useMotionValue(0);
+	const springConfig = { damping: 25, stiffness: 150 };
+	const springX = useSpring(mouseX, springConfig);
+	const springY = useSpring(mouseY, springConfig);
 
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX - window.innerWidth / 2);
-      mouseY.set(e.clientY - window.innerHeight / 2);
-    };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
+	useEffect(() => {
+		const handleMove = (e: MouseEvent) => {
+			mouseX.set(e.clientX - window.innerWidth / 2);
+			mouseY.set(e.clientY - window.innerHeight / 2);
+		};
+		window.addEventListener("mousemove", handleMove);
+		return () => window.removeEventListener("mousemove", handleMove);
+	}, []);
 
-  const auraX = useTransform(springX, (val) => val / 8);
-  const auraY = useTransform(springY, (val) => val / 8);
+	const auraX = useTransform(springX, (val) => val / 8);
+	const auraY = useTransform(springY, (val) => val / 8);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -302,13 +302,13 @@ const Navbar: React.FC = () => {
   // Audio Ref
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    audioRef.current = new Audio(AUDIO_URL);
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.5;
+	// Audio Ref
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+	useEffect(() => {
+		audioRef.current = new Audio(AUDIO_URL);
+		audioRef.current.loop = true;
+		audioRef.current.volume = 0.5;
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

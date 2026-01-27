@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
-import RetroMarquee from '../../components/RetroMarquee'
+import { createFileRoute } from "@tanstack/react-router";
+import RetroMarquee from "../../components/RetroMarquee";
 
-export const Route = createFileRoute('/events/')({
-  component: EventsPage,
-})
+export const Route = createFileRoute("/events/")({
+	component: EventsPage,
+});
 
 function EventsPage() {
   return (
