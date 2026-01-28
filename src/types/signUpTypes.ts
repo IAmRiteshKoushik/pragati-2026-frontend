@@ -54,8 +54,6 @@ export const SignUpSchema = z
 
 export type SignUpFormValues = z.infer<typeof SignUpSchema>;
 
-export interface SignUpPayload {
-	email: string;
-	password: string;
-	confirmPassword: string;
+export interface SignUpPayload extends SignUpFormValues {
+	amrita_roll_number?: string;
 }

@@ -12,7 +12,11 @@ import {
 } from "@/types/resetPasswordTypes";
 
 interface ResetPasswordFormProps {
-	onSubmit: (values: { email: string; password: string }) => void;
+	onSubmit: (values: {
+		email: string;
+		password: string;
+		confirmPassword: string;
+	}) => void;
 	isSubmitting: boolean;
 }
 
@@ -46,7 +50,11 @@ export function ResetPasswordForm({
 			<form
 				className="flex flex-col gap-5"
 				onSubmit={handleSubmit((values) =>
-					onSubmit({ email: values.email, password: values.password }),
+					onSubmit({
+						email: values.email,
+						password: values.password,
+						confirmPassword: values.confirmPassword,
+					}),
 				)}
 				noValidate
 				style={{ fontFamily: '"Press Start 2P", cursive' }}

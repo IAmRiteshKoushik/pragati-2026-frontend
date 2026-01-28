@@ -356,6 +356,7 @@ const BeatDropOverlay: React.FC<OverlayProps> = ({ isOpen, onClose }) => {
 const Navbar: React.FC = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
+	const [_scrolled, setScrolled] = useState(false);
 
 	// Audio Ref
 	const audioRef = useRef<HTMLAudioElement | null>(null);

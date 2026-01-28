@@ -3,7 +3,6 @@ import axiosRetry from "axios-retry";
 import { toast } from "react-hot-toast";
 import { useAuthStore } from "@/store/auth.store"; // Adjusted path
 // import { useMaintenanceStore } from '@/stores/useMaintenanceStore'; // Assuming this needs to be created or adjusted
-import type { ApiResponse } from "@/types/primitiveTypes"; // Assuming primitiveTypes will be created
 import { API_ROUTES } from "./routes";
 
 export const api = axios.create({
@@ -128,7 +127,7 @@ export async function apiGet<T>(
 	url: string,
 	options?: { skipAuth?: boolean },
 ): Promise<T> {
-	const res = await api.get<ApiResponse<T>>(url, {
+	const res = await api.get<T>(url, {
 		headers: options?.skipAuth ? { skipAuth: true } : undefined,
 	});
 	// console.log('[apiGet] Data fetched from', url, ':', res.data);
@@ -140,7 +139,7 @@ export async function apiPost<T>(
 	data?: unknown,
 	options?: { skipAuth?: boolean; headers?: Record<string, string> },
 ): Promise<T> {
-	const res = await api.post<ApiResponse<T>>(url, data, {
+	const res = await api.post<T>(url, data, {
 		headers: {
 			...(options?.skipAuth && { skipAuth: "true" }),
 			...options?.headers,
@@ -157,7 +156,7 @@ export async function apiPut<T>(
 	const headers: Record<string, string> = {};
 	if (options?.skipAuth) headers.skipAuth = "true";
 	if (options?.headers) Object.assign(headers, options.headers);
-	const res = await api.put<ApiResponse<T>>(url, data, {
+	const res = await api.put<T>(url, data, {
 		headers: Object.keys(headers).length > 0 ? headers : undefined,
 	});
 	return res.data;
@@ -170,7 +169,7 @@ export async function apiDelete<T>(
 	const headers: Record<string, string> = {};
 	if (options?.skipAuth) headers.skipAuth = "true";
 	if (options?.headers) Object.assign(headers, options.headers);
-	const res = await api.delete<ApiResponse<T>>(url, {
+	const res = await api.delete<T>(url, {
 		headers: Object.keys(headers).length > 0 ? headers : undefined,
 	});
 	return res.data;
