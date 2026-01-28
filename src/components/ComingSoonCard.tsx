@@ -1,5 +1,46 @@
 import type { ComingSoonCardProps } from '../types/comingSoonTypes'
 import { motion } from "framer-motion";
+import { useCountdown } from "../hooks/useCountdown";
+import type { ComingSoonCardProps } from "../types/comingSoonTypes";
+
+interface SponsorBadgeProps {
+	title: string;
+	logo: string;
+	color: string;
+	borderColor: string;
+}
+
+const SponsorBadge = ({
+	title,
+	logo,
+	color,
+	borderColor,
+}: SponsorBadgeProps) => (
+	<div className="flex flex-col items-center group">
+		<div className="flex items-center gap-2 mb-1">
+			<div
+				className={`h-0.5 w-3 md:w-6 ${color} shadow-[0_0_10px_currentColor]`}
+			/>
+			<span
+				className={`font-vcr text-[9px] md:text-xs ${color} tracking-widest drop-shadow-[0_0_5px_currentColor] whitespace-nowrap`}
+			>
+				{title}
+			</span>
+		</div>
+		<div
+			className={`relative p-1.5 md:p-2 bg-black/30 border-l-2 ${borderColor} backdrop-blur-sm rounded-tr-lg`}
+		>
+			<img
+				src={logo}
+				alt={title}
+				className="h-6 md:h-10 w-auto object-contain drop-shadow-md"
+			/>
+			<div
+				className={`absolute top-0 right-0 w-1 h-1 md:w-1.5 md:h-1.5 ${color.replace("text-", "bg-")}`}
+			/>
+		</div>
+	</div>
+);
 
 export default function ComingSoonCard({
   eventTitle = "PRAGATI '26",
