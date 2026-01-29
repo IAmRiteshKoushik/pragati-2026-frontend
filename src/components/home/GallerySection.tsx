@@ -240,6 +240,7 @@ function PolaroidCard({
 						<div className="relative aspect-4/3 overflow-hidden bg-gray-900 mt-3 sm:mt-4">
 							<img
 								src={image.src}
+								alt={`Gallery item ${image.id}`}
 								className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
 							/>
 						</div>
@@ -436,7 +437,7 @@ export function GallerySection() {
 	return (
 		<section
 			ref={sectionRef}
-			className="relative min-h-125 sm:min-h-150 md:min-h-175 lg:min-h-187.5 overflow-hidden py-8 sm:py-10 md:py-12 bg-gradient-to-b from-[#0c0c24] to-black"
+			className="relative min-h-125 sm:min-h-150 md:min-h-175 lg:min-h-187.5 overflow-hidden py-8 sm:py-10 md:py-12 bg-linear-to-b from-[#0c0c24] to-black"
 		>
 			<div className="absolute inset-0 pointer-events-none">
 				{[...Array(20)].map((_, i) => (
