@@ -113,38 +113,38 @@ export default function ComingSoonCard({
 							</div>
 						</div>
 
-				{avatarSrc && (
-					<picture>
-						<source
-							media="(max-width: 400px)"
-							srcSet="https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1whaKxZCmfJ1SAq3KTGnXB8DFs9ZpRrOylbdt"
-						/>
-						<img
-							src={avatarSrc}
-							alt="Event Mascot"
-							className="absolute -right-20 -top-20 z-20 max-md:-right-30 md:z-20 h-145 w-auto"
-							style={{ filter: "drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.8))" }}
-						/>
-					</picture>
-				)}
-				<motion.a
-					href="/"
-					whileHover={{ y: -2 }}
-					whileTap={{ y: 2, boxShadow: "0 0 0 #000" }}
-					className="relative inline-block px-6 py-3 text-white uppercase transition-colors duration-200 z-50"
-					style={{
-						fontFamily: "'Press Start 2P', cursive",
-						backgroundColor: "#7e22ce",
-						fontSize: "11px",
-						border: "3px solid #000",
-						boxShadow: "0 4px 0 #7e22ce, 0 4px 0 3px #000",
-					}}
-					>
-					<span className="flex items-center gap-3">
-						RETURN HOME
-					</span>
-				</motion.a>
-			</div>
+						{avatarSrc && (
+							<picture>
+								<source
+									media="(max-width: 400px)"
+									srcSet="https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1whaKxZCmfJ1SAq3KTGnXB8DFs9ZpRrOylbdt"
+								/>
+								<img
+									src={avatarSrc}
+									alt="Event Mascot"
+									className="absolute -right-20 -top-20 z-20 max-md:-right-30 md:z-20 h-145 w-auto"
+									style={{
+										filter: "drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.8))",
+									}}
+								/>
+							</picture>
+						)}
+						<motion.a
+							href="/"
+							whileHover={{ y: -2 }}
+							whileTap={{ y: 2, boxShadow: "0 0 0 #000" }}
+							className="relative inline-block px-6 py-3 text-white uppercase transition-colors duration-200 z-50"
+							style={{
+								fontFamily: "'Press Start 2P', cursive",
+								backgroundColor: "#7e22ce",
+								fontSize: "11px",
+								border: "3px solid #000",
+								boxShadow: "0 4px 0 #7e22ce, 0 4px 0 3px #000",
+							}}
+						>
+							<span className="flex items-center gap-3">RETURN HOME</span>
+						</motion.a>
+					</div>
 				</>
 			)}
 		</div>
