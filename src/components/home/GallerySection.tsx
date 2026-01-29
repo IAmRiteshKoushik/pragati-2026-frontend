@@ -265,11 +265,11 @@ function InfiniteScrollRow({
 	const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const positionRef = useRef(direction === "left" ? 0 : -33.33);
 	const animationRef = useRef<number | undefined>(undefined);
-	  const containerCacheRef = useRef<{
-    centerX: number;
-    maxDistance: number;
-  } | null>(null);
-  const isAnimating = useRef(false);
+	const containerCacheRef = useRef<{
+		centerX: number;
+		maxDistance: number;
+	} | null>(null);
+	const isAnimating = useRef(false);
 
 	useEffect(() => {
 		const updateContainerCache = () => {
@@ -333,43 +333,43 @@ function InfiniteScrollRow({
 		}
 	}, []);
 
-	  useEffect(() => {
-    const speed = 0.15;
-    let lastTime = performance.now();
+	useEffect(() => {
+		const speed = 0.15;
+		let lastTime = performance.now();
 
-    const animate = (currentTime: number) => {
-      const delta = currentTime - lastTime;
-      lastTime = currentTime;
+		const animate = (currentTime: number) => {
+			const delta = currentTime - lastTime;
+			lastTime = currentTime;
 
-      if (direction === "left") {
-        positionRef.current -= speed * delta * 0.01;
-        positionRef.current =
-          ((positionRef.current % 33.33) + 33.33) % 33.33 - 33.33;
-      } else {
-        positionRef.current += speed * delta * 0.01;
-        positionRef.current =
-          ((positionRef.current % 33.33) + 33.33) % 33.33 - 33.33;
-      }
+			if (direction === "left") {
+				positionRef.current -= speed * delta * 0.01;
+				positionRef.current =
+					(((positionRef.current % 33.33) + 33.33) % 33.33) - 33.33;
+			} else {
+				positionRef.current += speed * delta * 0.01;
+				positionRef.current =
+					(((positionRef.current % 33.33) + 33.33) % 33.33) - 33.33;
+			}
 
-      if (trackRef.current) {
-        trackRef.current.style.transform = `translate3d(${positionRef.current}%, 0, 0)`;
-      }
+			if (trackRef.current) {
+				trackRef.current.style.transform = `translate3d(${positionRef.current}%, 0, 0)`;
+			}
 
-      updateScales();
+			updateScales();
 
-      animationRef.current = requestAnimationFrame(animate);
-    };
+			animationRef.current = requestAnimationFrame(animate);
+		};
 
-    // Prevent multiple animations in React StrictMode
-    if (!isAnimating.current) {
-      isAnimating.current = true;
-      animationRef.current = requestAnimationFrame(animate);
-    }
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      isAnimating.current = false;
-    };
-  }, [direction, updateScales]);
+		// Prevent multiple animations in React StrictMode
+		if (!isAnimating.current) {
+			isAnimating.current = true;
+			animationRef.current = requestAnimationFrame(animate);
+		}
+		return () => {
+			if (animationRef.current) cancelAnimationFrame(animationRef.current);
+			isAnimating.current = false;
+		};
+	}, [direction, updateScales]);
 
 	const setCardRef = (index: number) => (el: HTMLDivElement | null) => {
 		cardRefs.current[index] = el;

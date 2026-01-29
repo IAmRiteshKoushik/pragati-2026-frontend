@@ -113,21 +113,21 @@ export default function ComingSoonCard({
 							</div>
 						</div>
 
-						{avatarSrc && (
-							<picture>
-								<source
-									media="(max-width: 400px)"
-									srcSet="https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1whaKxZCmfJ1SAq3KTGnXB8DFs9ZpRrOylbdt"
-								/>
-								<img
-									src={avatarSrc}
-									alt="Event Mascot"
-									className="absolute -right-20 -top-20 z-20 max-md:-right-30 md:z-20 h-145 w-auto"
-									style={{ filter: "drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.8))" }}
-								/>
-							</picture>
-						)}
-					</div>
+				{avatarSrc && (
+					<picture>
+						<source
+							media="(max-width: 400px)"
+							srcSet="https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1whaKxZCmfJ1SAq3KTGnXB8DFs9ZpRrOylbdt"
+						/>
+						<img
+							src={avatarSrc}
+							alt="Event Mascot"
+							className="absolute -right-20 -top-20 z-20 max-md:-right-30 md:z-20 h-145 w-auto"
+							style={{ filter: "drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.8))" }}
+						/>
+					</picture>
+				)}
+			</div>
 				</>
 			)}
 		</div>

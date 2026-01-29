@@ -314,24 +314,36 @@ const SignUpForm = ({
 					)}
 
 					{step < 2 ? (
-						<Button
-							type="button"
-							onClick={(e) => {
-								e.preventDefault();
-								nextStep();
-							}}
-							className={cn(
-								"w-full bg-[#7e22ce] hover:bg-[#9333ea] text-white font-bold py-2 text-xs",
-								step === 0 && "ml-auto", // Push next button to right if no back button
-							)}
-							style={pixelFont}
-						>
-							NEXT
-						</Button>
+						<div className="w-full flex flex-col items-center gap-2">
+							<div
+								className="w-full py-3 px-2 border-2 border-dashed border-[#22c55e]/50 bg-[#064e3b]/30 rounded-lg text-center animate-pulse"
+								style={pixelFont}
+							>
+								<p className="text-[#4ade80] text-[10px] leading-relaxed">
+									REGISTRATION LOCKED
+								</p>
+								<p className="text-white text-[12px] mt-1">OPENS AT 9:00 PM</p>
+							</div>
+							<Button
+								type="button"
+								disabled
+								onClick={(e) => {
+									e.preventDefault();
+									nextStep();
+								}}
+								className={cn(
+									"w-full bg-[#7e22ce] hover:bg-[#9333ea] text-white font-bold py-2 text-xs",
+									step === 0 && "ml-auto", // Push next button to right if no back button
+								)}
+								style={pixelFont}
+							>
+								NEXT
+							</Button>
+						</div>
 					) : (
 						<Button
 							type="submit"
-							disabled={isSubmitting}
+							disabled={true} // isSubmitting
 							className="w-full bg-[#7e22ce] hover:bg-[#9333ea] text-white font-bold py-2 text-xs"
 							style={pixelFont}
 						>
