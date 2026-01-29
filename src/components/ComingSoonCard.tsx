@@ -127,6 +127,23 @@ export default function ComingSoonCard({
 						/>
 					</picture>
 				)}
+				<motion.a
+					href="/"
+					whileHover={{ y: -2 }}
+					whileTap={{ y: 2, boxShadow: "0 0 0 #000" }}
+					className="relative inline-block px-6 py-3 text-white uppercase transition-colors duration-200 z-50"
+					style={{
+						fontFamily: "'Press Start 2P', cursive",
+						backgroundColor: "#7e22ce",
+						fontSize: "11px",
+						border: "3px solid #000",
+						boxShadow: "0 4px 0 #7e22ce, 0 4px 0 3px #000",
+					}}
+					>
+					<span className="flex items-center gap-3">
+						RETURN HOME
+					</span>
+				</motion.a>
 			</div>
 				</>
 			)}
