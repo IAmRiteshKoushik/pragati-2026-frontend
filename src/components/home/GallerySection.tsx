@@ -4,38 +4,32 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const row1Images = [
 	{
 		id: 1,
-		src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=400&fit=crop",
-		caption: "Opening Night",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2d7BKaXqlYhxmf7KGgre3XpuStqMobiV20vwEP",
 		colorClass: "bg-pink-500",
 	},
 	{
 		id: 2,
-		src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-		caption: "Main Stage",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dfoFgyzGplW6poDmg0S2QcJRTnOuCVNIvrhy3",
 		colorClass: "bg-cyan-400",
 	},
 	{
 		id: 3,
-		src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=500&h=400&fit=crop",
-		caption: "The Crowd",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dr4k0eY7Ik0EquVt93CSAfJZWnU6oPLicjdwB",
 		colorClass: "bg-yellow-400",
 	},
 	{
 		id: 4,
-		src: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=400&fit=crop",
-		caption: "Live Show",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dxsIHPp9qmkLjxWTSrivIXcEayYdpN042nVP3",
 		colorClass: "bg-fuchsia-600",
 	},
 	{
 		id: 5,
-		src: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=500&h=400&fit=crop",
-		caption: "Dance Floor",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dCKxhFRnFibrWxX19qfQAl5hUtSpOZdYPHBTu",
 		colorClass: "bg-teal-400",
 	},
 	{
 		id: 6,
-		src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&h=400&fit=crop",
-		caption: "Concert Vibes",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dPZq3Bz82Z9EReKUJkN5aMnizyGI867ohdxsB",
 		colorClass: "bg-violet-500",
 	},
 ];
@@ -43,38 +37,32 @@ const row1Images = [
 const row2Images = [
 	{
 		id: 7,
-		src: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500&h=400&fit=crop",
-		caption: "Night Sky",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dvD87wfLS9FVewDazNbv0GZsxmLOE1qQCTko5",
 		colorClass: "bg-cyan-400",
 	},
 	{
 		id: 8,
-		src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&h=400&fit=crop",
-		caption: "Festival Fun",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2d4AfbaAtmsB9OpjxvbnPLVaK0QzAdt3GlTZku",
 		colorClass: "bg-pink-500",
 	},
 	{
 		id: 9,
-		src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&h=400&fit=crop",
-		caption: "Memories",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2df3gPn0plW6poDmg0S2QcJRTnOuCVNIvrhy3P",
 		colorClass: "bg-yellow-400",
 	},
 	{
 		id: 10,
-		src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=400&fit=crop",
-		caption: "Backstage",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dYT2YVQU7WUPVbFermhXvNkzuATfp082CGJEg",
 		colorClass: "bg-fuchsia-600",
 	},
 	{
 		id: 11,
-		src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&h=400&fit=crop",
-		caption: "Spotlight",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dtLCBJBYQKTH6FGEzS45DoUdrxWCtVmafvOP2",
 		colorClass: "bg-teal-400",
 	},
 	{
 		id: 12,
-		src: "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=500&h=400&fit=crop",
-		caption: "Energy",
+		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dTyx0yPWGP1qdZ6LDschUoWjxbKy0EM5QAVf3",
 		colorClass: "bg-violet-500",
 	},
 ];
@@ -250,7 +238,6 @@ function PolaroidCard({
 						<div className="relative aspect-4/3 overflow-hidden bg-gray-900 mt-3 sm:mt-4">
 							<img
 								src={image.src}
-								alt={image.caption}
 								className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
 							/>
 						</div>
@@ -275,10 +262,11 @@ function InfiniteScrollRow({
 	const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const positionRef = useRef(direction === "left" ? 0 : -33.33);
 	const animationRef = useRef<number | undefined>(undefined);
-	const containerCacheRef = useRef<{
-		centerX: number;
-		maxDistance: number;
-	} | null>(null);
+	  const containerCacheRef = useRef<{
+    centerX: number;
+    maxDistance: number;
+  } | null>(null);
+  const isAnimating = useRef(false);
 
 	useEffect(() => {
 		const updateContainerCache = () => {
@@ -342,41 +330,43 @@ function InfiniteScrollRow({
 		}
 	}, []);
 
-	useEffect(() => {
-		const speed = 0.15;
-		let lastTime = performance.now();
+	  useEffect(() => {
+    const speed = 0.15;
+    let lastTime = performance.now();
 
-		const animate = (currentTime: number) => {
-			const delta = currentTime - lastTime;
-			lastTime = currentTime;
+    const animate = (currentTime: number) => {
+      const delta = currentTime - lastTime;
+      lastTime = currentTime;
 
-			if (direction === "left") {
-				positionRef.current -= speed * delta * 0.01;
-				positionRef.current =
-					(((positionRef.current % 33.33) + 33.33) % 33.33) - 33.33;
-			} else {
-				positionRef.current += speed * delta * 0.01;
-				positionRef.current =
-					(((positionRef.current % 33.33) + 33.33) % 33.33) - 33.33;
-			}
+      if (direction === "left") {
+        positionRef.current -= speed * delta * 0.01;
+        positionRef.current =
+          ((positionRef.current % 33.33) + 33.33) % 33.33 - 33.33;
+      } else {
+        positionRef.current += speed * delta * 0.01;
+        positionRef.current =
+          ((positionRef.current % 33.33) + 33.33) % 33.33 - 33.33;
+      }
 
-			if (trackRef.current) {
-				trackRef.current.style.transform = `translate3d(${positionRef.current}%, 0, 0)`;
-			}
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${positionRef.current}%, 0, 0)`;
+      }
 
-			updateScales();
+      updateScales();
 
-			animationRef.current = requestAnimationFrame(animate);
-		};
+      animationRef.current = requestAnimationFrame(animate);
+    };
 
-		animationRef.current = requestAnimationFrame(animate);
-
-		return () => {
-			if (animationRef.current) {
-				cancelAnimationFrame(animationRef.current);
-			}
-		};
-	}, [direction, updateScales]);
+    // Prevent multiple animations in React StrictMode
+    if (!isAnimating.current) {
+      isAnimating.current = true;
+      animationRef.current = requestAnimationFrame(animate);
+    }
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      isAnimating.current = false;
+    };
+  }, [direction, updateScales]);
 
 	const setCardRef = (index: number) => (el: HTMLDivElement | null) => {
 		cardRefs.current[index] = el;
