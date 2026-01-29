@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import FaultyTerminal from "./FaultyTerminal";
+// import FaultyTerminal from "./FaultyTerminal";
+import LetterGlitch from "./LetterGlitch";
 
 const aboutSections = [
   {
@@ -135,11 +136,13 @@ const About = () => {
             className="absolute inset-0 z-0"
             style={{ opacity: blackOverlayOpacity }}
           >
-            <FaultyTerminal
-              scale={1.2}
-              tint="#22c55e"
-              brightness={0.08}
-              backgroundColor="#010301"
+            <LetterGlitch
+              glitchSpeed={50}
+              centerVignette={true}
+              outerVignette={true}
+              glitchColors={["#2b4539", "#61dca3", "#61b3dc"]}
+              smooth={true}
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=/[]{};:<>.,0123456789"
             />
             <div className="absolute inset-0 bg-radial-gradient from-transparent to-black opacity-85" />
           </motion.div>
