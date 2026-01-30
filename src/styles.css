@@ -21,6 +21,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'joystix';
+  src: url('/fonts/joystix.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /* Responsive defaults */
@@ -241,19 +249,13 @@ code {
   --font-vcr: "vcr", monospace;
   --font-jersey15: "jersey15", monospace;
   --font-press-start: "Press Start 2P", cursive;
+  --font-joystix: "joystix", monospace;
 }
 
 @layer utilities {
   .font-retro {
     font-family: 'VT323', 'Press Start 2P', monospace;
     letter-spacing: 0.02em;
-  }
-  .neon-cyan {
-    color: #22d3ee;
-    text-shadow:
-      0 0 2px rgba(34, 211, 238, 0.9),
-      0 0 8px rgba(34, 211, 238, 0.6),
-      0 0 18px rgba(34, 211, 238, 0.35);
   }
   .neon-fuchsia {
     color: #e879f9;
@@ -344,15 +346,6 @@ code {
       0 0 50px rgba(255, 0, 255, 0.6),
       inset 0 0 30px rgba(255, 0, 255, 0.4);
   }
-  .neon-orange {
-    color: #ffaa00;
-  }
-  .neon-cyan-glow {
-    color: #00ffff;
-    text-shadow: 
-      0 0 10px #00ffff,
-      0 0 20px rgba(0, 255, 255, 0.5);
-  }
 }
 
 @media (pointer: fine) {
@@ -394,4 +387,8 @@ code {
   z-index: 2;
   background-size: 100% 4px, 3px 100%;
   pointer-events: none;
+}
+
+.neon-yellow {
+  color: #f4d03f;
 }

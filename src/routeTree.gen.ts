@@ -31,6 +31,7 @@ import { Route as CeoConnectIndexRouteImport } from './routes/ceo-connect/index'
 import { Route as BrochureIndexRouteImport } from './routes/brochure/index'
 import { Route as SignupVerifyRouteImport } from './routes/signup/verify'
 import { Route as ResetPasswordVerifyRouteImport } from './routes/reset-password/verify'
+import { Route as EventsEventIdRouteImport } from './routes/events/$eventId'
 
 const NotFoundRoute = NotFoundRouteImport.update({
   id: '/not-found',
@@ -142,11 +143,17 @@ const ResetPasswordVerifyRoute = ResetPasswordVerifyRouteImport.update({
   path: '/reset-password/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsEventIdRoute = EventsEventIdRouteImport.update({
+  id: '/events/$eventId',
+  path: '/events/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/not-found': typeof NotFoundRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/reset-password/verify': typeof ResetPasswordVerifyRoute
   '/signup/verify': typeof SignupVerifyRoute
   '/brochure/': typeof BrochureIndexRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/not-found': typeof NotFoundRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/reset-password/verify': typeof ResetPasswordVerifyRoute
   '/signup/verify': typeof SignupVerifyRoute
   '/brochure': typeof BrochureIndexRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/not-found': typeof NotFoundRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/reset-password/verify': typeof ResetPasswordVerifyRoute
   '/signup/verify': typeof SignupVerifyRoute
   '/brochure/': typeof BrochureIndexRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/not-found'
+    | '/events/$eventId'
     | '/reset-password/verify'
     | '/signup/verify'
     | '/brochure/'
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/not-found'
+    | '/events/$eventId'
     | '/reset-password/verify'
     | '/signup/verify'
     | '/brochure'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/not-found'
+    | '/events/$eventId'
     | '/reset-password/verify'
     | '/signup/verify'
     | '/brochure/'
@@ -295,6 +307,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
   NotFoundRoute: typeof NotFoundRoute
+  EventsEventIdRoute: typeof EventsEventIdRoute
   ResetPasswordVerifyRoute: typeof ResetPasswordVerifyRoute
   SignupVerifyRoute: typeof SignupVerifyRoute
   BrochureIndexRoute: typeof BrochureIndexRoute
@@ -472,6 +485,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/$eventId': {
+      id: '/events/$eventId'
+      path: '/events/$eventId'
+      fullPath: '/events/$eventId'
+      preLoaderRoute: typeof EventsEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -479,6 +499,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
   NotFoundRoute: NotFoundRoute,
+  EventsEventIdRoute: EventsEventIdRoute,
   ResetPasswordVerifyRoute: ResetPasswordVerifyRoute,
   SignupVerifyRoute: SignupVerifyRoute,
   BrochureIndexRoute: BrochureIndexRoute,
