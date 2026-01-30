@@ -4,32 +4,32 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const row1Images = [
 	{
 		id: 1,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2d7BKaXqlYhxmf7KGgre3XpuStqMobiV20vwEP",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1XnnhHy7BYq7VE90cdjOFo32iWSPtDvHr4Nym",
 		colorClass: "bg-pink-500",
 	},
 	{
 		id: 2,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dfoFgyzGplW6poDmg0S2QcJRTnOuCVNIvrhy3",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1uVAHyLSlASsgZdR2JE3YU7apTO9LifBkHeMK",
 		colorClass: "bg-cyan-400",
 	},
 	{
 		id: 3,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dr4k0eY7Ik0EquVt93CSAfJZWnU6oPLicjdwB",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1ob1JhtmbJzeyNxnla6ftQvmw5UqDV0P38uhY",
 		colorClass: "bg-yellow-400",
 	},
 	{
 		id: 4,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dxsIHPp9qmkLjxWTSrivIXcEayYdpN042nVP3",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1PUpG5BqzeTHg0tblqIGr5o8XnDsyxVYB4mQa",
 		colorClass: "bg-fuchsia-600",
 	},
 	{
 		id: 5,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dCKxhFRnFibrWxX19qfQAl5hUtSpOZdYPHBTu",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1ycpS3sJuKeA1db7OXpkcV35GxQCJ8NmazlZ2",
 		colorClass: "bg-teal-400",
 	},
 	{
 		id: 6,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dPZq3Bz82Z9EReKUJkN5aMnizyGI867ohdxsB",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1ujptpRlSlASsgZdR2JE3YU7apTO9LifBkHeM",
 		colorClass: "bg-violet-500",
 	},
 ];
@@ -37,32 +37,32 @@ const row1Images = [
 const row2Images = [
 	{
 		id: 7,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dvD87wfLS9FVewDazNbv0GZsxmLOE1qQCTko5",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1VcGDz6ZlVTPEdmL0qioBbjunxzwAYCMy3gHt",
 		colorClass: "bg-cyan-400",
 	},
 	{
 		id: 8,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2d4AfbaAtmsB9OpjxvbnPLVaK0QzAdt3GlTZku",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1F5M5HuPCE64VrAl5PwUmuMROYLdq7cbGfHoD",
 		colorClass: "bg-pink-500",
 	},
 	{
 		id: 9,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2df3gPn0plW6poDmg0S2QcJRTnOuCVNIvrhy3P",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1zUsqZjL4EhYnHkKZ1LPucTxyAtirJCqS0b6g",
 		colorClass: "bg-yellow-400",
 	},
 	{
 		id: 10,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dYT2YVQU7WUPVbFermhXvNkzuATfp082CGJEg",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA151NQF4A8rw7ncvuMsAbNajoyg3PxkVXmhJ1p",
 		colorClass: "bg-fuchsia-600",
 	},
 	{
 		id: 11,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dtLCBJBYQKTH6FGEzS45DoUdrxWCtVmafvOP2",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1EYewGpIJlYT70Xc54kS3CBuQrR9HEGawoFDn",
 		colorClass: "bg-teal-400",
 	},
 	{
 		id: 12,
-		src: "https://cemmqkyp6r.ufs.sh/f/ARrrFNxAQO2dTyx0yPWGP1qdZ6LDschUoWjxbKy0EM5QAVf3",
+		src: "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1AfwCzt84wGkEBCJfsvxUDZm6KWXYOubF91t7",
 		colorClass: "bg-violet-500",
 	},
 ];
