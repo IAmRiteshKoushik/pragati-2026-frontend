@@ -1,8 +1,25 @@
-import { EventCard } from "./EventCard";
-import type { Event } from "@/types/eventTypes";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import type { Event } from "@/types/eventTypes";
+import { EventCard } from "./EventCard";
 
-// Sample event data for testing
+interface DropdownProps {
+	label: string;
+	open: boolean;
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	items: string[];
+	selected: string[];
+	setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+interface RadioPairProps {
+	a: string;
+	b: string;
+	value: string | null;
+	setValue: React.Dispatch<React.SetStateAction<any>>;
+}
+
+/* ---------------- SAMPLE EVENT DATA ---------------- */
 const sampleEvents: Event[] = [
 	{
 		event_id: "1",
@@ -83,7 +100,7 @@ const sampleEvents: Event[] = [
 	{
 		event_id: "5",
 		event_name: "Blockchain Hackathon",
-		event_image_url: null, // Testing fallback image
+		event_image_url: null,
 		event_description:
 			"Build innovative blockchain solutions in this 24-hour hackathon.",
 		event_date: "2026-03-10",
@@ -119,128 +136,168 @@ const sampleEvents: Event[] = [
 	},
 ];
 
+/* ---------------- COMPONENT ---------------- */
 export const EventCardDemo = () => {
+	/* LOCAL EVENTS STATE */
+	const [events, setEvents] = useState<Event[]>(sampleEvents);
+
+	/* SEARCH */
+	const [search, setSearch] = useState("");
+
+	/* FILTER VISIBILITY */
+	const [showFilters, setShowFilters] = useState(false);
+
+	/* DROPDOWNS */
+	const [tagsOpen, setTagsOpen] = useState(false);
+	const [daysOpen, setDaysOpen] = useState(false);
+	const [selectedTags, setSelectedTags] = useState<string[]>([]);
+	const [selectedDays, setSelectedDays] = useState<string[]>([]);
+
+	/* MUTUAL GROUPS */
+	const [eventType, setEventType] = useState<"workshop" | "event" | null>(null);
+	const [teamType, setTeamType] = useState<"individual" | "group" | null>(null);
+	const [techType, setTechType] = useState<
+		"technical" | "non-technical" | null
+	>(null);
+	const [regType, setRegType] = useState<
+		"registered" | "not-registered" | null
+	>(null);
+
+	/* STAR TOGGLE */
 	const handleStarToggle = (eventId: string) => {
-		console.log("Star toggled for event:", eventId);
+		setEvents((prev) =>
+			prev.map((ev) =>
+				ev.event_id === eventId ? { ...ev, isStarred: !ev.isStarred } : ev,
+			),
+		);
 	};
 
-	const handleCardClick = (eventId: string) => {
-		console.log("Card clicked for event:", eventId);
+	/* CLEAR ALL */
+	const clearAll = () => {
+		setSearch("");
+		setSelectedTags([]);
+		setSelectedDays([]);
+		setEventType(null);
+		setTeamType(null);
+		setTechType(null);
+		setRegType(null);
 	};
+
+	/* SEARCH FILTER */
+	const filteredEvents = useMemo(() => {
+		if (!search.trim()) return events;
+		const q = search.toLowerCase();
+		return events.filter(
+			(e) =>
+				e.event_name.toLowerCase().includes(q) ||
+				e.tags?.some((t) => t.toLowerCase().includes(q)),
+		);
+	}, [search, events]);
 
 	return (
 		<div className="min-h-screen w-full bg-black relative overflow-hidden">
-			{/* Animated background grid */}
-			<div className="absolute inset-0 opacity-20">
-				<div
-					className="absolute inset-0"
-					style={{
-						backgroundImage:
-							"linear-gradient(rgba(34,211,238,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.1) 1px, transparent 1px)",
-						backgroundSize: "50px 50px",
-					}}
-				/>
-			</div>
-
-			{/* Neon corner decorations */}
-			<div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-retro-cyan opacity-50" />
-			<div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-retro-pink opacity-50" />
-			<div className="absolute bottom-0 left-0 w-32 h-32 border-b-4 border-l-4 border-retro-pink opacity-50" />
-			<div className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-retro-cyan opacity-50" />
-
 			<div className="relative z-10 p-4 md:p-8">
-				{/* Header Section */}
+				{/* HEADER */}
 				<motion.div
 					initial={{ opacity: 0, y: -50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
-					className="text-center mb-12 md:mb-16"
+					className="text-center mb-10"
 				>
-					{/* Retro scanlines effect on header */}
-					<div
-						className="absolute inset-x-0 top-0 h-48 pointer-events-none opacity-10"
-						style={{
-							backgroundImage:
-								"repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,255,0.1) 2px, rgba(255,0,255,0.1) 4px)",
-						}}
-					/>
+					<h1 className="font-jersey15 text-5xl md:text-7xl lg:text-8xl text-retro-yellow mb-6">
+						ALL EVENTS
+					</h1>
 
-					<motion.div
-						initial={{ scale: 0.8 }}
-						animate={{ scale: 1 }}
-						transition={{ duration: 0.5, delay: 0.2 }}
-					>
-						<h1 className="font-jersey15 text-5xl md:text-7xl lg:text-8xl text-retro-yellow mb-4 drop-shadow-[0_0_20px_rgba(244,208,63,0.8)]">
-							EVENT CARDS DEMO
-						</h1>
-						<div className="flex items-center justify-center gap-4 mb-4">
-							<div className="h-0.5 w-16 md:w-24 bg-retro-cyan shadow-[0_0_10px_currentColor]" />
-							<p className="font-vcr text-retro-cyan text-xs md:text-sm tracking-widest">
-								SHOWCASING DIFFERENT CARD STATES
-							</p>
-							<div className="h-0.5 w-16 md:w-24 bg-retro-cyan shadow-[0_0_10px_currentColor]" />
-						</div>
-					</motion.div>
+					<div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-4">
+						<input
+							value={search}
+							onChange={(e) => setSearch(e.target.value)}
+							placeholder="Search events..."
+							className="flex-1 px-4 py-2 bg-black/70 border border-gray-600 rounded-md text-gray-200 font-vcr text-base"
+						/>
 
-					{/* Decorative elements */}
-					<div className="flex justify-center gap-2 mt-6">
-						{["a", "b", "c", "d", "e"].map((id, i) => (
-							<motion.div
-								key={`deco-${id}`}
-								initial={{ opacity: 0 }}
-								animate={{ opacity: [0.3, 1, 0.3] }}
-								transition={{
-									duration: 2,
-									repeat: Number.POSITIVE_INFINITY,
-									delay: i * 0.2,
-								}}
-								className="w-2 h-2 bg-retro-pink shadow-[0_0_10px_currentColor]"
+						<select className="px-4 py-2 bg-black/70 border border-gray-600 rounded-md text-gray-200 font-vcr text-base">
+							<option>Relevance</option>
+							<option>Date (Earliest)</option>
+							<option>Date (Latest)</option>
+						</select>
+
+						<button
+							type="button"
+							onClick={() => setShowFilters((v) => !v)}
+							className="px-4 py-2 border border-retro-yellow/60 text-retro-yellow font-vcr text-base rounded-md"
+						>
+							{showFilters ? "Hide Filters" : "Show Filters"}
+						</button>
+					</div>
+
+					{/* FILTERS */}
+					{showFilters && (
+						<div className="mt-4 max-w-6xl mx-auto bg-black/60 border border-gray-700 rounded-lg p-4 flex flex-wrap gap-3 justify-center">
+							<Dropdown
+								label="Tags"
+								open={tagsOpen}
+								setOpen={setTagsOpen}
+								items={["Coding", "Gaming", "AI", "Cultural"]}
+								selected={selectedTags}
+								setSelected={setSelectedTags}
 							/>
-						))}
-					</div>
-				</motion.div>
 
-				{/* Main Grid Container with Outer Design */}
-				<motion.div
-					initial={{ opacity: 0, scale: 0.95 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.6, delay: 0.4 }}
-					className="max-w-7xl mx-auto mb-16"
-				>
-					{/* Outer frame with retro styling */}
-					<div className="relative p-1 bg-gradient-to-br from-retro-cyan/20 via-retro-purple/20 to-retro-pink/20">
-						{/* Corner accents on outer frame */}
-						<div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-retro-cyan" />
-						<div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-retro-pink" />
-						<div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-retro-pink" />
-						<div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-retro-cyan" />
+							<Dropdown
+								label="Event Days"
+								open={daysOpen}
+								setOpen={setDaysOpen}
+								items={["Day 1", "Day 2", "Day 3"]}
+								selected={selectedDays}
+								setSelected={setSelectedDays}
+							/>
 
-						{/* Inner container */}
-						<div className="bg-black/90 backdrop-blur-sm border-2 border-retro-purple/40 p-6 md:p-8">
-							{/* Grid of EventCards */}
-							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-								{sampleEvents.map((event, idx) => (
-									<motion.div
-										key={event.event_id}
-										initial={{ opacity: 0, y: 30 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{
-											duration: 0.5,
-											delay: 0.6 + idx * 0.1,
-										}}
-									>
-										<EventCard
-											event={event}
-											onStarToggle={handleStarToggle}
-											onCardClick={handleCardClick}
-											isStarLoading={false}
-										/>
-									</motion.div>
-								))}
-							</div>
+							<RadioPair
+								a="Workshop"
+								b="Event"
+								value={eventType}
+								setValue={setEventType}
+							/>
+							<RadioPair
+								a="Individual"
+								b="Group"
+								value={teamType}
+								setValue={setTeamType}
+							/>
+							<RadioPair
+								a="Technical"
+								b="Non-Technical"
+								value={techType}
+								setValue={setTechType}
+							/>
+							<RadioPair
+								a="Registered"
+								b="Not Registered"
+								value={regType}
+								setValue={setRegType}
+							/>
+
+							<button
+								type="button"
+								onClick={clearAll}
+								className="px-4 py-2 border border-red-500/60 text-red-400 font-vcr text-sm rounded-md"
+							>
+								Clear All
+							</button>
 						</div>
-					</div>
+					)}
 				</motion.div>
+
+				{/* EVENT GRID */}
+				<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+					{filteredEvents.map((event) => (
+						<EventCard
+							key={event.event_id}
+							event={event}
+							onStarToggle={handleStarToggle}
+						/>
+					))}
+				</div>
 
 				{/* Legend Section */}
 				<motion.div
@@ -341,3 +398,69 @@ export const EventCardDemo = () => {
 };
 
 export default EventCardDemo;
+
+/* ---------------- HELPER FUNCTIONS TO ABOVE ---------------- */
+
+const Dropdown = ({
+	label,
+	open,
+	setOpen,
+	items,
+	selected,
+	setSelected,
+}: DropdownProps) => (
+	<div className="relative">
+		<button
+			type="button"
+			onClick={() => setOpen(!open)}
+			className="px-4 py-2 bg-black/60 border border-gray-600 text-gray-300 font-vcr text-sm rounded-md"
+		>
+			{label} ▾
+		</button>
+		{open && (
+			<div className="absolute z-20 mt-2 bg-black border border-gray-600 rounded-md p-3 space-y-2">
+				{items.map((item: string) => (
+					<label
+						key={item}
+						className="flex gap-2 text-gray-300 font-vcr text-sm"
+					>
+						<input
+							type="checkbox"
+							checked={selected.includes(item)}
+							onChange={() =>
+								setSelected((prev: string[]) =>
+									prev.includes(item)
+										? prev.filter((i) => i !== item)
+										: [...prev, item],
+								)
+							}
+						/>
+						{item}
+					</label>
+				))}
+			</div>
+		)}
+	</div>
+);
+
+const RadioPair = ({ a, b, value, setValue }: RadioPairProps) => (
+	<div className="flex gap-2">
+		{[a, b].map((label) => {
+			const v = label.toLowerCase().replace(" ", "-");
+			return (
+				<button
+					type="button"
+					key={label}
+					onClick={() => setValue(value === v ? null : v)}
+					className={`px-4 py-2 border rounded-md font-vcr text-sm ${
+						value === v
+							? "border-retro-cyan text-retro-cyan"
+							: "border-gray-600 text-gray-300"
+					}`}
+				>
+					{label}
+				</button>
+			);
+		})}
+	</div>
+);

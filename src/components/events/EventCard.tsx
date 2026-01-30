@@ -1,5 +1,5 @@
-import { Calendar, CheckCircle, Lock, Star, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Calendar, CheckCircle, Lock, Star, Users, Zap } from "lucide-react";
 import { useState } from "react";
 import type { Event } from "@/types/eventTypes";
 
@@ -127,10 +127,10 @@ export const EventCard = ({
                     bg-linear-to-br from-purple-950/80 via-black/90 to-indigo-950/80 backdrop-blur-md
                     border-2 transition-all duration-300 ease-out
                     ${
-						isHovered
-							? "border-retro-cyan shadow-[0_0_30px_rgba(34,211,238,0.6),0_0_60px_rgba(34,211,238,0.3)]"
-							: "border-retro-purple/60 shadow-[0_0_15px_rgba(123,58,236,0.3)] md:border-gray-600/40"
-					}
+											isHovered
+												? "border-retro-cyan shadow-[0_0_30px_rgba(34,211,238,0.6),0_0_60px_rgba(34,211,238,0.3)]"
+												: "border-retro-purple/60 shadow-[0_0_15px_rgba(123,58,236,0.3)] md:border-gray-600/40"
+										}
                     ${isEventClosed ? "opacity-60 grayscale" : ""}
                 `}
 				style={{
@@ -229,15 +229,15 @@ export const EventCard = ({
                         absolute top-3 right-3 z-30 p-2 backdrop-blur-md
                         border-2 transition-all duration-300 
                         ${
-                            isEventClosed
-                                ? "cursor-default opacity-50"
-                                : "hover:scale-110 cursor-pointer"
-                            }
+													isEventClosed
+														? "cursor-default opacity-50"
+														: "hover:scale-110 cursor-pointer"
+												}
                         ${
-                            isStarred
-                                ? "bg-retro-yellow/20 border-retro-yellow shadow-[0_0_15px_rgba(244,208,63,0.6)]"
-                                : `bg-black/70 border-gray-500 ${isEventClosed ? "" : "hover:bg-black/90 hover:border-retro-yellow"}`
-                        }
+													isStarred
+														? "bg-retro-yellow/20 border-retro-yellow shadow-[0_0_15px_rgba(244,208,63,0.6)]"
+														: `bg-black/70 border-gray-500 ${isEventClosed ? "" : "hover:bg-black/90 hover:border-retro-yellow"}`
+												}
                     `}
 				>
 					<Star
@@ -264,7 +264,6 @@ export const EventCard = ({
 						</div>
 					</div>
 
-
 					<div className="flex items-center gap-4 mb-3 text-sm text-retro-cyan/80 font-vcr">
 						<div className="flex items-center gap-1">
 							<Calendar className="w-4 h-4 text-retro-cyan" />
@@ -281,13 +280,13 @@ export const EventCard = ({
 					{tags && tags.length > 0 && (
 						<div className="flex items-center gap-2 overflow-hidden">
 							{tags.slice(0, 2).map((tag) => (
-									<span
-										key={`${event_id}-${tag}`}
-										className="text-xs px-2 py-1 bg-retro-purple/50 backdrop-blur-sm border border-retro-pink/40 text-retro-pink whitespace-nowrap font-vcr uppercase"
-									>
-										{getTagLabel(tag)}
-									</span>
-								))}
+								<span
+									key={`${event_id}-${tag}`}
+									className="text-xs px-2 py-1 bg-retro-purple/50 backdrop-blur-sm border border-retro-pink/40 text-retro-pink whitespace-nowrap font-vcr uppercase"
+								>
+									{getTagLabel(tag)}
+								</span>
+							))}
 							{tags.length > 2 && (
 								<span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm border border-gray-600 text-gray-400 font-vcr">
 									+{tags.length - 2}

@@ -3,7 +3,7 @@
 // Backend API response types
 export interface Organizer {
 	organizer_name: string;
-    organizer_logo_url: string | null;
+	organizer_logo_url: string | null;
 	org_abbreviation: string;
 	org_type: string;
 }
