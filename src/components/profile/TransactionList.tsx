@@ -154,7 +154,7 @@ export default function TransactionList() {
 								</tr>
 							</thead>
 							<tbody className="text-center divide-y divide-white/5">
-								{data.map((tx, index) => (
+								{data.map((tx) => (
 									<tr
 										key={tx.txn_id}
 										className="hover:bg-white/5 transition-colors duration-200"
