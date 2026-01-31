@@ -24,7 +24,7 @@ const mockProfile: Profile = {
 
 const PROFILE_TABS = [
 	{ id: "profile", label: "PROFILE" },
-	{ id: "events", label: "TICKETS" },
+	{ id: "tickets", label: "TICKETS" },
 	{ id: "transactions", label: "TRANSACTIONS" },
 ] as const;
 
@@ -147,8 +147,9 @@ export function ProfileForm() {
 							const isActive = activeTab === tab.id;
 							return (
 								<button
+									type="button"
 									key={tab.id}
-									onClick={() => setActiveTab(tab.id as any)}
+									onClick={() => setActiveTab(tab.id as "profile" | "tickets" | "transactions")}
 									className={`
 										relative px-6 py-2 md:px-8 md:py-3 font-bold font-vcr uppercase tracking-widest transition-all duration-200 border-2
 										${isActive 
@@ -189,7 +190,7 @@ export function ProfileForm() {
 							/>
 						)}
 
-						{activeTab === "events" && (
+						{activeTab === "tickets" && (
 							<div className="w-full">
 								<TicketSection />
 							</div>

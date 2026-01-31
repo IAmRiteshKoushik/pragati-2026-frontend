@@ -96,11 +96,12 @@ export function ProfileCard({
 				: "bg-black/40 border border-white/10 text-white/50 cursor-not-allowed text-sm h-12 font-vcr rounded-md";
 
 		return (
-			<div key={field + "-group"} className="space-y-2 w-full">
-				<label className="text-retro-cyan text-xs font-bold block uppercase tracking-widest font-vcr mb-1">
+			<div key={`${field}-group`} className="space-y-2 w-full">
+				<label htmlFor={field} className="text-retro-cyan text-xs font-bold block uppercase tracking-widest font-vcr mb-1">
 					{label}
 				</label>
 				<Input
+					id={field}
 					type="text"
 					placeholder={placeholder}
 					{...register(field)}
@@ -156,11 +157,11 @@ export function ProfileCard({
 						{/* Email & Phone Grid */}
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 							<div className="space-y-2 w-full">
-								<label className="text-retro-cyan text-xs font-bold block uppercase tracking-widest font-vcr mb-1">
-									Email
-								</label>
+								<label htmlFor="email" className="text-retro-cyan text-xs font-bold block uppercase tracking-widest font-vcr mb-1">
+								Email
+							</label>
 								<Input
-									type="email"
+								type="email"
 									value={email}
 									disabled
 									className="bg-black/40 border border-white/10 text-white/50 cursor-not-allowed text-sm h-12 font-vcr rounded-md"

@@ -52,9 +52,11 @@ function Barcode({ id }: { id: string }) {
 	return (
 		<div className="flex items-stretch gap-px h-14">
 			{bars.map((width, i) => {
-				if (width === 0) return <div key={i} className="w-1" />;
+				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
+				if (width === 0) return <div key={`bar-${i}`} className="w-1" />;
 				const barWidth = width === 1 ? "w-0.5" : width === 2 ? "w-1" : "w-1.5";
-				return <div key={i} className={`${barWidth} bg-[#a855f7] rounded-sm opacity-90`} />;
+				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
+				return <div key={`bar-${i}`} className={`${barWidth} bg-[#a855f7] rounded-sm opacity-90`} />;
 			})}
 		</div>
 	);
@@ -89,8 +91,14 @@ export default function TicketSection() {
 				<div className="bg-black/60 backdrop-blur-sm border border-retro-cyan/30 p-8 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
 					<div className="text-center text-white/50">
 						<div className="w-16 h-16 mx-auto mb-4 rounded-full bg-black/40 border border-[#a855f7]/30 flex items-center justify-center">
-							<svg className="w-8 h-8 text-[#a855f7]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12V8a2 2 0 00-2-2H4a2 2 0 00-2 2v1a2 2 0 012 2v1a2 2 0 01-2 2v1a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2zM16 12a1 1 0 11-2 0 1 1 0 012 0zM16 16a1 1 0 11-2 0 1 1 0 012 0z" />
+							<svg
+						className="w-8 h-8 text-[#a855f7]/50"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						role="img"
+						aria-label="No tickets icon"
+					>			<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12V8a2 2 0 00-2-2H4a2 2 0 00-2 2v1a2 2 0 012 2v1a2 2 0 01-2 2v1a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2zM16 12a1 1 0 11-2 0 1 1 0 012 0zM16 16a1 1 0 11-2 0 1 1 0 012 0z" />
 							</svg>
 						</div>
 						<h3 className="text-xl font-bold text-retro-cyan mb-2 font-vcr tracking-wider">NO TICKETS FOUND</h3>
@@ -125,6 +133,7 @@ export default function TicketSection() {
 				{/* Left Arrow Wrapper */}
 				<div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10">
 					<button
+						type="button"
 						onClick={handlePrevious}
 						disabled={data.length <= 1}
 						className="w-10 h-10 md:w-12 md:h-12 bg-[#7c3aed] border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] flex items-center justify-center transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_rgba(0,0,0,1)] active:shadow-[2px_2px_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed group"
@@ -136,6 +145,7 @@ export default function TicketSection() {
 				{/* Right Arrow Wrapper */}
 				<div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10">
 					<button
+						type="button"
 						onClick={handleNext}
 						disabled={data.length <= 1}
 						className="w-10 h-10 md:w-12 md:h-12 bg-[#7c3aed] border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] flex items-center justify-center transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_rgba(0,0,0,1)] active:shadow-[2px_2px_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed group"
@@ -205,7 +215,7 @@ export default function TicketSection() {
 										</div>
 										<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 											{currentTicket.schedules.map((schedule, idx) => (
-												<div key={idx} className="bg-[#1a0033]/50 border border-[#a855f7]/20 rounded-lg p-3">
+												<div key={`session-${idx}-${schedule.date}-${schedule.time}`} className="bg-[#1a0033]/50 border border-[#a855f7]/20 rounded-lg p-3">
 													<div className="text-[10px] text-retro-cyan/50 font-vcr uppercase tracking-widest mb-2 pb-2 border-b border-[#a855f7]/10">
 														Session {idx + 1}
 													</div>
@@ -303,7 +313,8 @@ export default function TicketSection() {
 					<div className="flex justify-center gap-2">
 						{data.map((_, index) => (
 							<button
-								key={index}
+								type="button"
+								key={data[index].event_id}
 								onClick={() => setCurrentIndex(index)}
 								className={`h-2 rounded-none transition-all duration-300 ${
 									index === currentIndex

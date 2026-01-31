@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ActiveTab = "events" | "transactions" | "profile";
+export type ActiveTab = "tickets" | "transactions" | "profile";
 
 export interface UpdateProfilePayload {
 	name: string;

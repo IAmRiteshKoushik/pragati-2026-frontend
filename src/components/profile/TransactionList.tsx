@@ -43,7 +43,7 @@ const mockTransactions = [
 function formatDateTime(dateString: string) {
 	if (!dateString) return "";
 	const date = new Date(dateString);
-	if (isNaN(date.getTime())) return dateString;
+	if (Number.isNaN(date.getTime())) return dateString;
 	const day = date.getDate().toString().padStart(2, "0");
 	const month = date.toLocaleString("en-US", { month: "short" });
 	const year = date.getFullYear();
@@ -98,6 +98,8 @@ export default function TransactionList() {
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
+								role="img"
+								aria-label="No transactions icon"
 							>
 								<path
 									strokeLinecap="round"
@@ -186,6 +188,7 @@ export default function TransactionList() {
 										<td className="py-4 px-4">
 											<div className="flex justify-center">
 												<button
+													type="button"
 													onClick={async () => {
 														if (tx.txn_status === "PENDING") {
 															setVerifyingTxId(tx.txn_id);
@@ -271,6 +274,7 @@ export default function TransactionList() {
 								{tx.txn_status === "PENDING" && (
 									<div className="col-span-3 flex justify-end mt-2 pt-2 border-t border-white/5">
 										<button
+											type="button"
 											onClick={async () => {
 												if (tx.txn_status === "PENDING") {
 													setVerifyingTxId(tx.txn_id);
