@@ -41,25 +41,25 @@ const mockTickets = [
 
 // Generates a pseudo-random barcode visual seeded from a string
 function Barcode({ id }: { id: string }) {
-	const bars: number[] = [];
-	let seed = 0;
-	for (let i = 0; i < id.length; i++) seed += id.charCodeAt(i);
-	for (let i = 0; i < 48; i++) {
-		seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
-		bars.push(seed % 4);
-	}
+  const bars: number[] = [];
+  let seed = 0;
+  for (let i = 0; i < id.length; i++) seed += id.charCodeAt(i);
+  for (let i = 0; i < 48; i++) {
+    seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
+    bars.push(seed % 4);
+  }
 
-	return (
-		<div className="flex items-stretch gap-px h-14">
-			{bars.map((width, i) => {
-				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
-				if (width === 0) return <div key={`bar-${i}`} className="w-1" />;
-				const barWidth = width === 1 ? "w-0.5" : width === 2 ? "w-1" : "w-1.5";
-				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
-				return <div key={`bar-${i}`} className={`${barWidth} bg-[#a855f7] rounded-sm opacity-90`} />;
-			})}
-		</div>
-	);
+  return (
+    <div className="flex items-stretch gap-px h-14">
+      {bars.map((width, i) => {
+        // biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
+        if (width === 0) return <div key={`bar-${i}`} className="w-1" />;
+        const barWidth = width === 1 ? "w-0.5" : width === 2 ? "w-1" : "w-1.5";
+        // biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
+        return <div key={`bar-${i}`} className={`${barWidth} bg-black`} />;
+      })}
+    </div>
+  );
 }
 
 export default function TicketSection() {
