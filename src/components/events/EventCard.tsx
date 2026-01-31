@@ -84,32 +84,27 @@ export const EventCard = ({
 			onMouseLeave={() => setIsHovered(false)}
 			onClick={handleCardClick}
 		>
+					  {/* minimal overlay - removed colorful hover overlay for subtle look */}
 			<div
-				className={`absolute -inset-2 bg-linear-to-br from-orange-500/25 via-pink-500/20 to-yellow-500/15 rounded blur-xl transition-opacity duration-500 ${
-					isHovered ? "opacity-100" : "opacity-0"
-				}`}
-			/>
-
-			<div
-				className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.6)] z-20 transition-all duration-300 
-                md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
+				className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-retro-cyan/40 z-20 transition-all duration-300 
+				md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
 			/>
 			<div
-				className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-orange-400 shadow-[0_0_12px_rgba(251,146,60,0.6)] z-20 transition-all duration-300 
-                md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
+				className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-retro-yellow/35 z-20 transition-all duration-300 
+				md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
 			/>
 			<div
-				className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-orange-400 shadow-[0_0_12px_rgba(251,146,60,0.6)] z-20 transition-all duration-300 
-                md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
+				className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-retro-yellow/35 z-20 transition-all duration-300 
+				md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
 			/>
 			<div
-				className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.6)] z-20 transition-all duration-300 
-                md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
+				className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-retro-cyan/40 z-20 transition-all duration-300 
+				md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6"
 			/>
 
 			<div className="absolute top-3 left-3 z-30 md:hidden">
 				{is_registered ? (
-					<div className="px-3 py-1.5 rounded bg-black/70 backdrop-blur-md border-2 border-retro-cyan/80 text-retro-cyan flex items-center gap-1.5 text-xs font-vcr shadow-lg shadow-retro-cyan/30">
+					<div className="px-3 py-1.5 rounded bg-black/70 backdrop-blur-md border-2 border-teal-300/80 text-teal-300 flex items-center gap-1.5 text-xs font-vcr">
 						<CheckCircle className="h-3 w-3" />
 						REGISTERED
 					</div>
@@ -123,23 +118,23 @@ export const EventCard = ({
 
 			<div
 				className={`
-                    relative w-full h-full rounded-none overflow-hidden flex flex-col
-                    bg-linear-to-br from-black via-gray-950 to-black backdrop-blur-md
-                    border-2 transition-all duration-300 ease-out
-                    ${
-											isHovered
-												? "border-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.6),0_0_60px_rgba(236,72,153,0.4)]"
-												: "border-gray-800/60 shadow-[0_0_15px_rgba(249,115,22,0.2)] md:border-gray-800/40"
-										}
-                    ${isEventClosed ? "opacity-60 grayscale" : ""}
-                `}
+					relative w-full h-full rounded-none overflow-hidden flex flex-col
+					bg-linear-to-br from-slate-900 via-slate-800/80 to-slate-900 backdrop-blur-sm
+					border-2 transition-all duration-300 ease-out
+					${
+								isHovered
+									? "border-retro-cyan/50 shadow-lg"
+									: "border-gray-600/30 shadow-sm md:border-gray-600/40"
+							}
+					${isEventClosed ? "opacity-60 grayscale" : ""}
+				`}
 				style={{
 					boxShadow: isHovered
-						? "0 0 30px rgba(249,115,22,0.6), 0 0 60px rgba(236,72,153,0.4), inset 0 0 40px rgba(249,115,22,0.15)"
-						: "0 0 15px rgba(249,115,22,0.2), inset 0 0 30px rgba(249,115,22,0.08)",
+						? "0 10px 30px rgba(0,0,0,0.6), inset 0 0 8px rgba(255,255,255,0.02)"
+						: "0 6px 18px rgba(0,0,0,0.5), inset 0 0 6px rgba(255,255,255,0.01)",
 				}}
 			>
-				<div className="relative w-full h-[75%] overflow-hidden bg-linear-to-b from-orange-950/30 via-black/50 to-black/70">
+				<div className="relative w-full h-[75%] overflow-hidden bg-linear-to-b from-orange-900/8 via-slate-800/20 to-slate-900/60">
 					<div
 						className={`
                             absolute inset-0 bg-cover bg-top origin-top transition-all duration-500 ease-out
@@ -150,56 +145,41 @@ export const EventCard = ({
 
 					<div
 						className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-							isHovered ? "opacity-50" : "opacity-25"
+							isHovered ? "opacity-30" : "opacity-12"
 						}`}
 						style={{
 							backgroundImage:
-								"repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(249,115,22,0.12) 2px, rgba(249,115,22,0.12) 3px, transparent 3px, transparent 5px, rgba(236,72,153,0.08) 5px, rgba(236,72,153,0.08) 6px)",
+								"repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 6px)",
 						}}
 					/>
 
 					<div
-						className={`
-                            absolute inset-0 bg-linear-to-t from-orange-600/20 via-pink-600/15 to-yellow-500/10
-                            transition-opacity duration-500 ease-out
-                            opacity-0 md:group-hover:opacity-100
-                        `}
+						className={`absolute inset-0 bg-linear-to-t from-retro-cyan/10 via-retro-yellow/5 to-transparent transition-opacity duration-500 ease-out opacity-0 md:group-hover:opacity-100`}
 					/>
 
 					<div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
 
 					{is_filling_fast && !is_full && (
 						<div className="absolute bottom-3 right-3 z-40">
-							<motion.div
-								animate={{
-									boxShadow: [
-										"0 0 10px rgba(239,68,68,0.5)",
-										"0 0 20px rgba(239,68,68,0.8)",
-										"0 0 10px rgba(239,68,68,0.5)",
-									],
-								}}
-								transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-								className="relative inline-flex items-center gap-2 px-3 py-1.5 bg-red-900/80 backdrop-blur-md border-2 border-red-500 text-xs font-vcr text-red-200"
-							>
+							<div className="relative inline-flex items-center gap-2 px-3 py-1.5 bg-red-800/70 border border-red-500/30 text-xs font-vcr text-red-200">
 								<Zap className="w-3 h-3 text-red-200" />
 								FILLING FAST
-							</motion.div>
+							</div>
 						</div>
 					)}
 				</div>
 
 				<div
 					className={`
-                        absolute top-0 left-0 right-0 h-[80%] 
-                        bg-linear-to-b from-black/95 via-gray-950/93 to-black/95 backdrop-blur-md
-                        flex flex-col justify-center items-center p-6 border-2 border-orange-500/80
-                        shadow-[inset_0_0_60px_rgba(249,115,22,0.25),inset_0_0_30px_rgba(236,72,153,0.15)]
-                        transition-opacity duration-300 ease-out md:flex
-                        ${isHovered ? "opacity-100" : "opacity-0 pointer-events-none"}
-                    `}
+						absolute top-0 left-0 right-0 h-[80%] 
+						bg-linear-to-b from-black/95 via-gray-950/93 to-black/95 backdrop-blur-md
+						flex flex-col justify-center items-center p-6 border-2 border-orange-500/40
+						transition-opacity duration-300 ease-out md:flex
+						${isHovered ? "opacity-95" : "opacity-0 pointer-events-none"}
+					`}
 				>
 					{is_registered ? (
-						<div className="px-6 py-3 bg-black/70 border-2 border-retro-cyan text-retro-cyan flex items-center gap-2 text-sm font-vcr backdrop-blur-sm shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+						<div className="px-6 py-3 bg-black/70 border-2 border-retro-cyan/30 text-retro-cyan/90 flex items-center gap-2 text-sm font-vcr backdrop-blur-sm">
 							<CheckCircle className="h-4 w-4" />
 							REGISTERED
 						</div>
@@ -209,15 +189,12 @@ export const EventCard = ({
 							CLOSED
 						</div>
 					) : (
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							className="px-6 py-3 font-vcr text-sm bg-black/80 border-2 border-orange-400 text-orange-400 
-                                hover:bg-orange-500/20 hover:shadow-[0_0_25px_rgba(251,146,60,0.7)] 
-                                transition-all duration-300 backdrop-blur-sm uppercase"
+						<button
+							className="px-6 py-3 font-vcr text-sm bg-black/80 border-2 border-retro-yellow/30 text-retro-yellow/90 
+								hover:bg-retro-yellow/6 transition-all duration-200 backdrop-blur-sm uppercase"
 						>
 							REGISTER NOW
-						</motion.button>
+						</button>
 					)}
 				</div>
 
@@ -225,37 +202,37 @@ export const EventCard = ({
 					type="button"
 					disabled={isEventClosed || isStarLoading}
 					onClick={handleStarToggle}
-					className={`
-                        absolute top-3 right-3 z-30 p-2 backdrop-blur-md
-                        border-2 transition-all duration-300 
-                        ${
+					className={
+						`absolute top-3 right-3 z-30 p-2 backdrop-blur-md
+						border-2 transition-all duration-200 
+						${
 							isEventClosed
 								? "cursor-default opacity-50"
-								: "hover:scale-110 cursor-pointer"
-							}
-                        ${
-							isStarred
-								? "bg-retro-yellow/20 border-retro-yellow shadow-[0_0_15px_rgba(244,208,63,0.6)]"
-								: `bg-black/70 border-gray-500 ${isEventClosed ? "" : "hover:bg-black/90 hover:border-retro-yellow"}`
+								: "hover:scale-105 cursor-pointer"
 						}
-                    `}
-				>
-					<Star
-						className={`w-4 h-4 transition-all duration-300 ${
+						${
 							isStarred
-								? "text-retro-yellow fill-retro-yellow drop-shadow-[0_0_5px_rgba(244,208,63,0.8)]"
-								: "text-gray-400 hover:text-retro-yellow"
-						}`}
-					/>
+								? "bg-retro-yellow/10 border-retro-yellow/40"
+								: `bg-black/70 border-gray-500 ${isEventClosed ? "" : "hover:bg-black/85 hover:border-retro-yellow/40"}`
+						}
+					`}
+				>
+						<Star
+							className={`w-4 h-4 transition-all duration-200 ${
+								isStarred
+									? "text-retro-yellow/95"
+									: "text-gray-400 hover:text-retro-yellow/80"
+							}`}
+						/>
 				</button>
 
-				<div className="relative flex-1 w-full bg-linear-to-b from-gray-950/95 via-black/95 to-black/98 border-t-2 border-orange-500/60 shadow-[inset_0_4px_20px_rgba(249,115,22,0.2),inset_0_2px_10px_rgba(236,72,153,0.1)] p-4 flex flex-col justify-between z-10">
+				<div className="relative flex-1 w-full bg-linear-to-b from-slate-900/95 via-slate-800/90 to-slate-900/98 border-t-2 border-orange-500/30 shadow-[inset_0_4px_20px_rgba(249,115,22,0.06),inset_0_2px_10px_rgba(236,72,153,0.02)] p-4 flex flex-col justify-between z-10">
 					<div className="flex items-start justify-between mb-3">
-						<h3 className="font-jersey15 text-xl md:text-2xl bg-linear-to-r from-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent leading-tight flex-1 pr-5 drop-shadow-[3px_3px_0px_rgba(168,85,247,0.8)] tracking-tight uppercase">
+						<h3 className="font-jersey15 text-xl md:text-2xl bg-linear-to-r from-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent leading-tight flex-1 pr-5 tracking-tight uppercase">
 							{event_name}
 						</h3>
 						<div className="text-right shrink-0">
-							<div className="font-vcr text-base text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.6)]">
+							<div className="font-vcr text-base text-retro-cyan/90">
 								{event_price > 0 ? formatCurrency(event_price) : "FREE"}
 							</div>
 							{event_price > 0 && (
@@ -266,12 +243,12 @@ export const EventCard = ({
 
 					<div className="flex items-center gap-4 mb-3 text-sm text-white/90 font-vcr">
 						<div className="flex items-center gap-1">
-							<Calendar className="w-4 h-4 text-pink-400" />
+							<Calendar className="w-4 h-4 text-retro-cyan" />
 							<span>{formatDateOnly(event_date)}</span>
 						</div>
 						{is_group && (
 							<div className="flex items-center gap-1">
-								<Users className="w-4 h-4 text-orange-400" />
+								<Users className="w-4 h-4 text-retro-yellow" />
 								<span className="text-white/90">TEAM</span>
 							</div>
 						)}
@@ -282,13 +259,13 @@ export const EventCard = ({
 							{tags.slice(0, 2).map((tag) => (
 								<span
 									key={`${event_id}-${tag}`}
-									className="text-xs px-2 py-1 bg-orange-500/15 backdrop-blur-sm border border-orange-400/50 text-orange-300 whitespace-nowrap font-vcr uppercase shadow-[0_0_8px_rgba(251,146,60,0.3)]"
+									className="text-xs px-2 py-1 bg-retro-cyan/10 backdrop-blur-sm border border-retro-cyan/40 text-retro-cyan whitespace-nowrap font-vcr uppercase"
 								>
 									{getTagLabel(tag)}
 								</span>
 							))}
 							{tags.length > 2 && (
-								<span className="text-xs px-2 py-1 bg-black/80 backdrop-blur-sm border border-pink-500/60 text-pink-300 font-vcr shadow-[0_0_6px_rgba(236,72,153,0.3)]">
+								<span className="text-xs px-2 py-1 bg-black/60 backdrop-blur-sm border border-gray-600 text-gray-400 font-vcr">
 									+{tags.length - 2}
 								</span>
 							)}
