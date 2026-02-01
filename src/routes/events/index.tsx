@@ -7,7 +7,7 @@ import { EventCard } from "@/components/events/EventCard";
 import { FilterDropdown } from "@/components/events/FilterDropdown";
 import { FilterRadioPair } from "@/components/events/FilterRadioPair";
 
-const BACKGROUND_IMAGE_URL = "https://s63kyli3m9.ufs.sh/f/1VhMoqev0KlPisU8WTH9rOMc6ZsVqX2t0SDPLgakEvC7JGxB";
+const BACKGROUND_IMAGE_URL = "https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1TTlZtKwkMt4sZaGR2pLP37qUHNQlgKObDVmf";
 
 /* ---------------- SAMPLE EVENT DATA ---------------- */
 const sampleEvents: Event[] = [
