@@ -1,6 +1,9 @@
+// Types for events
+
+// Backend API response types
 export interface Organizer {
-	organizer_logo_url: string;
 	organizer_name: string;
+	organizer_logo_url: string | null;
 	org_abbreviation: string;
 	org_type: string;
 }
@@ -13,15 +16,16 @@ export interface Schedule {
 	schedule_id?: string;
 }
 
+// Event type for events list
 export interface Event {
 	event_id: string;
-	event_image_url: string;
+	event_image_url: string | null;
 	event_name: string;
 	event_status: string;
 	event_description: string;
-	event_date: string;
+	event_date: string | Date;
 	is_group: boolean;
-	tags: string[];
+	tags?: string[];
 	event_type: string;
 	is_management: boolean;
 	event_price: number;
@@ -31,9 +35,11 @@ export interface Event {
 	is_filling_fast: boolean;
 }
 
+// EventDetails - matches backend getEventById response
 export interface EventDetails {
 	id: string;
 	event_name: string;
+	blurb: string;
 	event_description: string;
 	cover_image_url: string;
 	price: number;
@@ -47,9 +53,13 @@ export interface EventDetails {
 	is_full: boolean;
 	event_status: string;
 	event_mode: string;
+
+	// User-specific data
 	is_registered: boolean;
 	isStarred: boolean;
 	registrationId?: string;
+
+	// JSON arrays
 	organizers: Organizer[];
 	schedules: Schedule[];
 	tags: string[];
