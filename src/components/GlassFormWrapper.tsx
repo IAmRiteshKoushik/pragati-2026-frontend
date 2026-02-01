@@ -13,7 +13,7 @@ const GlassFormWrapper: React.FC<GlassFormWrapperProps> = ({
 }) => {
 	return (
 		<div
-			className={cn("glass form-reveal-animation relative", className)}
+			className={cn("retro-glass form-reveal-animation relative p-6 md:p-8 rounded-lg", className)}
 			{...props}
 		>
 			{showCorners && (
