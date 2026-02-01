@@ -7,6 +7,8 @@ import { EventCard } from "@/components/events/EventCard";
 import { FilterDropdown } from "@/components/events/FilterDropdown";
 import { FilterRadioPair } from "@/components/events/FilterRadioPair";
 
+const BACKGROUND_IMAGE_URL = "https://s63kyli3m9.ufs.sh/f/1VhMoqev0KlPmqqnMfPjtVrjTyWb5d1CpaXPcxsRz3SEGfFM";
+
 /* ---------------- SAMPLE EVENT DATA ---------------- */
 const sampleEvents: Event[] = [
 	{
@@ -249,13 +251,18 @@ export const EventsPage = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="min-h-screen w-full bg-black relative overflow-hidden pt-20">
-			{/* Grid overlay */}
-			<div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
-				backgroundImage: "linear-gradient(rgba(168,85,247,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.4) 1px, transparent 1px)",
-				backgroundSize: "50px 50px",
-			}} />
-			<div className="relative z-10 p-4 md:p-8">
+			<div 
+				className="min-h-screen w-full relative overflow-hidden pt-20"
+				style={{
+					backgroundImage: `url(${BACKGROUND_IMAGE_URL})`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+					backgroundRepeat: 'no-repeat',
+					backgroundAttachment: 'fixed',
+				}}
+				>
+				<div className="absolute inset-0 bg-black/75 pointer-events-none" />
+				<div className="relative z-10 p-4 md:p-8">
 				{/* HEADER */}
 				<motion.div
 					initial={{ opacity: 0, y: -50 }}
@@ -482,4 +489,3 @@ export const EventsPage = () => {
 export const Route = createFileRoute("/events/")({
 	component: EventsPage,
 });
-
