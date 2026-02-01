@@ -137,7 +137,7 @@ export function ProfileForm() {
 			</div>
 
 			{/* Content Container - Everything scrolls together */}
-			<div className="relative z-10 py-8 px-4 md:py-12">
+			<div className="relative z-10 pt-24 pb-8 px-4 md:pt-28 md:pb-12">
 				<div className="max-w-7xl mx-auto">
 					
 					{/* UNIFIED TAB NAVIGATION */}
