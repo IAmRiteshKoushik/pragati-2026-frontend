@@ -63,7 +63,8 @@ The event runs from 10 PM to 4 AM, with different activities scheduled throughou
 		},
 	],
 	tags: ["MUSIC", "DIGITAL", "GAMING", "FESTIVAL"],
-	blurb: "Experience the ultimate neon-lit digital festival with music, art, and gaming!",
+	blurb:
+		"Experience the ultimate neon-lit digital festival with music, art, and gaming!",
 };
 
 import { useRouter } from "@tanstack/react-router";
