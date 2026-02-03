@@ -109,17 +109,17 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
 							</FormItem>
 						)}
 					/>
-					<div className="w-full py-3 px-2 border-2 border-dashed border-[#22c55e]/50 bg-[#064e3b]/30 rounded-lg text-center animate-pulse">
+					{/* <div className="w-full py-3 px-2 border-2 border-dashed border-[#22c55e]/50 bg-[#064e3b]/30 rounded-lg text-center animate-pulse">
 						<p className="text-[#4ade80] text-[10px] leading-relaxed">
 							REGISTRATION LOCKED
 						</p>
 						<p className="text-white text-[12px] mt-1">OPENS AT 9:00 PM</p>
-					</div>
+					</div> */}
 
 					<Button
 						type="submit"
 						className="w-full bg-[#7e22ce] hover:bg-[#9333ea] text-white font-bold py-2 mt-2 text-xs"
-						disabled={true} //put back "isSubmitting"
+						disabled={isSubmitting} //put back "isSubmitting"
 						style={{ fontFamily: '"Press Start 2P", cursive' }}
 					>
 						{isSubmitting ? "ACCESSING..." : "LOGIN"}
