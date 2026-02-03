@@ -13,8 +13,9 @@ export const Route = createFileRoute("/reset-password/verify")({
 function ResetPasswordOtpVerificationPage() {
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4 bg-[url('/generated_login_bg.png')] bg-cover bg-center bg-no-repeat fixed w-full h-full">
+			<div className="absolute inset-0 bg-black opacity-70"></div>
 			<div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none"></div>
-			<RetroWindowWrapper className="max-w-md">
+			<RetroWindowWrapper className="max-w-md" title="">
 				<div className="flex flex-col items-center space-y-3 pt-3">
 					<div className="space-y-4 text-center">
 						<div className="space-y-1">
@@ -22,13 +23,13 @@ function ResetPasswordOtpVerificationPage() {
 								className="text-2xl font-bold tracking-widest text-white"
 								style={pixelFont}
 							>
-								RESET PASSWORD - VERIFY OTP
+								RESET PASSWORD VERIFICATION
 							</h1>
 						</div>
 
 						<div className="space-y-3 px-2">
 							<p
-								className="text-sm text-white/80 leading-relaxed"
+								className="text-xs text-white/80 leading-relaxed"
 								style={pixelFont}
 							>
 								{`WE'VE SENT A `}
@@ -39,7 +40,7 @@ function ResetPasswordOtpVerificationPage() {
 							</p>
 
 							<p
-								className="text-xs text-white/50 leading-relaxed"
+								className="text-[10px] text-white/50 leading-relaxed"
 								style={pixelFont}
 							>
 								<span className="font-medium">CAN'T FIND THE EMAIL?</span>
@@ -50,7 +51,7 @@ function ResetPasswordOtpVerificationPage() {
 					</div>
 				</div>
 				<ResetPasswordOtpVerificationForm />
-			</RetroWindowWrapper>
-		</div>
+			</RetroWindowWrapper >
+		</div >
 	);
 }
