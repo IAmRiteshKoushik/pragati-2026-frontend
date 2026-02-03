@@ -51,7 +51,7 @@ export default function ComingSoonCard({
 
 	return (
 		<div
-			className="h-screen w-screen bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center relative"
+			className="h-screen w-screen bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center relative cursor-none"
 			style={{
 				backgroundImage: `url(${backgroundSrc})`,
 				backgroundColor: "#0a0a1a",
@@ -96,7 +96,7 @@ export default function ComingSoonCard({
 						<div className="w-125 h-50 flex justify-center items-center relative rounded-2xl border-[5px] z-10 neon-card-border neon-card-bg neon-card-shadow-thick -left-20 -top-10 max-md:left-0">
 							<div className="text-center">
 								<h1
-									className="m-0 leading-relaxed text-4xl tracking-wide neon-orange max-md:text-4xl"
+									className="m-0 leading-relaxed text-4xl tracking-wide neon-yellow max-md:text-4xl"
 									style={{
 										fontFamily: "'Press Start 2P', 'VT323', monospace",
 										textShadow: "4px 4px 0px #000",
@@ -105,8 +105,8 @@ export default function ComingSoonCard({
 									{eventTitle}
 								</h1>
 								<h2
-									className="mt-4 uppercase tracking-[0.2em] text-3xl font-bold neon-cyan-glow max-md:text-3xl"
-									style={{ fontFamily: "'Orbitron', 'Roboto', sans-serif" }}
+									className="mt-4 uppercase tracking-[0.2em] text-2xl font-bold text-retro-cyan max-md:text-3xl"
+									style={{ fontFamily: "'Press Start 2P', 'VT323', monospace" }}
 								>
 									{subtitle}
 								</h2>

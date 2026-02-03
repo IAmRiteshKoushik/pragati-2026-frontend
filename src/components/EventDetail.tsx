@@ -1,72 +1,3 @@
-const DUMMY_EVENT = {
-	id: "evt-001",
-	event_name: "NEON OASIS 2049",
-	event_description: `Step into the digital desert paradise, NEAIS 2019 is convergence sound, light, and code. Experience live synthwave arte, limatta digital art installiations, and retro tournaments awa the night under the artificial stars.
-
-## Event Highlights
-
-Join us for an unforgettable night of music, gaming, and digital art in a stunning neon-lit environment. This event brings together the best of retro and modern digital culture.
-
-### What to Expect
-
-- Live performances from top synthwave artists
-- Interactive digital art installations
-- Retro gaming tournaments with prizes
-- Food trucks and refreshments
-- Networking opportunities with fellow enthusiasts
-
-### Schedule Breakdown
-
-The event runs from 10 PM to 4 AM, with different activities scheduled throughout the night. Check the schedule section for detailed timings.`,
-	cover_image_url:
-		"https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1cTVlnXeX8hDe73ritmZAEkpSBVFowYx2vRLc",
-	price: 999,
-	is_per_head: true,
-	rules: `1. Entry is restricted to participants aged 18 and above
-2. Valid ID proof is mandatory at the venue
-3. Outside food and beverages are not permitted
-4. Photography is allowed but please respect other attendees
-5. Follow all venue rules and staff instructions`,
-	event_type: "FESTIVAL",
-	is_management: false,
-	is_group: false,
-	max_teamsize: 1,
-	min_teamsize: 1,
-	is_full: false,
-	event_status: "OPEN",
-	event_mode: "OFFLINE",
-	is_registered: false,
-	isStarred: false,
-	organizers: [
-		{
-			organizer_logo_url:
-				"https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1cTVlnXeX8hDe73ritmZAEkpSBVFowYx2vRLc",
-			organizer_name: "Digital Arts Society",
-			org_abbreviation: "DAS",
-			org_type: "CLUB",
-		},
-		{
-			organizer_logo_url:
-				"https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1cTVlnXeX8hDe73ritmZAEkpSBVFowYx2vRLc",
-			organizer_name: "Music Production Club",
-			org_abbreviation: "MPC",
-			org_type: "CLUB",
-		},
-	],
-	schedules: [
-		{
-			event_date: "2026-01-30",
-			start_time: "22:00:00",
-			end_time: "04:00:00",
-			venue: "Main Campus Arena",
-			schedule_id: "sch-001",
-		},
-	],
-	tags: ["MUSIC", "DIGITAL", "GAMING", "FESTIVAL"],
-	blurb:
-		"Experience the ultimate neon-lit digital festival with music, art, and gaming!",
-};
-
 import { useRouter } from "@tanstack/react-router";
 import {
 	Building2,
@@ -165,13 +96,13 @@ function PriceSection({
 }: PriceSectionProps) {
 	return (
 		<div
-			className={`bg-black border-4 border-[#ff00ff] shadow-[4px_4px_0_rgba(255,0,255,1)] ${isMobile ? "p-4" : "p-6"} space-y-4 relative ${className}`}
+			className={`bg-black border-4 border-[#7e22ce] shadow-[4px_4px_0_rgba(126, 34, 206, 1)] ${isMobile ? "p-4" : "p-6"} space-y-4 relative ${className}`}
 		>
 			{/* Corner decorations */}
-			<div className="absolute -top-2 -left-2 w-4 h-4 bg-[#f4d03f] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
-			<div className="absolute -top-2 -right-2 w-4 h-4 bg-[#f4d03f] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
-			<div className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#f4d03f] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
-			<div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#f4d03f] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
+			<div className="absolute -top-2 -left-2 w-4 h-4 bg-[#00ffff] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
+			<div className="absolute -top-2 -right-2 w-4 h-4 bg-[#00ffff] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
+			<div className="absolute -bottom-7 -left-2 w-4 h-4 bg-[#00ffff] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
+			<div className="absolute -bottom-7 -right-2 w-4 h-4 bg-[#00ffff] shadow-[0_0_10px_rgba(244,208,63,0.8)]" />
 
 			<div className="bg-linear-to-br from-purple-950/30 to-transparent">
 				<div
@@ -218,10 +149,10 @@ function PriceSection({
 						)}
 					</div>
 					<span
-						className={`font-press-start text-[#f4d03f] ${isMobile ? "text-xs" : "text-sm"}`}
+						className={`font-press-start text-[#00ffff] ${isMobile ? "text-xs" : "text-sm"}`}
 					>
 						{event.is_group
-							? `${event.min_teamsize}-${event.max_teamsize}`
+							? (event.min_teamsize !== event.max_teamsize) ? `${event.min_teamsize}-${event.max_teamsize}` : event.min_teamsize
 							: "SOLO"}
 					</span>
 				</div>
@@ -264,13 +195,13 @@ function PriceSection({
 						<span className="relative z-10">
 							{isRegisterLoading ? "Processing..." : "Register Now"}
 						</span>
-						<div className="absolute inset-0 bg-[#ff00ff] translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+						<div className="absolute inset-0 bg-[#7e22ce] translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
 					</button>
 				) : (
 					<button
 						type="button"
 						onClick={onNavigateToLogin}
-						className="w-full py-3 bg-[#ff00ff] border-4 border-black text-black font-joystix uppercase tracking-widest text-sm font-bold hover:bg-[#ff00ff]/90 hover:shadow-[5px_5px_0_rgba(0,0,0,1)] transition-all shadow-[3px_3px_0_rgba(0,0,0,1)]"
+						className="w-full py-3 bg-[#7c3aed] border-4 border-black text-white font-joystix uppercase tracking-widest text-sm font-bold hover:bg-[#6d28d9] hover:shadow-[5px_5px_0_rgba(0,0,0,1)] transition-all shadow-[3px_3px_0_rgba(0,0,0,1)]"
 					>
 						Login to Register
 					</button>
@@ -332,7 +263,7 @@ function EventOrganisers({ event, onOrganizerClick }: EventOrganisersProps) {
 							)}
 
 							<div className="flex-1 min-w-0">
-								<span className="text-sm font-joystix uppercase tracking-wide text-[#f4d03f] block truncate">
+								<span className="text-sm font-joystix uppercase tracking-wide text-white block truncate">
 									{org.organizer_name}
 								</span>
 								<div className="flex items-center gap-2 mt-1">
@@ -426,7 +357,7 @@ export default function EventDetail({
 	return (
 		<div className="w-full max-w-7xl mx-auto mt-16">
 			<div className="md:hidden space-y-4">
-				<div className="relative w-full aspect-4/5 border-4 border-[#00ffff] shadow-[6px_6px_0_rgba(0,255,255,0.5)] overflow-hidden">
+				<div className="relative w-full aspect-square border-4 border-[#00ffff] shadow-[6px_6px_0_rgba(0,255,255,0.5)] overflow-hidden">
 					<img
 						src={displayCoverImageUrl}
 						alt={event.event_name}
@@ -450,7 +381,7 @@ export default function EventDetail({
 				</div>
 
 				<div>
-					<h1 className="text-3xl font-jersey15 neon-yellow mb-2 uppercase drop-shadow-[3px_3px_0_rgba(168,85,247,0.8)]">
+					<h1 className="text-3xl font-jersey15 text-white mb-2 uppercase drop-shadow-[3px_3px_0_rgba(168,85,247,0.8)]">
 						{event.event_name}
 					</h1>
 				</div>
@@ -461,10 +392,10 @@ export default function EventDetail({
 							key={tag}
 							className="px-3 py-1 bg-gray-950 border-2 border-[#00ffff] text-[#00ffff] text-xs font-joystix uppercase tracking-wider shadow-[2px_2px_0_rgba(0,255,255,1)] relative"
 						>
-							<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-							<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-							<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-							<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
+							<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+							<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+							<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+							<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
 							{tag}
 						</span>
 					))}
@@ -472,10 +403,10 @@ export default function EventDetail({
 						<span
 							className={`px-3 py-1 text-xs font-joystix uppercase tracking-wider relative shadow-[2px_2px_0_rgba(0,0,0,1)] bg-purple-950 border-2 border-[#7e22ce] text-[#7e22ce]`}
 						>
-							<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-							<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-							<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-							<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
+							<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+							<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+							<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+							<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
 							Management
 						</span>
 					)}
@@ -512,11 +443,11 @@ export default function EventDetail({
 								{sortedSchedules.map((schedule) => (
 									<div
 										key={schedule.schedule_id}
-										className="flex flex-col gap-1 bg-linear-to-br from-orange-950/30 to-transparent p-2 border-l-4 border-[#f4d03f]"
+										className="flex flex-col gap-1 bg-linear-to-br from-orange-950/30 to-transparent p-2 border-l-4 border-[#7e22ce]"
 									>
 										<div className="flex items-center gap-2 text-sm">
-											<Calendar className="w-4 h-4 text-[#f4d03f]" />
-											<span className="text-[#f4d03f] font-joystix tracking-wide">
+											<Calendar className="w-4 h-4 text-white" />
+											<span className="text-white font-joystix tracking-wide">
 												{new Date(schedule.event_date).toLocaleDateString(
 													"en-US",
 													{
@@ -531,12 +462,12 @@ export default function EventDetail({
 										<div className="flex items-center gap-2 text-sm">
 											<Clock className="w-4 h-4 text-[#00ffff]" />
 											<span className="text-[#00ffff] font-press-start text-xs">
-												{schedule.start_time} - {schedule.end_time}
+												{new Date(schedule.start_time).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })} - {new Date(schedule.end_time).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
 											</span>
 										</div>
 										<div className="flex items-center gap-2 text-sm">
-											<MapPin className="w-4 h-4 text-[#ff00ff]" />
-											<span className="text-[#ff00ff] font-joystix tracking-wide">
+											<MapPin className="w-4 h-4 text-white" />
+											<span className="text-white font-joystix tracking-wide">
 												{schedule.venue}
 											</span>
 										</div>
@@ -553,10 +484,10 @@ export default function EventDetail({
 
 				<div className="bg-black border-4 border-[#7e22ce] shadow-[4px_4px_0_rgba(126,34,206,1)] p-6 relative">
 					{/* Corner decorations */}
-					<div className="absolute -top-2 -left-2 w-3 h-3 bg-[#f4d03f]" />
-					<div className="absolute -top-2 -right-2 w-3 h-3 bg-[#f4d03f]" />
-					<div className="absolute -bottom-2 -left-2 w-3 h-3 bg-[#f4d03f]" />
-					<div className="absolute -bottom-2 -right-2 w-3 h-3 bg-[#f4d03f]" />
+					<div className="absolute -top-2 -left-2 w-3 h-3 bg-[#00ffff]" />
+					<div className="absolute -top-2 -right-2 w-3 h-3 bg-[#00ffff]" />
+					<div className="absolute -bottom-2 -left-2 w-3 h-3 bg-[#00ffff]" />
+					<div className="absolute -bottom-2 -right-2 w-3 h-3 bg-[#00ffff]" />
 
 					<h2 className="text-xl font-joystix uppercase tracking-widest neon-yellow mb-4">
 						About Event
@@ -567,17 +498,17 @@ export default function EventDetail({
 
 			<div className="hidden md:grid md:grid-cols-12 md:gap-8">
 				<div className="col-span-4 space-y-6">
-					<div className="relative w-full aspect-3/4 border-4 border-[#00ffff] shadow-[6px_6px_0_rgba(0,255,255,0.5)] overflow-hidden">
+					<div className="relative w-full aspect-square border-4 border-[#00ffff] shadow-[6px_6px_0_rgba(0,255,255,0.5)] overflow-hidden">
 						<img
 							src={displayCoverImageUrl}
 							alt={event.event_name}
 							className="w-full h-full object-cover"
 						/>
 						{/* Corner decorations */}
-						<div className="absolute top-0 left-0 w-4 h-4 bg-[#ff00ff]" />
-						<div className="absolute top-0 right-0 w-4 h-4 bg-[#ff00ff]" />
-						<div className="absolute bottom-0 left-0 w-4 h-4 bg-[#ff00ff]" />
-						<div className="absolute bottom-0 right-0 w-4 h-4 bg-[#ff00ff]" />
+						<div className="absolute top-0 left-0 w-4 h-4 bg-[#7e22ce]" />
+						<div className="absolute top-0 right-0 w-4 h-4 bg-[#7e22ce]" />
+						<div className="absolute bottom-0 left-0 w-4 h-4 bg-[#7e22ce]" />
+						<div className="absolute bottom-0 right-0 w-4 h-4 bg-[#7e22ce]" />
 						<button
 							type="button"
 							onClick={onStarToggle}
@@ -602,7 +533,7 @@ export default function EventDetail({
 
 				<div className="col-span-8 space-y-6 flex flex-col">
 					<div>
-						<h1 className="text-5xl font-jersey15 neon-yellow mb-3 uppercase drop-shadow-[4px_4px_0_rgba(168,85,247,0.8)]">
+						<h1 className="text-5xl font-jersey15 text-white mb-3 uppercase drop-shadow-[4px_4px_0_rgba(168,85,247,0.8)]">
 							{event.event_name}
 						</h1>
 						<div className="flex flex-wrap gap-2">
@@ -611,21 +542,21 @@ export default function EventDetail({
 									key={tag}
 									className="px-3 py-1.5 bg-gray-950 border-2 border-[#00ffff] text-[#00ffff] text-sm font-joystix uppercase tracking-wider shadow-[2px_2px_0_rgba(0,255,255,1)] relative"
 								>
-									<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-									<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-									<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
-									<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#ff00ff]" />
+									<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+									<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+									<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
+									<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#7e22ce]" />
 									{tag}
 								</span>
 							))}
 							{event.is_management && (
 								<span
-									className={`px-3 py-1.5 text-sm font-joystix uppercase tracking-wider relative shadow-[2px_2px_0_rgba(0,0,0,1)] bg-blue-950 border-2 border-[#3b82f6] text-[#3b82f6]`}
+									className={`px-3 py-1.5 text-sm font-joystix uppercase tracking-wider relative shadow-[2px_2px_0_rgba(0,0,0,1)] bg-blue-950 border-2 border-[#7e22ce] text-white`}
 								>
-									<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-									<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-									<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
-									<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#f4d03f]" />
+									<div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+									<div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+									<div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
+									<div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-[#00ffff]" />
 									Management
 								</span>
 							)}
@@ -649,11 +580,11 @@ export default function EventDetail({
 									{sortedSchedules.map((schedule) => (
 										<div
 											key={schedule.schedule_id}
-											className="space-y-2 bg-linear-to-br from-orange-950/30 to-transparent p-3 border-l-4 border-[#f4d03f]"
+											className="space-y-2 bg-linear-to-br from-orange-950/30 to-transparent p-3 border-l-4 border-[#7e22ce]"
 										>
 											<div className="flex items-center gap-2 text-sm">
-												<Calendar className="w-4 h-4 text-[#f4d03f]" />
-												<span className="text-[#f4d03f] font-joystix tracking-wide">
+												<Calendar className="w-4 h-4 text-white" />
+												<span className="text-white font-joystix tracking-wide">
 													{new Date(schedule.event_date).toLocaleDateString(
 														"en-US",
 														{
@@ -668,12 +599,12 @@ export default function EventDetail({
 											<div className="flex items-center gap-2 text-sm">
 												<Clock className="w-4 h-4 text-[#00ffff]" />
 												<span className="text-[#00ffff] font-press-start text-xs">
-													{schedule.start_time} - {schedule.end_time}
+													{new Date(schedule.start_time).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })} - {new Date(schedule.end_time).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
 												</span>
 											</div>
 											<div className="flex items-center gap-2 text-sm">
-												<MapPin className="w-4 h-4 text-[#ff00ff]" />
-												<span className="text-[#ff00ff] font-joystix tracking-wide">
+												<MapPin className="w-4 h-4 text-white" />
+												<span className="text-white font-joystix tracking-wide">
 													{schedule.venue}
 												</span>
 											</div>
@@ -692,10 +623,10 @@ export default function EventDetail({
 
 					<div className="bg-black border-4 border-[#7e22ce] shadow-[4px_4px_0_rgba(126,34,206,1)] p-6 relative">
 						{/* Corner decorations */}
-						<div className="absolute -top-2 -left-2 w-3 h-3 bg-[#f4d03f]" />
-						<div className="absolute -top-2 -right-2 w-3 h-3 bg-[#f4d03f]" />
-						<div className="absolute -bottom-2 -left-2 w-3 h-3 bg-[#f4d03f]" />
-						<div className="absolute -bottom-2 -right-2 w-3 h-3 bg-[#f4d03f]" />
+						<div className="absolute -top-2 -left-2 w-3 h-3 bg-[#00ffff]" />
+						<div className="absolute -top-2 -right-2 w-3 h-3 bg-[#00ffff]" />
+						<div className="absolute -bottom-2 -left-2 w-3 h-3 bg-[#00ffff]" />
+						<div className="absolute -bottom-2 -right-2 w-3 h-3 bg-[#00ffff]" />
 
 						<h2 className="text-xl font-joystix uppercase tracking-widest neon-yellow mb-4">
 							About Event
@@ -710,7 +641,7 @@ export default function EventDetail({
 							<button
 								type="button"
 								onClick={() => setIsMarkdownExpanded(true)}
-								className="mt-4 text-[#00ffff] hover:text-[#ff00ff] flex items-center gap-1 text-sm font-joystix uppercase tracking-wider transition-colors"
+								className="mt-4 text-[#00ffff]/80 hover:text-[#00ffff] flex items-center gap-1 text-sm font-joystix uppercase tracking-wider transition-colors"
 							>
 								Read More
 								<ChevronDown className="w-4 h-4" />
@@ -750,9 +681,9 @@ export default function EventDetail({
 							<button
 								type="button"
 								onClick={() => setIsMarkdownExpanded(false)}
-								className="p-2 bg-gray-950 border-2 border-[#ff00ff] shadow-[2px_2px_0_rgba(255,0,255,1)] hover:shadow-[3px_3px_0_rgba(255,0,255,1)] transition-all"
+								className="p-2 bg-gray-950 border-2 border-[#00ffff] shadow-[2px_2px_0_rgba(0, 255,255,1)] hover:shadow-[3px_3px_0_rgba(0,255,255,1)] transition-all"
 							>
-								<X className="w-6 h-6 text-[#ff00ff]" />
+								<X className="w-6 h-6 text-[#00ffff]" />
 							</button>
 						</div>
 
@@ -825,7 +756,7 @@ export default function EventDetail({
 									<h3 className="text-xs font-joystix uppercase tracking-widest text-gray-500 mb-1">
 										Organization Name
 									</h3>
-									<p className="text-xl font-joystix uppercase tracking-wide text-[#f4d03f]">
+									<p className="text-xl font-joystix uppercase tracking-wide text-white">
 										{selectedOrganizer.organizer_name}
 									</p>
 								</div>
@@ -859,5 +790,3 @@ export default function EventDetail({
 		</div>
 	);
 }
-
-export { DUMMY_EVENT };

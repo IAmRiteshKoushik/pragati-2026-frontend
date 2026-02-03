@@ -76,7 +76,7 @@ export const EventCard = ({
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
-			className={`group relative w-full aspect-3/5 ${
+			className={`group relative w-full aspect-3/4 ${
 				isEventClosed ? "cursor-not-allowed" : "cursor-pointer"
 			}`}
 			onMouseEnter={() => setIsHovered(true)}
@@ -114,27 +114,27 @@ export const EventCard = ({
 				}}
 			>
 				{/* Image section */}
-				<div className="relative w-full h-[75%] overflow-hidden">
-					<div
-						className={`
-							absolute inset-0 bg-cover bg-top origin-top transition-all duration-500 ease-out
-							${isHovered ? "scale-105 brightness-110" : "scale-100"}
-						`}
-						style={{ backgroundImage: `url(${displayImageUrl})` }}
-					/>
-
-					{/* Gradient overlay */}
-					<div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-					{/* Filling fast badge */}
-					{is_filling_fast && !is_full && (
-						<div className="absolute bottom-3 right-3 z-40">
-							<div className="relative inline-flex items-center gap-2 px-3 py-1.5 bg-retro-yellow border-2 border-black text-xs font-vcr text-black shadow-[2px_2px_0_rgba(0,0,0,1)]">
-								<Zap className="w-3 h-3" />
-								FILLING FAST
+				<div className="w-full">
+					<div className="relative w-full aspect-square overflow-hidden">
+						<div
+							className={`
+								absolute inset-0 bg-cover bg-top origin-top transition-all duration-500 ease-out
+								${isHovered ? "scale-105 brightness-110" : "scale-100"}
+							`}
+							style={{ backgroundImage: `url(${displayImageUrl})` }}
+						/>
+						{/* Gradient overlay */}
+						<div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+						{/* Filling fast badge */}
+						{is_filling_fast && !is_full && (
+							<div className="absolute bottom-3 right-3 z-40">
+								<div className="relative inline-flex items-center gap-2 px-3 py-1.5 bg-retro-yellow border-2 border-black text-xs font-vcr text-black shadow-[2px_2px_0_rgba(0,0,0,1)]">
+									<Zap className="w-3 h-3" />
+									FILLING FAST
+								</div>
 							</div>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
 
 				{/* Hover overlay */}
@@ -198,20 +198,20 @@ export const EventCard = ({
 				{/* Content section */}
 				<div className="relative flex-1 w-full bg-black/60 border-t border-retro-cyan/30 p-4 flex flex-col justify-between z-10">
 					<div className="flex items-start justify-between mb-3">
-						<h3 className="font-jersey15 text-xl md:text-2xl text-white leading-tight flex-1 pr-5 tracking-tight uppercase drop-shadow-[2px_2px_0px_#a855f7]">
+						<h3 className="font-jersey15 text-2xl md:text-3xl text-white leading-tight flex-1 pr-5 tracking-tight uppercase drop-shadow-[2px_2px_0px_#a855f7]">
 							{event_name}
 						</h3>
 						<div className="text-right shrink-0">
-							<div className="font-vcr text-base text-retro-cyan">
+							<div className="font-vcr text-2xl text-retro-cyan">
 								{event_price > 0 ? formatCurrency(event_price) : "FREE"}
 							</div>
 							{event_price > 0 && (
-								<div className="text-xs text-white/50 font-vcr">+ GST</div>
+								<div className="text-sm text-white/50 font-vcr">+ GST</div>
 							)}
 						</div>
 					</div>
 
-					<div className="flex items-center gap-4 mb-3 text-sm text-white/80 font-vcr">
+					<div className="flex items-center gap-4 mb-3 text-lg text-white/80 font-vcr">
 						<div className="flex items-center gap-1">
 							<Calendar className="w-4 h-4 text-retro-cyan" />
 							<span>{formatDateOnly(event_date)}</span>
