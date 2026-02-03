@@ -84,7 +84,10 @@ const SignUpForm = ({
 											style={pixelFont}
 										/>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -107,7 +110,10 @@ const SignUpForm = ({
 											style={pixelFont}
 										/>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -130,7 +136,10 @@ const SignUpForm = ({
 											style={pixelFont}
 										/>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -155,7 +164,10 @@ const SignUpForm = ({
 										>
 											Are you from Amrita Coimbatore?
 										</FormLabel>
-										<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+										<FormMessage
+											className="text-[8px] text-red-500"
+											style={pixelFont}
+										/>
 									</div>
 								</FormItem>
 							)}
@@ -186,7 +198,10 @@ const SignUpForm = ({
 											disabled={is_amrita_student}
 										/>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -210,7 +225,10 @@ const SignUpForm = ({
 											disabled={is_amrita_student}
 										/>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -254,7 +272,10 @@ const SignUpForm = ({
 											</button>
 										</div>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
@@ -292,7 +313,10 @@ const SignUpForm = ({
 											</button>
 										</div>
 									</FormControl>
-									<FormMessage className="text-[8px] text-red-500" style={pixelFont} />
+									<FormMessage
+										className="text-[8px] text-red-500"
+										style={pixelFont}
+									/>
 								</FormItem>
 							)}
 						/>
