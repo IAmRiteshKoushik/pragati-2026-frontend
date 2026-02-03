@@ -315,7 +315,7 @@ const SignUpForm = ({
 
 					{step < 2 ? (
 						<div className="w-full flex flex-col items-center gap-2">
-							<div
+							{/* <div
 								className="w-full py-3 px-2 border-2 border-dashed border-[#22c55e]/50 bg-[#064e3b]/30 rounded-lg text-center animate-pulse"
 								style={pixelFont}
 							>
@@ -323,7 +323,7 @@ const SignUpForm = ({
 									REGISTRATION LOCKED
 								</p>
 								<p className="text-white text-[12px] mt-1">OPENS AT 9:00 PM</p>
-							</div>
+							</div> */}
 							<Button
 								type="button"
 								disabled
@@ -343,7 +343,7 @@ const SignUpForm = ({
 					) : (
 						<Button
 							type="submit"
-							disabled={true} // isSubmitting
+							disabled={isSubmitting} // isSubmitting
 							className="w-full bg-[#7e22ce] hover:bg-[#9333ea] text-white font-bold py-2 text-xs"
 							style={pixelFont}
 						>
