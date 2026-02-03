@@ -51,7 +51,7 @@ function ResetPasswordOtpVerificationPage() {
 					</div>
 				</div>
 				<ResetPasswordOtpVerificationForm />
-			</RetroWindowWrapper >
-		</div >
+			</RetroWindowWrapper>
+		</div>
 	);
 }
