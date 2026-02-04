@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useMutation } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
-import { BookingService } from '@/services/BookingService';
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { BookingService } from "@/services/BookingService";
 import type {
-  BookingResponse,
-  GroupBookingPayload,
-} from '@/types/bookingTypes';
+	BookingResponse,
+	GroupBookingPayload,
+} from "@/types/bookingTypes";
 
 /**
  * Hook for individual event booking
@@ -14,18 +14,18 @@ import type {
  * Returns booking response with payment data
  */
 export function useBookIndividualEvent() {
-  return useMutation({
-    mutationFn: async (eventId: string): Promise<BookingResponse> => {
-      return BookingService.bookIndividualEvent(eventId);
-    },
-    onSuccess: (data) => {
-      // Show success message from booking
-      toast.loading('Booking initiated! Redirecting to payment...');
-    },
-    onError: (error: Error) => {
-      toast.error(error.message || 'Failed to register for event');
-    },
-  });
+	return useMutation({
+		mutationFn: async (eventId: string): Promise<BookingResponse> => {
+			return BookingService.bookIndividualEvent(eventId);
+		},
+		onSuccess: (data) => {
+			// Show success message from booking
+			toast.loading("Booking initiated! Redirecting to payment...");
+		},
+		onError: (error: Error) => {
+			toast.error(error.message || "Failed to register for event");
+		},
+	});
 }
 
 /**
@@ -34,22 +34,22 @@ export function useBookIndividualEvent() {
  * Returns booking response with payment data
  */
 export function useBookGroupEvent() {
-  return useMutation({
-    mutationFn: async ({
-      eventId,
-      payload,
-    }: {
-      eventId: string;
-      payload: GroupBookingPayload;
-    }): Promise<BookingResponse> => {
-      return BookingService.bookGroupEvent(eventId, payload);
-    },
-    onSuccess: (data) => {
-      // Show success message from booking
-      toast.loading('Booking initiated! Redirecting to payment...');
-    },
-    onError: (error: Error) => {
-      toast.error(error.message || 'Failed to register team');
-    },
-  });
+	return useMutation({
+		mutationFn: async ({
+			eventId,
+			payload,
+		}: {
+			eventId: string;
+			payload: GroupBookingPayload;
+		}): Promise<BookingResponse> => {
+			return BookingService.bookGroupEvent(eventId, payload);
+		},
+		onSuccess: (data) => {
+			// Show success message from booking
+			toast.loading("Booking initiated! Redirecting to payment...");
+		},
+		onError: (error: Error) => {
+			toast.error(error.message || "Failed to register team");
+		},
+	});
 }

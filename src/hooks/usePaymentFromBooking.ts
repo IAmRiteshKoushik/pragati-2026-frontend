@@ -1,5 +1,5 @@
-import { PAYU_MERCHANT_KEY, PAYU_URL } from '@/lib/constants';
-import type { BookingResponse } from '@/types/bookingTypes';
+import { PAYU_MERCHANT_KEY, PAYU_URL } from "@/lib/constants";
+import type { BookingResponse } from "@/types/bookingTypes";
 
 /**
  * usePaymentFromBooking
@@ -15,60 +15,60 @@ import type { BookingResponse } from '@/types/bookingTypes';
  * - productInfo: Product description
  */
 export function usePaymentFromBooking() {
-  /**
-   * Redirect to PayU payment gateway with booking response data
-   */
-  const redirectToPayment = (bookingData: BookingResponse) => {
-    // Check if booking response contains payment data
-    if (
-      !bookingData.hash ||
-      !bookingData.txnId ||
-      !bookingData.registrationFee
-    ) {
-      throw new Error('Invalid payment data received from booking');
-    }
+	/**
+	 * Redirect to PayU payment gateway with booking response data
+	 */
+	const redirectToPayment = (bookingData: BookingResponse) => {
+		// Check if booking response contains payment data
+		if (
+			!bookingData.hash ||
+			!bookingData.txnId ||
+			!bookingData.registrationFee
+		) {
+			throw new Error("Invalid payment data received from booking");
+		}
 
-    // Get PayU payment URL from configuration
-    const paymentUrl = PAYU_URL;
+		// Get PayU payment URL from configuration
+		const paymentUrl = PAYU_URL;
 
-    // Construct success and failure URLs
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
-    const successUrl = `${baseUrl}/api/transactions/success`;
-    const failureUrl = `${baseUrl}/api/transactions/failure`;
+		// Construct success and failure URLs
+		const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+		const successUrl = `${baseUrl}/api/transactions/success`;
+		const failureUrl = `${baseUrl}/api/transactions/failure`;
 
-    // Create PayU payment form with data from booking response
-    const paymentForm = {
-      key: PAYU_MERCHANT_KEY,
-      txnid: bookingData.txnId,
-      amount: bookingData.registrationFee,
-      productinfo: bookingData.productInfo || 'Event Registration',
-      firstname: bookingData.name || 'User',
-      email: bookingData.userEmail || '',
-      phone: bookingData.phone || '',
-      surl: successUrl,
-      furl: failureUrl,
-      hash: bookingData.hash,
-    };
+		// Create PayU payment form with data from booking response
+		const paymentForm = {
+			key: PAYU_MERCHANT_KEY,
+			txnid: bookingData.txnId,
+			amount: bookingData.registrationFee,
+			productinfo: bookingData.productInfo || "Event Registration",
+			firstname: bookingData.name || "User",
+			email: bookingData.userEmail || "",
+			phone: bookingData.phone || "",
+			surl: successUrl,
+			furl: failureUrl,
+			hash: bookingData.hash,
+		};
 
-    // Create and submit hidden form to PayU
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = paymentUrl;
+		// Create and submit hidden form to PayU
+		const form = document.createElement("form");
+		form.method = "POST";
+		form.action = paymentUrl;
 
-    // Add all form fields
-    Object.entries(paymentForm).forEach(([key, value]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = value;
-      form.appendChild(input);
-    });
+		// Add all form fields
+		Object.entries(paymentForm).forEach(([key, value]) => {
+			const input = document.createElement("input");
+			input.type = "hidden";
+			input.name = key;
+			input.value = value;
+			form.appendChild(input);
+		});
 
-    // Submit form
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-  };
+		// Submit form
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+	};
 
-  return { redirectToPayment };
+	return { redirectToPayment };
 }

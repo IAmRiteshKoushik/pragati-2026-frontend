@@ -12,13 +12,13 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useBookGroupEvent, useBookIndividualEvent } from "@/hooks/useBooking";  //3
+import { useBookGroupEvent, useBookIndividualEvent } from "@/hooks/useBooking"; //3
 import { useEventById } from "@/hooks/useEventById";
 import { usePaymentFromBooking } from "@/hooks/usePaymentFromBooking"; //4
 import { useStarSingleEvent } from "@/hooks/useStarSingleEvent";
 import { useAuthStore } from "@/store/auth.store";
 
-import type { GroupBookingPayload } from "@/types/bookingTypes";  //5 
+import type { GroupBookingPayload } from "@/types/bookingTypes"; //5
 
 export const Route = createFileRoute("/events/$eventId")({
 	component: RouteComponent,
