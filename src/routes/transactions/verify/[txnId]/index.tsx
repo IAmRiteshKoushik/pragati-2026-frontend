@@ -65,37 +65,37 @@ function PaymentVerifying() {
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center p-4">
-				<div className="flex items-center justify-center mb-6">
-					<Lottie options={defaultOptions} height={200} width={200} />
-				</div>
+			<div className="flex items-center justify-center mb-6">
+				<Lottie options={defaultOptions} height={200} width={200} />
+			</div>
 
-				<h1
-					className={`text-3xl font-bold mb-2 ${
-						status === "success" && data?.status === "success"
-							? "text-green-400"
-							: status === "error" || data?.status === "failed"
-								? "text-destructive"
-								: "text-foreground"
-					}`}
-				>
-					{statusText.title}
-				</h1>
+			<h1
+				className={`text-3xl font-bold mb-2 ${
+					status === "success" && data?.status === "success"
+						? "text-green-400"
+						: status === "error" || data?.status === "failed"
+							? "text-destructive"
+							: "text-foreground"
+				}`}
+			>
+				{statusText.title}
+			</h1>
 
-				<p className="text-lg text-muted-foreground mb-4">
-					{statusText.subtitle}
-				</p>
+			<p className="text-lg text-muted-foreground mb-4">
+				{statusText.subtitle}
+			</p>
 
-				<div className="space-y-2 text-sm text-muted-foreground mb-4">
-					<p>{statusText.description}</p>
-					{txnId && (
-						<p>
-							Transaction ID:{" "}
-							<span className="font-mono font-semibold text-foreground">
-								{txnId}
-							</span>
-						</p>
-					)}
-				</div>
+			<div className="space-y-2 text-sm text-muted-foreground mb-4">
+				<p>{statusText.description}</p>
+				{txnId && (
+					<p>
+						Transaction ID:{" "}
+						<span className="font-mono font-semibold text-foreground">
+							{txnId}
+						</span>
+					</p>
+				)}
+			</div>
 		</main>
 	);
 }
