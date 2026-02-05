@@ -120,7 +120,7 @@ function HeroSection() {
 			</div>
 
 			{/* MAIN CONTENT CONTAINER */}
-			<div className="relative z-10 flex flex-col items-center w-full h-full justify-center md:justify-between md:pt-28">
+			<div className="relative z-10 flex flex-col items-center w-full h-full justify-center md:pt-20">
 				{/* Inner Content Wrapper */}
 				<div className="flex flex-col items-center w-full">
 					{/* MOBILE SPONSORS (Visible only on Mobile) */}
@@ -173,7 +173,7 @@ function HeroSection() {
 					</motion.div>
 
 					{/* Typewriter Filler Text */}
-					<div className="mt-12 md:mt-16 flex flex-col items-center justify-center">
+					<div className="mt-8 md:mt-20 lg:mt-24 flex flex-col items-center justify-center">
 						<div className="bg-black/60 backdrop-blur-sm border border-retro-cyan/30 rounded-lg px-4 py-3 md:px-8 md:py-4 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
 							<TypewriterText text="PRESS EXPLORE TO UNLOCK" />
 							<div className="h-2" />
@@ -186,7 +186,7 @@ function HeroSection() {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ delay: 2.5, duration: 0.5 }}
-						className="mt-6 md:mt-8 flex-none mb-4"
+						className="mt-5 md:mt-4 flex-none"
 					>
 						<motion.button
 							whileHover={{ y: -2 }}
@@ -207,7 +207,7 @@ function HeroSection() {
 
 				{/* BOTTOM STATS SECTION */}
 				<motion.div
-					className="flex-none w-full justify-end max-w-sm md:max-w-none grid grid-cols-3 gap-3 md:flex md:flex-wrap md:justify-center md:gap-16 px-4 mt-8 md:mt-0 pb-6 md:pb-8"
+					className="flex-none w-full justify-end max-w-sm md:max-w-none grid grid-cols-3 gap-3 md:flex md:flex-wrap md:justify-center md:gap-16 px-4 mt-8 md:mt-6 pb-6 md:pb-8"
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.9, duration: 0.5 }}
