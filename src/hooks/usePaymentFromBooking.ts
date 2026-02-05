@@ -37,16 +37,15 @@ export function usePaymentFromBooking() {
 		// const failureUrl = `${baseUrl}/api/transactions/failure`;
 
 		// Frontend base URL (for redirects later)
-const frontendBaseUrl =
-	import.meta.env.VITE_APP_URL || window.location.origin;
+		const frontendBaseUrl =
+			import.meta.env.VITE_APP_URL || window.location.origin;
 
-// Backend base URL (for PayU callbacks)
-const backendBaseUrl =
-	import.meta.env.VITE_API_URL || "http://localhost:8081";
+		// Backend base URL (for PayU callbacks)
+		const backendBaseUrl =
+			import.meta.env.VITE_API_URL || "http://localhost:8081";
 
-const successUrl = `${backendBaseUrl}/transaction/success`;
-const failureUrl = `${backendBaseUrl}/transaction/failure`;
-
+		const successUrl = `${backendBaseUrl}/transaction/success`;
+		const failureUrl = `${backendBaseUrl}/transaction/failure`;
 
 		// Create PayU payment form with data from booking response
 		const paymentForm = {
