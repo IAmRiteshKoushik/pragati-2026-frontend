@@ -143,7 +143,11 @@ export function GroupRegistrationForm({
 						<div className="space-y-4">
 							<div className="space-y-2">
 								<FormLabel>Team Leader</FormLabel>
-								<Input value={leaderEmail} disabled className="bg-muted/50 text-black" />
+								<Input
+									value={leaderEmail}
+									disabled
+									className="bg-muted/50 text-black"
+								/>
 							</div>
 
 							{fields.map((field, index) => (
