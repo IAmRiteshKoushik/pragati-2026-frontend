@@ -26,7 +26,7 @@ export const failureRoute = new Elysia()
 
 			// Redirect to failure page with transaction ID
 			const baseUrl =
-				process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+				process.env.APP_PUBLIC_URL || "http://localhost:3000";
 
 			const redirectUrl = txnId
 				? `${baseUrl}/transactions/verify/${encodeURIComponent(txnId)}`
@@ -36,7 +36,7 @@ export const failureRoute = new Elysia()
 			set.headers.location = redirectUrl;
 		} catch (error) {
 			const baseUrl =
-				process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+				process.env.APP_PUBLIC_URL || "http://localhost:3000";
 
 			set.status = 303;
 			set.headers.location = `${baseUrl}/transactions/failure`;
@@ -47,7 +47,7 @@ export const failureRoute = new Elysia()
 	.get("/transaction/failure", ({ query, set }) => {
 		const txnId = query.txnid as string | undefined;
 
-		const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+		const baseUrl = process.env.APP_PUBLIC_URL || "http://localhost:3000";
 
 		const redirectUrl = txnId
 			? `${baseUrl}/transactions/verify/${encodeURIComponent(txnId)}`
