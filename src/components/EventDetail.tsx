@@ -226,7 +226,7 @@ function EventOrganisers({ event, onOrganizerClick }: EventOrganisersProps) {
 							key={org.organizer_name}
 							type="button"
 							onClick={() => onOrganizerClick?.(org)}
-							className="relative bg-gray-950 border-2 border-[#ff00ff] shadow-[2px_2px_0_rgba(255,0,255,1)] hover:shadow-[3px_3px_0_rgba(255,0,255,1)] hover:border-[#00ffff] transition-all p-3 flex items-center gap-3 text-left w-full cursor-pointer"
+							className="relative bg-gray-950 border-2 border-[#ff00ff] shadow-[2px_2px_0_rgba(255,0,255,1)] hover:shadow-[3px_3px_0_rgba(255,0,255,1)] hover:border-[#00ffff] transition-all p-3 flex items-center gap-3 text-left w-full cursor-pointer overflow-hidden"
 						>
 							{/* Corner dots */}
 							<div className="absolute -top-1 -left-1 w-2 h-2 bg-[#00ffff]" />
@@ -254,17 +254,17 @@ function EventOrganisers({ event, onOrganizerClick }: EventOrganisersProps) {
 							)}
 
 							<div className="flex-1 min-w-0">
-								<span className="text-sm font-joystix uppercase tracking-wide text-white block truncate">
+								<span className="text-sm font-joystix uppercase tracking-wide text-white block truncate" title={org.organizer_name}>
 									{org.organizer_name}
 								</span>
-								<div className="flex items-center gap-2 mt-1">
+								<div className="flex items-center gap-2 mt-1 min-w-0">
 									{org.org_abbreviation && (
-										<span className="text-xs font-press-start text-[#00ffff]">
+										<span className="text-xs font-press-start text-[#00ffff] truncate shrink-0" title={org.org_abbreviation}>
 											{org.org_abbreviation}
 										</span>
 									)}
 									{org.org_type && (
-										<span className="text-xs font-joystix text-gray-500 truncate">
+										<span className="text-xs font-joystix text-gray-500 truncate min-w-0" title={org.org_type}>
 											[{org.org_type}]
 										</span>
 									)}
