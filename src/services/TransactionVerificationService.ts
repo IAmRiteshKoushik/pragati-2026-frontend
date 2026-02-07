@@ -38,7 +38,7 @@ export const TransactionService = {
 			};
 
 			return normalizedResponse;
-		// biome-ignore lint/suspicious/noExplicitAny: allowed any
+			// biome-ignore lint/suspicious/noExplicitAny: allowed any
 		} catch (error: any) {
 			const message =
 				error?.response?.data?.message ||
