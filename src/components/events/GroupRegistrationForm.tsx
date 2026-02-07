@@ -8,210 +8,210 @@ import type { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import {
-  createGroupFormSchema,
-  type GroupRegistrationFormProps,
-  type GroupRegistrationOutput,
+	createGroupFormSchema,
+	type GroupRegistrationFormProps,
+	type GroupRegistrationOutput,
 } from "@/types/groupRegistration";
 
 export function GroupRegistrationForm({
-  leaderEmail,
-  maxTeamSize,
-  minTeamSize = 2,
-  onSubmit,
-  className,
+	leaderEmail,
+	maxTeamSize,
+	minTeamSize = 2,
+	onSubmit,
+	className,
 }: GroupRegistrationFormProps) {
-  // Calculate how many teammates are needed (excluding leader)
-  const minTeammates = Math.max(0, minTeamSize - 1);
-  const maxTeammates = Math.max(0, maxTeamSize - 1);
+	// Calculate how many teammates are needed (excluding leader)
+	const minTeammates = Math.max(0, minTeamSize - 1);
+	const maxTeammates = Math.max(0, maxTeamSize - 1);
 
-  const formSchema = createGroupFormSchema(
-    minTeamSize,
-    maxTeamSize,
-    leaderEmail,
-  );
-  type FormValues = z.infer<typeof formSchema>;
+	const formSchema = createGroupFormSchema(
+		minTeamSize,
+		maxTeamSize,
+		leaderEmail,
+	);
+	type FormValues = z.infer<typeof formSchema>;
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      teamName: "",
-      teammates: Array.from({ length: minTeammates }, () => ({
-        email: "",
-      })),
-    },
-    mode: "onChange",
-  });
+	const form = useForm<FormValues>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			teamName: "",
+			teammates: Array.from({ length: minTeammates }, () => ({
+				email: "",
+			})),
+		},
+		mode: "onChange",
+	});
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "teammates",
-  });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // biome-ignore lint/suspicious/noExplicitAny: allowed any
-  const onInvalid = (errors: any) => {
-    console.log("Form validation failed:", errors);
+	const { fields, append, remove } = useFieldArray({
+		control: form.control,
+		name: "teammates",
+	});
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// biome-ignore lint/suspicious/noExplicitAny: allowed any
+	const onInvalid = (errors: any) => {
+		console.log("Form validation failed:", errors);
 
-    const messages: string[] = [];
+		const messages: string[] = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // biome-ignore lint/suspicious/noExplicitAny: allowed any
-    const collectErrors = (errObj: any): void => {
-      if (!errObj) return;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: allowed any
+		const collectErrors = (errObj: any): void => {
+			if (!errObj) return;
 
-      if (errObj.message && typeof errObj.message === "string") {
-        messages.push(errObj.message);
-      }
+			if (errObj.message && typeof errObj.message === "string") {
+				messages.push(errObj.message);
+			}
 
-      if (typeof errObj === "object") {
-        Object.values(errObj).forEach((val) => {
-          collectErrors(val);
-        });
-      }
-    };
+			if (typeof errObj === "object") {
+				Object.values(errObj).forEach((val) => {
+					collectErrors(val);
+				});
+			}
+		};
 
-    collectErrors(errors);
+		collectErrors(errors);
 
-    // Deduplicate and show
-    [...new Set(messages)].forEach((msg) => {
-      toast.error(msg);
-    });
-  };
-  const handleSubmit = (values: FormValues) => {
-    console.log("Form valid, submitting:", values);
-    const output: GroupRegistrationOutput = {
-      team_name: values.teamName,
-      team_members: values.teammates.map((t) => ({
-        student_email: t.email,
-        student_role: "member",
-      })),
-    };
-    console.log("Calling onSubmit with:", output);
-    console.log("onSubmit function:", onSubmit);
-    onSubmit(output);
-    console.log("onSubmit called successfully");
-  };
+		// Deduplicate and show
+		[...new Set(messages)].forEach((msg) => {
+			toast.error(msg);
+		});
+	};
+	const handleSubmit = (values: FormValues) => {
+		console.log("Form valid, submitting:", values);
+		const output: GroupRegistrationOutput = {
+			team_name: values.teamName,
+			team_members: values.teammates.map((t) => ({
+				student_email: t.email,
+				student_role: "member",
+			})),
+		};
+		console.log("Calling onSubmit with:", output);
+		console.log("onSubmit function:", onSubmit);
+		onSubmit(output);
+		console.log("onSubmit called successfully");
+	};
 
-  return (
-    <div
-      className={cn(
-        "w-full max-w-2xl mx-auto p-6 md:p-8 rounded-xl border border-purple-100 bg-linear-to-b from-white to-purple-50/30 shadow-sm",
-        className,
-      )}
-    >
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit, onInvalid)}
-          className="space-y-6"
-        >
-          {/* Team Name */}
-          <FormField
-            control={form.control}
-            name="teamName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-purple-900 font-bold">
-                  TEAM NAME
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your team name"
-                    {...field}
-                    className="focus-visible:ring-purple-500 border-purple-100"
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+	return (
+		<div
+			className={cn(
+				"w-full max-w-2xl mx-auto p-6 md:p-8 rounded-xl border border-purple-100 bg-linear-to-b from-white to-purple-50/30 shadow-sm",
+				className,
+			)}
+		>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(handleSubmit, onInvalid)}
+					className="space-y-6"
+				>
+					{/* Team Name */}
+					<FormField
+						control={form.control}
+						name="teamName"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-purple-900 font-bold">
+									TEAM NAME
+								</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Enter your team name"
+										{...field}
+										className="focus-visible:ring-purple-500 border-purple-100"
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
 
-          {/* Teammates Section */}
-          <div className="space-y-4">
-            <div className="flex items-end justify-between border-b border-purple-100 pb-2">
-              <h3 className="font-semibold text-sm text-purple-700/70 uppercase tracking-wider">
-                Team Members ({fields.length + 1} / {maxTeamSize})
-              </h3>
-              {fields.length < maxTeammates && (
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => append({ email: "" })}
-                  className="gap-2 border-purple-200 text-purple-700 hover:bg-purple-50 hover:text-purple-800 transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span className="hidden sm:inline">Add Member</span>
-                  <span className="sm:hidden">Add</span>
-                </Button>
-              )}
-            </div>
+					{/* Teammates Section */}
+					<div className="space-y-4">
+						<div className="flex items-end justify-between border-b border-purple-100 pb-2">
+							<h3 className="font-semibold text-sm text-purple-700/70 uppercase tracking-wider">
+								Team Members ({fields.length + 1} / {maxTeamSize})
+							</h3>
+							{fields.length < maxTeammates && (
+								<Button
+									type="button"
+									variant="outline"
+									size="sm"
+									onClick={() => append({ email: "" })}
+									className="gap-2 border-purple-200 text-purple-700 hover:bg-purple-50 hover:text-purple-800 transition-colors"
+								>
+									<Plus className="w-4 h-4" />
+									<span className="hidden sm:inline">Add Member</span>
+									<span className="sm:hidden">Add</span>
+								</Button>
+							)}
+						</div>
 
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <FormLabel className="text-purple-900/70">
-                  Team Leader
-                </FormLabel>
-                <Input
-                  value={leaderEmail}
-                  disabled
-                  className="bg-muted/50 text-black"
-                />
-              </div>
+						<div className="space-y-4">
+							<div className="space-y-2">
+								<FormLabel className="text-purple-900/70">
+									Team Leader
+								</FormLabel>
+								<Input
+									value={leaderEmail}
+									disabled
+									className="bg-muted/50 text-black"
+								/>
+							</div>
 
-              {fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="flex gap-4 items-end animate-in fade-in slide-in-from-top-2"
-                >
-                  <FormField
-                    control={form.control}
-                    name={`teammates.${index}.email`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1 w-full">
-                        <FormLabel>Team Member {index + 2}</FormLabel>
-                        <FormControl className="text-purple-900/70">
-                          <Input placeholder="Email" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+							{fields.map((field, index) => (
+								<div
+									key={field.id}
+									className="flex gap-4 items-end animate-in fade-in slide-in-from-top-2"
+								>
+									<FormField
+										control={form.control}
+										name={`teammates.${index}.email`}
+										render={({ field }) => (
+											<FormItem className="flex-1 w-full">
+												<FormLabel>Team Member {index + 2}</FormLabel>
+												<FormControl className="text-purple-900/70">
+													<Input placeholder="Email" {...field} />
+												</FormControl>
+											</FormItem>
+										)}
+									/>
 
-                  {/* Delete Button */}
-                  {fields.length > minTeammates && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="text-destructive hover:bg-destructive/10 hover:text-destructive shrink-0"
-                      onClick={() => remove(index)}
-                      title="Remove teammate"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                      <span className="sr-only">Remove teammate</span>
-                    </Button>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+									{/* Delete Button */}
+									{fields.length > minTeammates && (
+										<Button
+											type="button"
+											variant="ghost"
+											size="icon"
+											className="text-destructive hover:bg-destructive/10 hover:text-destructive shrink-0"
+											onClick={() => remove(index)}
+											title="Remove teammate"
+										>
+											<Trash2 className="w-4 h-4" />
+											<span className="sr-only">Remove teammate</span>
+										</Button>
+									)}
+								</div>
+							))}
+						</div>
+					</div>
 
-          <div className="flex justify-center">
-            <Button
-              type="submit"
-              className="w-fit bg-purple-600 hover:bg-purple-700 text-white px-8 shadow-md shadow-purple-200"
-            >
-              Register Team
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
-  );
+					<div className="flex justify-center">
+						<Button
+							type="submit"
+							className="w-fit bg-purple-600 hover:bg-purple-700 text-white px-8 shadow-md shadow-purple-200"
+						>
+							Register Team
+						</Button>
+					</div>
+				</form>
+			</Form>
+		</div>
+	);
 }
