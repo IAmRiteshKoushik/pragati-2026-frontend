@@ -101,7 +101,12 @@ export function GroupRegistrationForm({
 	};
 
 	return (
-		<div className={cn("w-full max-w-2xl mx-auto space-y-6", className)}>
+		<div
+			className={cn(
+				"w-full max-w-2xl mx-auto p-6 md:p-8 rounded-xl border border-purple-100 bg-linear-to-b from-white to-purple-50/30 shadow-sm",
+				className,
+			)}
+		>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(handleSubmit, onInvalid)}
@@ -113,9 +118,15 @@ export function GroupRegistrationForm({
 						name="teamName"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>TEAM NAME</FormLabel>
+								<FormLabel className="text-purple-900 font-bold">
+									TEAM NAME
+								</FormLabel>
 								<FormControl>
-									<Input placeholder="Enter your team name" {...field} />
+									<Input
+										placeholder="Enter your team name"
+										{...field}
+										className="focus-visible:ring-purple-500 border-purple-100"
+									/>
 								</FormControl>
 							</FormItem>
 						)}
@@ -123,8 +134,8 @@ export function GroupRegistrationForm({
 
 					{/* Teammates Section */}
 					<div className="space-y-4">
-						<div className="flex items-end justify-between border-b pb-2">
-							<h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+						<div className="flex items-end justify-between border-b border-purple-100 pb-2">
+							<h3 className="font-semibold text-sm text-purple-700/70 uppercase tracking-wider">
 								Team Members ({fields.length + 1} / {maxTeamSize})
 							</h3>
 							{fields.length < maxTeammates && (
@@ -133,7 +144,7 @@ export function GroupRegistrationForm({
 									variant="outline"
 									size="sm"
 									onClick={() => append({ email: "" })}
-									className="gap-2 hover:bg-primary/10 hover:text-primary transition-colors"
+									className="gap-2 border-purple-200 text-purple-700 hover:bg-purple-50 hover:text-purple-800 transition-colors"
 								>
 									<Plus className="w-4 h-4" />
 									<span className="hidden sm:inline">Add Member</span>
@@ -144,7 +155,9 @@ export function GroupRegistrationForm({
 
 						<div className="space-y-4">
 							<div className="space-y-2">
-								<FormLabel>Team Leader</FormLabel>
+								<FormLabel className="text-purple-900/70">
+									Team Leader
+								</FormLabel>
 								<Input
 									value={leaderEmail}
 									disabled
@@ -163,7 +176,7 @@ export function GroupRegistrationForm({
 										render={({ field }) => (
 											<FormItem className="flex-1 w-full">
 												<FormLabel>Team Member {index + 2}</FormLabel>
-												<FormControl>
+												<FormControl className="text-purple-900/70">
 													<Input placeholder="Email" {...field} />
 												</FormControl>
 											</FormItem>
@@ -190,7 +203,10 @@ export function GroupRegistrationForm({
 					</div>
 
 					<div className="flex justify-center">
-						<Button type="submit" className="w-fit">
+						<Button
+							type="submit"
+							className="w-fit bg-purple-600 hover:bg-purple-700 text-white px-8 shadow-md shadow-purple-200"
+						>
 							Register Team
 						</Button>
 					</div>

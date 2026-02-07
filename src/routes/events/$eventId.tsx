@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import EventDetail from "@/components/EventDetail";
 import EventDetailSkeleton from "@/components/EventDetailSkeleton";
 import CheckoutSummaryDialog from "@/components/events/CheckoutSummaryDialog"; //1 done!
@@ -18,6 +19,9 @@ import { usePaymentFromBooking } from "@/hooks/usePaymentFromBooking"; //4
 import { useStarSingleEvent } from "@/hooks/useStarSingleEvent";
 import { useAuthStore } from "@/store/auth.store";
 
+const BACKGROUND_IMAGE_URL =
+	"https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1TTlZtKwkMt4sZaGR2pLP37qUHNQlgKObDVmf";
+
 import type { GroupBookingPayload } from "@/types/bookingTypes"; //5
 
 export const Route = createFileRoute("/events/$eventId")({
@@ -31,6 +35,15 @@ function RouteComponent() {
 
 	const { user, isHydrated } = useAuthStore();
 	const isAuthenticated = !!user;
+	const [bgImageLoaded, setBgImageLoaded] = useState(false);
+
+	// Preload background image
+	useEffect(() => {
+		const img = new Image();
+		img.onload = () => setBgImageLoaded(true);
+		img.onerror = () => setBgImageLoaded(false);
+		img.src = BACKGROUND_IMAGE_URL;
+	}, []);
 
 	const { data: event, isLoading, error } = useEventById(eventId);
 	const starMutation = useStarSingleEvent(eventId);
@@ -79,7 +92,14 @@ function RouteComponent() {
 	};
 
 	const handleCheckoutSummaryConfirm = () => {
-		if (!pendingBooking || !event) return;
+		if (
+			!pendingBooking ||
+			!event ||
+			bookIndividualMutation.isPending ||
+			bookGroupMutation.isPending
+		) {
+			return;
+		}
 
 		if (pendingBooking.type === "individual") {
 			bookIndividualMutation.mutate(eventId, {
@@ -128,13 +148,42 @@ function RouteComponent() {
 	};
 
 	/* ---------------- loading & error ---------------- */
-
+	const getBackgroundProps = () => {
+		if (bgImageLoaded) {
+			return {
+				className: "min-h-screen w-full relative overflow-hidden pt-20",
+				style: {
+					backgroundImage: `url(${BACKGROUND_IMAGE_URL})`,
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+					backgroundRepeat: "no-repeat",
+					backgroundAttachment: "fixed",
+				},
+			};
+		}
+		// Fallback to gradient background using Tailwind classes
+		return {
+			className:
+				"min-h-screen bg-gradient-to-b from-[#1a0a29] via-[#1a0b2e] to-black",
+			style: {},
+		};
+	};
 	if (isLoading || !isHydrated) {
+		const bgProps = getBackgroundProps();
 		return (
 			<>
 				<Navbar />
-				<div className="min-h-screen bg-linear-to-b from-[#1a0a29] via-[#1a0b2e] to-black">
-					<div className="container mx-auto px-4 py-8">
+				<div className={bgProps.className} style={bgProps.style}>
+					{bgImageLoaded && (
+						<div className="absolute inset-0 bg-black/70 pointer-events-none" />
+					)}
+					<div
+						className={
+							bgImageLoaded
+								? "relative z-10 container mx-auto px-4 py-8"
+								: "container mx-auto px-4 py-8"
+						}
+					>
 						<EventDetailSkeleton />
 					</div>
 				</div>
@@ -142,25 +191,81 @@ function RouteComponent() {
 		);
 	}
 
-	if (error || !event) {
+	if (error) {
+		const bgProps = getBackgroundProps();
 		return (
 			<>
 				<Navbar />
-				<div className="min-h-screen bg-linear-to-b from-[#1a0a29] via-[#1a0b2e] to-black flex items-center justify-center">
-					<p className="text-red-400">Failed to load event</p>
+				<div className={bgProps.className} style={bgProps.style}>
+					{bgImageLoaded && (
+						<div className="absolute inset-0 bg-black/70 pointer-events-none" />
+					)}
+					<div
+						className={
+							bgImageLoaded
+								? "relative z-10 container mx-auto px-4 py-8 text-center"
+								: "container mx-auto px-4 py-8 text-center"
+						}
+					>
+						<h2 className="text-2xl text-red-500">Failed to load event</h2>
+						<p className="text-red-400">{error.message}</p>
+					</div>
 				</div>
 			</>
 		);
 	}
 
-	/* ---------------- render ---------------- */
+	if (!event) {
+		const bgProps = getBackgroundProps();
+		return (
+			<>
+				<Navbar />
+				<div className={bgProps.className} style={bgProps.style}>
+					{bgImageLoaded && (
+						<div className="absolute inset-0 bg-black/70 pointer-events-none" />
+					)}
+					<div
+						className={
+							bgImageLoaded
+								? "relative z-10 container mx-auto px-4 py-8 text-center"
+								: "container mx-auto px-4 py-8 text-center"
+						}
+					>
+						<h2 className="text-2xl text-yellow-500">Event not found</h2>
+					</div>
+				</div>
+			</>
+		);
+	}
 
+	const bgProps = getBackgroundProps();
 	return (
 		<>
 			<Navbar />
+			<div className={bgProps.className} style={bgProps.style}>
+				{bgImageLoaded && (
+					<div className="absolute inset-0 bg-black/70 pointer-events-none" />
+				)}
+				<div
+					className={
+						bgImageLoaded
+							? "relative z-10 container mx-auto px-4 py-8"
+							: "container mx-auto px-4 py-8"
+					}
+				>
+					<motion.button
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.5 }}
+						onClick={() => navigate({ to: "/events" })}
+						className="mb-6 px-6 py-2.5 font-bold font-vcr text-sm tracking-widest uppercase transition-all duration-200 border-2 bg-black/40 backdrop-blur-sm border-retro-cyan/50 text-retro-cyan hover:border-[#a855f7] hover:text-[#a855f7] hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] flex items-center gap-2 group"
+					>
+						<span className="transition-transform duration-200 group-hover:-translate-x-1">
+							←
+						</span>
+						BACK TO EVENTS
+					</motion.button>
 
-			<div className="min-h-screen bg-linear-to-b from-black via-[#1a0b2e] to-black">
-				<div className="container mx-auto px-4 py-8">
 					<EventDetail
 						event={event}
 						onStarToggle={handleStarToggle}
