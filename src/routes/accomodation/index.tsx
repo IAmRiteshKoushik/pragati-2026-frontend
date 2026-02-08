@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Noise from "@/components/sponsors/Noise";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Noise from "@/components/sponsors/Noise";
 
 export const Route = createFileRoute("/accomodation/")({
   component: RouteComponent,
@@ -36,7 +36,7 @@ function RouteComponent() {
           className="z-20 text-zinc-200 text-8xl mt-5 font-jersey
               text-shadow-[-2px_-2px_0px_var(--color-red-400),2px_2px_0px_var(--color-blue-400)] max-sm:text-6xl"
         >
-          Accomodation
+          Accommodation
         </motion.h1>
 
         <motion.div
@@ -60,7 +60,7 @@ function RouteComponent() {
           <span className="absolute bottom-0 right-0 w-5 h-5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
 
           <p className="text-center text-shadow-[2px_2px_0px_var(--color-blue-400)]">
-            Choose your Accomodation preferences
+            Choose your Accommodation preferences
           </p>
 
           <form
