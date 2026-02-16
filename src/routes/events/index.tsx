@@ -1,12 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { EventCard } from "@/components/events/EventCard";
 import { FilterDropdown } from "@/components/events/FilterDropdown";
 import { FilterRadioPair } from "@/components/events/FilterRadioPair";
 import Navbar from "@/components/Navbar";
 import { useAllEvents } from "@/hooks/useAllEvents";
 import { useStarEvent } from "@/hooks/useStarEvent";
+import {
+	AccommodationService,
+	type AccommodationStatus,
+} from "@/services/AccommodationService";
 import { useAuthStore } from "@/store/auth.store";
 
 const BACKGROUND_IMAGE_URL =
@@ -40,6 +44,17 @@ function EventsPage() {
 	const [regType, setRegType] = useState<
 		"registered" | "not-registered" | null
 	>(null);
+	const [accomStatus, setAccomStatus] = useState<AccommodationStatus | null>(
+		null,
+	);
+
+	useEffect(() => {
+		if (user) {
+			AccommodationService.checkExists()
+				.then((status) => setAccomStatus(status))
+				.catch(() => setAccomStatus(null));
+		}
+	}, [user]);
 
 	const handleStarToggle = (eventId: string) => {
 		if (!user) {
@@ -184,6 +199,7 @@ function EventsPage() {
 	return (
 		<>
 			<Navbar />
+
 			<div
 				className="min-h-screen w-full relative overflow-hidden pt-20"
 				style={{
@@ -196,6 +212,28 @@ function EventsPage() {
 			>
 				<div className="absolute inset-0 bg-black/70 pointer-events-none" />
 				<div className="relative z-10 p-4 md:p-8">
+					{/* Accommodation Banner */}
+					{accomStatus === "ELIGIBLE" && (
+						<motion.div
+							initial={{ opacity: 0, y: -10 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.4 }}
+							className="max-w-4xl mx-auto mb-6 flex items-center justify-center gap-4 bg-black/60 backdrop-blur-sm border border-cyan-400/30 rounded px-5 py-2"
+						>
+							<p className="font-vcr text-xs text-cyan-400 tracking-wider">
+								🏨 ACCOMMODATION AVAILABLE — Apply for your stay during PRAGATI
+								'26
+							</p>
+							<button
+								type="button"
+								onClick={() => navigate({ to: "/accommodation" })}
+								className="shrink-0 px-4 py-1 font-vcr text-[10px] tracking-widest uppercase bg-cyan-400/10 hover:bg-cyan-400/20 text-cyan-400 border border-cyan-400/50 hover:border-cyan-400 transition-all duration-300"
+							>
+								APPLY NOW →
+							</button>
+						</motion.div>
+					)}
+
 					{/* HEADER */}
 					<motion.div
 						initial={{ opacity: 0, y: -50 }}

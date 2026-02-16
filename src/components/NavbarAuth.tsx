@@ -2,7 +2,7 @@
 
 import { useRouter } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { Bed, LogOut, User as UserIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { apiGet } from "@/lib/api";
@@ -161,6 +161,19 @@ export function NavbarAuth() {
 								<UserIcon size={16} />
 								<span style={pixelFont} className="text-[10px]">
 									PROFILE
+								</span>
+							</button>
+							<button
+								type="button"
+								onClick={() => {
+									router.navigate({ to: "/accommodation" });
+									setDropdownOpen(false);
+								}}
+								className="flex items-center gap-3 p-4 hover:bg-[#2e1065] text-white transition-colors text-left"
+							>
+								<Bed size={16} />
+								<span style={pixelFont} className="text-[10px]">
+									ACCOMMODATION
 								</span>
 							</button>
 							<button
