@@ -7,11 +7,11 @@ import { FilterRadioPair } from "@/components/events/FilterRadioPair";
 import Navbar from "@/components/Navbar";
 import { useAllEvents } from "@/hooks/useAllEvents";
 import { useStarEvent } from "@/hooks/useStarEvent";
-import { useAuthStore } from "@/store/auth.store";
 import {
-	type AccommodationStatus,
 	AccommodationService,
+	type AccommodationStatus,
 } from "@/services/AccommodationService";
+import { useAuthStore } from "@/store/auth.store";
 
 const BACKGROUND_IMAGE_URL =
 	"https://speugdv1vi.ufs.sh/f/y8q1VPJuKeA1TTlZtKwkMt4sZaGR2pLP37qUHNQlgKObDVmf";
@@ -44,7 +44,9 @@ function EventsPage() {
 	const [regType, setRegType] = useState<
 		"registered" | "not-registered" | null
 	>(null);
-	const [accomStatus, setAccomStatus] = useState<AccommodationStatus | null>(null);
+	const [accomStatus, setAccomStatus] = useState<AccommodationStatus | null>(
+		null,
+	);
 
 	useEffect(() => {
 		if (user) {
@@ -210,7 +212,6 @@ function EventsPage() {
 			>
 				<div className="absolute inset-0 bg-black/70 pointer-events-none" />
 				<div className="relative z-10 p-4 md:p-8">
-
 					{/* Accommodation Banner */}
 					{accomStatus === "ELIGIBLE" && (
 						<motion.div
@@ -220,7 +221,8 @@ function EventsPage() {
 							className="max-w-4xl mx-auto mb-6 flex items-center justify-center gap-4 bg-black/60 backdrop-blur-sm border border-cyan-400/30 rounded px-5 py-2"
 						>
 							<p className="font-vcr text-xs text-cyan-400 tracking-wider">
-								🏨 ACCOMMODATION AVAILABLE — Apply for your stay during PRAGATI '26
+								🏨 ACCOMMODATION AVAILABLE — Apply for your stay during PRAGATI
+								'26
 							</p>
 							<button
 								type="button"
@@ -303,10 +305,11 @@ function EventsPage() {
 							<button
 								type="button"
 								onClick={() => setShowFilters((v) => !v)}
-								className={`relative px-6 py-2.5 font-bold font-vcr text-sm tracking-widest uppercase transition-all duration-200 border-2 ${showFilters
-									? "bg-[#7c3aed] border-black text-white shadow-[4px_4px_0_rgba(0,0,0,1)]"
-									: "bg-black/40 backdrop-blur-sm border-retro-cyan/30 text-retro-cyan hover:border-[#a855f7] hover:text-[#a855f7]"
-									}`}
+								className={`relative px-6 py-2.5 font-bold font-vcr text-sm tracking-widest uppercase transition-all duration-200 border-2 ${
+									showFilters
+										? "bg-[#7c3aed] border-black text-white shadow-[4px_4px_0_rgba(0,0,0,1)]"
+										: "bg-black/40 backdrop-blur-sm border-retro-cyan/30 text-retro-cyan hover:border-[#a855f7] hover:text-[#a855f7]"
+								}`}
 							>
 								{showFilters ? "Hide Filters" : "Show Filters"}
 							</button>
@@ -407,10 +410,10 @@ function EventsPage() {
 								</div>
 								<p className="font-vcr text-gray-400 text-lg mb-8">
 									{search ||
-										selectedDays.length > 0 ||
-										teamType ||
-										managementType ||
-										regType
+									selectedDays.length > 0 ||
+									teamType ||
+									managementType ||
+									regType
 										? "Try adjusting your filters or search terms"
 										: "No events available at the moment"}
 								</p>
@@ -419,16 +422,16 @@ function EventsPage() {
 									teamType ||
 									managementType ||
 									regType) && (
-										<button
-											type="button"
-											onClick={clearAll}
-											className="relative px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 backdrop-blur-sm group bg-black/40 border-retro-cyan/50 text-retro-cyan hover:border-retro-pink hover:text-retro-pink"
-										>
-											<div className="absolute -top-0.5 -left-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
-											<div className="absolute -bottom-0.5 -right-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
-											↻ RESET FILTERS
-										</button>
-									)}
+									<button
+										type="button"
+										onClick={clearAll}
+										className="relative px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 backdrop-blur-sm group bg-black/40 border-retro-cyan/50 text-retro-cyan hover:border-retro-pink hover:text-retro-pink"
+									>
+										<div className="absolute -top-0.5 -left-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
+										<div className="absolute -bottom-0.5 -right-0.5 w-1 h-1 bg-retro-cyan group-hover:bg-retro-pink" />
+										↻ RESET FILTERS
+									</button>
+								)}
 							</motion.div>
 						) : (
 							<div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-5">
