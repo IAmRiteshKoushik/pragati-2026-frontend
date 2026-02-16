@@ -14,7 +14,10 @@ export interface AccommodationPayload {
 	check_out_time: string;
 }
 
-export type AccommodationStatus = "NOT_REGISTERED" | "FILLED_ACCOMMODATION" | "ELIGIBLE";
+export type AccommodationStatus =
+	| "NOT_REGISTERED"
+	| "FILLED_ACCOMMODATION"
+	| "ELIGIBLE";
 
 export const AccommodationService = {
 	/**
