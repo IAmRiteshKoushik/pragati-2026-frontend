@@ -19,25 +19,28 @@ function RouteComponent() {
 
 	// Form fields
 	const [gender, setGender] = useState<"male" | "female" | null>(null);
-	const [isHosteller, setIsHosteller] = useState<boolean | null>(null);
 	const [isAmritaCampus, setIsAmritaCampus] = useState<boolean | null>(null);
 	const [collegeName, setCollegeName] = useState("");
 	const [collegeRollNumber, setCollegeRollNumber] = useState("");
-	const [roomPreference, setRoomPreference] = useState<
-		"single" | "shared" | null
-	>(null);
 	const [checkInDate, setCheckInDate] = useState("");
 	const [checkInTime, setCheckInTime] = useState("");
 	const [checkOutDate, setCheckOutDate] = useState("");
 	const [checkOutTime, setCheckOutTime] = useState("");
 
+	const handleAmritaToggle = (value: boolean) => {
+		setIsAmritaCampus(value);
+		if (value) {
+			setCollegeName("Amrita Vishwa Vidyapeetham");
+		} else {
+			setCollegeName("");
+		}
+	};
+
 	const isFormValid =
 		gender !== null &&
-		isHosteller !== null &&
 		isAmritaCampus !== null &&
 		collegeName.trim() !== "" &&
 		collegeRollNumber.trim() !== "" &&
-		roomPreference !== null &&
 		checkInDate !== "" &&
 		checkInTime !== "" &&
 		checkOutDate !== "" &&
@@ -56,11 +59,11 @@ function RouteComponent() {
 
 		const payload: AccommodationPayload = {
 			is_male: gender === "male",
-			is_hosteller: isHosteller!,
-			is_amrita_campus: isAmritaCampus!,
+			is_hosteller: false,
+			is_amrita_campus: isAmritaCampus === true,
 			college_name: collegeName.trim(),
 			college_roll_number: collegeRollNumber.trim(),
-			room_preference: roomPreference === "shared" ? "4 sharing" : roomPreference!,
+			room_preference: "4 sharing",
 			check_in_date: checkInDate,
 			check_in_time: checkInTime,
 			check_out_date: checkOutDate,
@@ -182,41 +185,11 @@ function RouteComponent() {
 								</div>
 							</motion.div>
 
-							{/* Hosteller Toggle */}
-							<motion.div
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.7 }}
-								className="flex flex-col items-center gap-4"
-							>
-								<span className="text-2xl">Are you a Hosteller?</span>
-								<div className="flex gap-6">
-									<motion.button
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										type="button"
-										onClick={() => setIsHosteller(true)}
-										className={toggleBtnClass(isHosteller === true)}
-									>
-										Yes
-									</motion.button>
-									<motion.button
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										type="button"
-										onClick={() => setIsHosteller(false)}
-										className={toggleBtnClass(isHosteller === false)}
-									>
-										No
-									</motion.button>
-								</div>
-							</motion.div>
-
 							{/* Amrita Campus Toggle */}
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.75 }}
+								transition={{ duration: 0.5, delay: 0.7 }}
 								className="flex flex-col items-center gap-4"
 							>
 								<span className="text-2xl">From Amrita Campus?</span>
@@ -225,7 +198,7 @@ function RouteComponent() {
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
 										type="button"
-										onClick={() => setIsAmritaCampus(true)}
+										onClick={() => handleAmritaToggle(true)}
 										className={toggleBtnClass(isAmritaCampus === true)}
 									>
 										Yes
@@ -234,7 +207,7 @@ function RouteComponent() {
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
 										type="button"
-										onClick={() => setIsAmritaCampus(false)}
+										onClick={() => handleAmritaToggle(false)}
 										className={toggleBtnClass(isAmritaCampus === false)}
 									>
 										No
@@ -246,7 +219,7 @@ function RouteComponent() {
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.8 }}
+								transition={{ duration: 0.5, delay: 0.75 }}
 								className="flex flex-col items-center gap-3 w-full max-w-md"
 							>
 								<span className="text-2xl">College Name</span>
@@ -255,9 +228,10 @@ function RouteComponent() {
 									value={collegeName}
 									onChange={(e) => setCollegeName(e.target.value)}
 									placeholder="Enter your college name"
-									className="w-full px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+									disabled={isAmritaCampus === true}
+									className={`w-full px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
                     placeholder:text-zinc-500 focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
-                    outline-none transition-all duration-300 text-shadow-none"
+                    outline-none transition-all duration-300 text-shadow-none ${isAmritaCampus === true ? "opacity-60 cursor-not-allowed" : ""}`}
 								/>
 							</motion.div>
 
@@ -265,7 +239,7 @@ function RouteComponent() {
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.85 }}
+								transition={{ duration: 0.5, delay: 0.8 }}
 								className="flex flex-col items-center gap-3 w-full max-w-md"
 							>
 								<span className="text-2xl">College Roll Number</span>
@@ -280,48 +254,20 @@ function RouteComponent() {
 								/>
 							</motion.div>
 
-							{/* Room Preference */}
+							{/* Expected Check-in Date & Time */}
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.9 }}
-								className="flex flex-col items-center gap-4 w-full"
-							>
-								<span className="text-2xl">Room Preference</span>
-								<div className="flex gap-6 max-sm:flex-col items-center">
-									<motion.button
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										type="button"
-										onClick={() => setRoomPreference("single")}
-										className={toggleBtnClass(roomPreference === "single")}
-									>
-										Single Occupancy
-									</motion.button>
-									<motion.button
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										type="button"
-										onClick={() => setRoomPreference("shared")}
-										className={toggleBtnClass(roomPreference === "shared")}
-									>
-										4 Sharing
-									</motion.button>
-								</div>
-							</motion.div>
-
-							{/* Check-in Date & Time */}
-							<motion.div
-								initial={{ opacity: 0, y: 30 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.95 }}
+								transition={{ duration: 0.5, delay: 0.85 }}
 								className="flex flex-col items-center gap-3 w-full max-w-md"
 							>
-								<span className="text-2xl">Check-in</span>
+								<span className="text-2xl">Expected Check-in</span>
 								<div className="flex gap-4 w-full max-sm:flex-col">
 									<input
 										type="date"
 										value={checkInDate}
+										min="2026-02-18"
+										max="2026-02-23"
 										onChange={(e) => setCheckInDate(e.target.value)}
 										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
                       focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
@@ -338,18 +284,20 @@ function RouteComponent() {
 								</div>
 							</motion.div>
 
-							{/* Check-out Date & Time */}
+							{/* Expected Check-out Date & Time */}
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 1.0 }}
+								transition={{ duration: 0.5, delay: 0.9 }}
 								className="flex flex-col items-center gap-3 w-full max-w-md"
 							>
-								<span className="text-2xl">Check-out</span>
+								<span className="text-2xl">Expected Check-out</span>
 								<div className="flex gap-4 w-full max-sm:flex-col">
 									<input
 										type="date"
 										value={checkOutDate}
+										min="2026-02-18"
+										max="2026-02-23"
 										onChange={(e) => setCheckOutDate(e.target.value)}
 										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
                       focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
