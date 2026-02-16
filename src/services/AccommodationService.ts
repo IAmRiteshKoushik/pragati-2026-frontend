@@ -19,7 +19,9 @@ export const AccommodationService = {
 	 * Check if the user has already submitted an accommodation form
 	 */
 	checkExists: async (): Promise<{ message: string }> => {
-		return apiGet<{ message: string }>(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK);
+		return apiGet<{ message: string }>(
+			API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
+		);
 	},
 
 	/**
