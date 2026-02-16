@@ -96,15 +96,24 @@ function RouteComponent() {
 
 	// Shared button style helpers
 	const toggleBtnClass = (active: boolean) =>
-		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${
-			active
-				? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
-				: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
+		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${active
+			? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
+			: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
 		}`;
 
 	return (
-		<section className="bg-black w-screen h-screen max-sm:h-[110vh] overflow-scroll">
-			<div className="relative z-10 w-full min-h-screen max-sm:h-[110vh] bg-black/50 backdrop-blur-[5px] backdrop-saturate-130 flex flex-col items-center gap-5 overflow-scroll">
+		<section className="bg-black w-screen min-h-screen">
+			<div className="relative z-10 w-full min-h-screen bg-black/50 backdrop-blur-[5px] backdrop-saturate-130 flex flex-col items-center gap-5 pb-10">
+				<motion.button
+					initial={{ opacity: 0, x: -20 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ duration: 0.5, delay: 0.3 }}
+					onClick={() => router.navigate({ to: "/" })}
+					className="hidden sm:flex absolute top-4 left-4 z-30 items-center gap-2 px-4 py-2 bg-black/60 border-2 border-cyan-400/50 text-cyan-400 text-sm font-jersey tracking-wider hover:bg-cyan-400/10 hover:border-cyan-400 hover:shadow-[0_0_10px_#22d3ee66] transition-all duration-300"
+				>
+					← HOME
+				</motion.button>
+
 				<Noise
 					patternSize={50}
 					patternScaleX={10}
@@ -117,7 +126,7 @@ function RouteComponent() {
 					initial={{ translateY: 120, opacity: 0 }}
 					animate={{ translateY: 0, opacity: 1 }}
 					transition={{ duration: 1, ease: "easeInOut", delay: 0.5 }}
-					className="z-20 text-zinc-200 text-8xl mt-5 font-jersey
+					className="z-20 text-zinc-200 text-8xl mt-10 font-jersey
               text-shadow-[-2px_-2px_0px_var(--color-red-400),2px_2px_0px_var(--color-blue-400)] max-sm:text-6xl"
 				>
 					Accommodation
@@ -233,11 +242,10 @@ function RouteComponent() {
 								<div className="flex gap-12 justify-center">
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
-											gender === "male"
-												? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
-												: "opacity-60 hover:opacity-100 hover:scale-105"
-										}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "male"
+											? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
+											: "opacity-60 hover:opacity-100 hover:scale-105"
+											}`}
 										onClick={() => setGender("male")}
 									>
 										<img
@@ -249,11 +257,10 @@ function RouteComponent() {
 									</motion.div>
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
-											gender === "female"
-												? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
-												: "opacity-60 hover:opacity-100 hover:scale-105"
-										}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "female"
+											? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
+											: "opacity-60 hover:opacity-100 hover:scale-105"
+											}`}
 										onClick={() => setGender("female")}
 									>
 										<img
@@ -431,11 +438,10 @@ function RouteComponent() {
 								whileTap={{ scale: 0.95 }}
 								type="submit"
 								disabled={!isFormValid}
-								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
-									!isFormValid
-										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-								}`}
+								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!isFormValid
+									? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+									: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+									}`}
 							>
 								PROCEED
 							</motion.button>
@@ -532,11 +538,10 @@ function RouteComponent() {
 								onClick={() => setTermsAccepted(!termsAccepted)}
 							>
 								<div
-									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${
-										termsAccepted
-											? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
-											: "bg-transparent"
-									}`}
+									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${termsAccepted
+										? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
+										: "bg-transparent"
+										}`}
 								>
 									{termsAccepted && (
 										<svg
@@ -580,11 +585,10 @@ function RouteComponent() {
 									whileTap={{ scale: 0.95 }}
 									type="submit"
 									disabled={!termsAccepted || submitting}
-									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
-										!termsAccepted || submitting
-											? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-											: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-									}`}
+									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!termsAccepted || submitting
+										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+										}`}
 								>
 									{submitting ? "SUBMITTING..." : "SUBMIT"}
 								</motion.button>
