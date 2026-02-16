@@ -1,11 +1,20 @@
 import { ChevronLeft, ChevronRight, QrCode, User, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
-import { useTickets } from "@/hooks/useTickets";
 import { useAuthStore } from "@/store/auth.store";
+import type { Ticket } from "@/types/ticketTypes";
 
-export default function TicketSection() {
-	const { data, isLoading, error } = useTickets();
+interface TicketSectionProps {
+	data: Ticket[] | undefined;
+	isLoading: boolean;
+	error: Error | null;
+}
+
+export default function TicketSection({
+	data,
+	isLoading,
+	error,
+}: TicketSectionProps) {
 	const { user } = useAuthStore();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [qrModal, setQrModal] = useState<{

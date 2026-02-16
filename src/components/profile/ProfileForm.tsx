@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import { ProfileCard } from "@/components/profile/ProfileCard";
 import { ProfileCardSkeleton } from "@/components/profile/ProfileCardSkeleton";
 import TransactionList from "@/components/profile/TransactionList";
+import { Button } from "@/components/ui/button";
 import { useUpdateProfile, useUserProfile } from "@/hooks/useProfile";
+import { useTickets } from "@/hooks/useTickets";
+import { cn } from "@/lib/utils";
 import { profileFormStore, useProfileStore } from "@/store/profileStore";
 import type { ProfileFormValues } from "@/types/profileTypes";
 import { profileFormSchema } from "@/types/profileTypes";
@@ -34,6 +37,11 @@ export function ProfileForm() {
 
 	const { data, isLoading, error } = useUserProfile();
 	const updateProfileMutation = useUpdateProfile();
+	const {
+		data: ticketsData,
+		isLoading: ticketsLoading,
+		error: ticketsError,
+	} = useTickets();
 
 	const { setAllFields, setActiveTab, activeTab } = profileFormStore();
 
@@ -181,6 +189,25 @@ export function ProfileForm() {
 								);
 							})}
 						</div>
+						{ticketsData && ticketsData.length > 0 && (
+							<Button
+								type="button"
+								onClick={() => {
+									window.location.href = "https://pragati.amrita.edu/";
+								}}
+								className={cn(
+									"relative px-8 py-8 bg-[#7c3aed] border-2 border-black text-white font-vcr font-bold text-lg uppercase tracking-wider transition-all",
+									// Hard shadow initial state
+									"shadow-[4px_4px_0_rgba(0,0,0,1)]",
+									// Hover state: lift button (translate) and increase shadow
+									"hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_rgba(0,0,0,1)]",
+									// Active state: press down (reduce shadow)
+									"active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_rgba(0,0,0,1)]",
+								)}
+							>
+								Need <br /> Accommodation?
+							</Button>
+						)}
 					</div>
 
 					{/* Tab Content */}
@@ -210,7 +237,11 @@ export function ProfileForm() {
 
 						{activeTab === "tickets" && (
 							<div className="w-full">
-								<TicketSection />
+								<TicketSection
+									data={ticketsData}
+									isLoading={ticketsLoading}
+									error={ticketsError}
+								/>
 							</div>
 						)}
 
