@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Noise from "@/components/sponsors/Noise";
 import {
 	type AccommodationPayload,
+	type AccommodationStatus,
 	AccommodationService,
 } from "@/services/AccommodationService";
 
@@ -13,9 +14,17 @@ export const Route = createFileRoute("/accommodation/")({
 });
 
 function RouteComponent() {
+	const router = useRouter();
+	const [eligibility, setEligibility] = useState<AccommodationStatus | "LOADING" | "ERROR">("LOADING");
 	const [step, setStep] = useState<1 | 2>(1);
 	const [submitting, setSubmitting] = useState(false);
 	const [termsAccepted, setTermsAccepted] = useState(false);
+
+	useEffect(() => {
+		AccommodationService.checkExists()
+			.then((status) => setEligibility(status))
+			.catch(() => setEligibility("ERROR"));
+	}, []);
 
 	// Form fields
 	const [gender, setGender] = useState<"male" | "female" | null>(null);
@@ -84,10 +93,9 @@ function RouteComponent() {
 
 	// Shared button style helpers
 	const toggleBtnClass = (active: boolean) =>
-		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${
-			active
-				? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
-				: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
+		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${active
+			? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
+			: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
 		}`;
 
 	return (
@@ -132,12 +140,74 @@ function RouteComponent() {
 					<span className="absolute bottom-0 right-0 w-5 h-5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
 
 					<p className="text-center text-shadow-[2px_2px_0px_var(--color-blue-400)]">
-						{step === 1
+						{eligibility === "ELIGIBLE" && step === 1
 							? "Choose your Accommodation preferences"
-							: "Terms & Conditions"}
+							: eligibility === "ELIGIBLE" && step === 2
+								? "Terms & Conditions"
+								: "Accommodation"}
 					</p>
 
-					{step === 1 ? (
+					{eligibility === "LOADING" && (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							className="flex flex-col items-center gap-6 py-16 text-shadow-none"
+						>
+							<div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+							<span className="text-xl text-zinc-400 font-sans">Checking eligibility...</span>
+						</motion.div>
+					)}
+
+					{eligibility === "ERROR" && (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							className="flex flex-col items-center gap-6 py-16 text-shadow-none"
+						>
+							<span className="text-6xl">⚠️</span>
+							<p className="text-xl text-red-400 font-sans text-center max-w-md">
+								Something went wrong. Please try again later.
+							</p>
+						</motion.div>
+					)}
+
+					{eligibility === "NOT_REGISTERED" && (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6 }}
+							className="flex flex-col items-center gap-6 py-16 text-shadow-none"
+						>
+							<span className="text-6xl">🎟️</span>
+							<p className="text-xl text-yellow-300 font-sans text-center max-w-md leading-relaxed">
+								You need to register for at least <strong>one event</strong> before you can apply for accommodation.
+							</p>
+							<motion.button
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								onClick={() => router.navigate({ to: "/events" })}
+								className="px-8 py-3 text-xl font-jersey tracking-wider border-2 bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)] transition-all duration-300"
+							>
+								BROWSE EVENTS
+							</motion.button>
+						</motion.div>
+					)}
+
+					{eligibility === "FILLED_ACCOMMODATION" && (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6 }}
+							className="flex flex-col items-center gap-6 py-16 text-shadow-none"
+						>
+							<span className="text-6xl">✅</span>
+							<p className="text-xl text-green-400 font-sans text-center max-w-md leading-relaxed">
+								You have already submitted your accommodation form. See you at PRAGATI '26!
+							</p>
+						</motion.div>
+					)}
+
+					{eligibility === "ELIGIBLE" && step === 1 ? (
 						<form
 							onSubmit={handleProceedToTerms}
 							className="flex flex-col justify-center items-center gap-8 w-full p-6 pb-2"
@@ -155,11 +225,10 @@ function RouteComponent() {
 								<div className="flex gap-12 justify-center">
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
-											gender === "male"
-												? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
-												: "opacity-60 hover:opacity-100 hover:scale-105"
-										}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "male"
+											? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
+											: "opacity-60 hover:opacity-100 hover:scale-105"
+											}`}
 										onClick={() => setGender("male")}
 									>
 										<img
@@ -171,11 +240,10 @@ function RouteComponent() {
 									</motion.div>
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
-											gender === "female"
-												? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
-												: "opacity-60 hover:opacity-100 hover:scale-105"
-										}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "female"
+											? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
+											: "opacity-60 hover:opacity-100 hover:scale-105"
+											}`}
 										onClick={() => setGender("female")}
 									>
 										<img
@@ -353,16 +421,15 @@ function RouteComponent() {
 								whileTap={{ scale: 0.95 }}
 								type="submit"
 								disabled={!isFormValid}
-								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
-									!isFormValid
-										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-								}`}
+								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!isFormValid
+									? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+									: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+									}`}
 							>
 								PROCEED
 							</motion.button>
 						</form>
-					) : (
+					) : eligibility === "ELIGIBLE" && step === 2 ? (
 						<form
 							onSubmit={handleFinalSubmit}
 							className="flex flex-col justify-center items-center gap-6 w-full p-6 pb-2"
@@ -454,11 +521,10 @@ function RouteComponent() {
 								onClick={() => setTermsAccepted(!termsAccepted)}
 							>
 								<div
-									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${
-										termsAccepted
-											? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
-											: "bg-transparent"
-									}`}
+									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${termsAccepted
+										? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
+										: "bg-transparent"
+										}`}
 								>
 									{termsAccepted && (
 										<svg
@@ -502,17 +568,16 @@ function RouteComponent() {
 									whileTap={{ scale: 0.95 }}
 									type="submit"
 									disabled={!termsAccepted || submitting}
-									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
-										!termsAccepted || submitting
-											? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-											: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-									}`}
+									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!termsAccepted || submitting
+										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+										}`}
 								>
 									{submitting ? "SUBMITTING..." : "SUBMIT"}
 								</motion.button>
 							</div>
 						</form>
-					)}
+					) : null}
 				</motion.div>
 			</div>
 

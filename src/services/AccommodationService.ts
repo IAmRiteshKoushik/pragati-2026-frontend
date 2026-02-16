@@ -14,14 +14,17 @@ export interface AccommodationPayload {
 	check_out_time: string;
 }
 
+export type AccommodationStatus = "NOT_REGISTERED" | "FILLED_ACCOMMODATION" | "ELIGIBLE";
+
 export const AccommodationService = {
 	/**
-	 * Check if the user has already submitted an accommodation form
+	 * Check eligibility: NOT_REGISTERED | FILLED_ACCOMMODATION | ELIGIBLE
 	 */
-	checkExists: async (): Promise<{ message: string }> => {
-		return apiGet<{ message: string }>(
+	checkExists: async (): Promise<AccommodationStatus> => {
+		const res = await apiGet<{ has_accommodation: AccommodationStatus }>(
 			API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
 		);
+		return res.has_accommodation;
 	},
 
 	/**
