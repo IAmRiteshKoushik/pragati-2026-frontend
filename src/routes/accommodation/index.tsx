@@ -84,7 +84,9 @@ function RouteComponent() {
 		setSubmitting(true);
 		try {
 			const res = await AccommodationService.submit(payload);
-			toast.success(res.message || "Accommodation form submitted successfully!");
+			toast.success(
+				res.message || "Accommodation form submitted successfully!",
+			);
 			router.navigate({ to: "/" });
 		} catch (err: unknown) {
 			const message = err instanceof Error ? err.message : "Submission failed";
