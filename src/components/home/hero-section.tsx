@@ -156,7 +156,7 @@ function HeroSection() {
 						initial={{ opacity: 0, y: -50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
-						className="relative flex-none text-center"
+						className="relative flex-none text-center mt-2.5 md:mt-5"
 					>
 						<h1 className="font-jersey15 text-[90px] md:text-[160px] lg:text-[200px] xl:text-[240px] text-retro-yellow drop-shadow-[3px_3px_0px_rgba(168,85,247,0.8)] md:drop-shadow-[4px_4px_0px_rgba(168,85,247,0.8)] tracking-tighter uppercase leading-none select-none">
 							Pragati '26
@@ -173,13 +173,30 @@ function HeroSection() {
 					</motion.div>
 
 					{/* Typewriter Filler Text */}
-					<div className="mt-8 md:mt-20 lg:mt-24 flex flex-col items-center justify-center">
+					<div className="mt-6 md:mt-6 lg:mt-14 flex flex-col items-center justify-center">
 						<div className="bg-black/60 backdrop-blur-sm border border-retro-cyan/30 rounded-lg px-4 py-3 md:px-8 md:py-4 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
 							<TypewriterText text="PRESS EXPLORE TO UNLOCK" />
 							<div className="h-2" />
 							<TypewriterText text="THE ULTIMATE EXPERIENCE" />
 						</div>
 					</div>
+
+					{/* Event Info */}
+					<motion.div
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.8, duration: 0.6 }}
+						className="mt-2 md:mt-3 relative"
+					>
+						<div className="bg-black/90 border border-retro-cyan/50 rounded px-3 py-2 md:px-5 md:py-3 shadow-[0_0_15px_rgba(0,255,255,0.2)]">
+							<div className="flex flex-col md:flex-row md:items-center md:gap-4 text-retro-cyan space-y-1 md:space-y-0">
+								<span className="font-vcr text-sm md:text-base tracking-wide">20-21 FEB 2026</span>
+								<div className="hidden md:block w-px h-4 bg-retro-cyan/40" />
+								<span className="mx-2 md:hidden font-vcr text-sm text-retro-cyan">|</span>
+								<span className="font-vcr text-sm md:text-base tracking-tight">📍 Amrita School of Business, Coimbatore</span>
+							</div>
+						</div>
+					</motion.div>
 
 					{/* CTA Button */}
 					<motion.div
@@ -191,7 +208,7 @@ function HeroSection() {
 						<motion.button
 							whileHover={{ y: -2 }}
 							whileTap={{ y: 2 }}
-							className="pointer-events-auto relative px-8 py-3 md:px-10 md:py-4 
+							className="pointer-events-auto relative px-8 py-3 md:px-6 md:py-4 
                            bg-[#7c3aed] border-2 border-black text-white 
                            font-vcr font-bold text-xl md:text-2xl uppercase tracking-wider 
                            shadow-[4px_4px_0_rgba(0,0,0,1)] 
@@ -207,7 +224,7 @@ function HeroSection() {
 
 				{/* BOTTOM STATS SECTION */}
 				<motion.div
-					className="flex-none w-full justify-end max-w-sm md:max-w-none grid grid-cols-3 gap-3 md:flex md:flex-wrap md:justify-center md:gap-16 px-4 mt-8 md:mt-6 pb-6 md:pb-8"
+					className="flex-none w-full justify-end max-w-sm md:max-w-none grid grid-cols-3 gap-3 md:flex md:flex-wrap md:justify-center md:gap-16 px-4 mt-4 md:mt-3 pb-6 md:pb-8"
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.9, duration: 0.5 }}

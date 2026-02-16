@@ -16,7 +16,6 @@ export default function Footer() {
 	const pages = [
 		{ name: "HOME", href: "/" },
 		{ name: "EVENTS", href: "/events" },
-		{ name: "TEAM", href: "/coming-soon" },
 		{ name: "PRIVACY POLICY", href: "/privacyPolicy" },
 	];
 
