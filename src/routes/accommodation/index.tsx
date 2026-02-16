@@ -1,7 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import Noise from "@/components/sponsors/Noise";
+import {
+	AccommodationService,
+	type AccommodationPayload,
+} from "@/services/AccommodationService";
 
 export const Route = createFileRoute("/accommodation/")({
 	component: RouteComponent,
@@ -9,26 +14,78 @@ export const Route = createFileRoute("/accommodation/")({
 
 function RouteComponent() {
 	const [step, setStep] = useState<1 | 2>(1);
+	const [submitting, setSubmitting] = useState(false);
+	const [termsAccepted, setTermsAccepted] = useState(false);
+
+	// Form fields
 	const [gender, setGender] = useState<"male" | "female" | null>(null);
-	const [accommodationType, setAccommodationType] = useState<
+	const [isHosteller, setIsHosteller] = useState<boolean | null>(null);
+	const [isAmritaCampus, setIsAmritaCampus] = useState<boolean | null>(null);
+	const [collegeName, setCollegeName] = useState("");
+	const [collegeRollNumber, setCollegeRollNumber] = useState("");
+	const [roomPreference, setRoomPreference] = useState<
 		"single" | "shared" | null
 	>(null);
-	const [termsAccepted, setTermsAccepted] = useState(false);
+	const [checkInDate, setCheckInDate] = useState("");
+	const [checkInTime, setCheckInTime] = useState("");
+	const [checkOutDate, setCheckOutDate] = useState("");
+	const [checkOutTime, setCheckOutTime] = useState("");
+
+	const isFormValid =
+		gender !== null &&
+		isHosteller !== null &&
+		isAmritaCampus !== null &&
+		collegeName.trim() !== "" &&
+		collegeRollNumber.trim() !== "" &&
+		roomPreference !== null &&
+		checkInDate !== "" &&
+		checkInTime !== "" &&
+		checkOutDate !== "" &&
+		checkOutTime !== "";
 
 	const handleProceedToTerms = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (gender && accommodationType) {
+		if (isFormValid) {
 			setStep(2);
 		}
 	};
 
-	const handleFinalSubmit = (e: React.FormEvent) => {
+	const handleFinalSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (termsAccepted) {
-			console.log({ gender, accommodationType, termsAccepted });
-			// TODO: Submit to backend
+		if (!termsAccepted || !isFormValid) return;
+
+		const payload: AccommodationPayload = {
+			is_male: gender === "male",
+			is_hosteller: isHosteller!,
+			is_amrita_campus: isAmritaCampus!,
+			college_name: collegeName.trim(),
+			college_roll_number: collegeRollNumber.trim(),
+			room_preference: roomPreference!,
+			check_in_date: checkInDate,
+			check_in_time: checkInTime,
+			check_out_date: checkOutDate,
+			check_out_time: checkOutTime,
+		};
+
+		setSubmitting(true);
+		try {
+			const res = await AccommodationService.submit(payload);
+			toast.success(res.message || "Form submitted successfully!");
+		} catch (err: unknown) {
+			const message =
+				err instanceof Error ? err.message : "Submission failed";
+			toast.error(message);
+		} finally {
+			setSubmitting(false);
 		}
 	};
+
+	// Shared button style helpers
+	const toggleBtnClass = (active: boolean) =>
+		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${active
+			? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
+			: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
+		}`;
 
 	return (
 		<section className="bg-black w-screen h-screen max-sm:h-[110vh] overflow-scroll">
@@ -126,24 +183,119 @@ function RouteComponent() {
 								</div>
 							</motion.div>
 
-							{/* Accommodation Type */}
+							{/* Hosteller Toggle */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.7 }}
+								className="flex flex-col items-center gap-4"
+							>
+								<span className="text-2xl">Are you a Hosteller?</span>
+								<div className="flex gap-6">
+									<motion.button
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										type="button"
+										onClick={() => setIsHosteller(true)}
+										className={toggleBtnClass(isHosteller === true)}
+									>
+										Yes
+									</motion.button>
+									<motion.button
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										type="button"
+										onClick={() => setIsHosteller(false)}
+										className={toggleBtnClass(isHosteller === false)}
+									>
+										No
+									</motion.button>
+								</div>
+							</motion.div>
+
+							{/* Amrita Campus Toggle */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.75 }}
+								className="flex flex-col items-center gap-4"
+							>
+								<span className="text-2xl">From Amrita Campus?</span>
+								<div className="flex gap-6">
+									<motion.button
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										type="button"
+										onClick={() => setIsAmritaCampus(true)}
+										className={toggleBtnClass(isAmritaCampus === true)}
+									>
+										Yes
+									</motion.button>
+									<motion.button
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										type="button"
+										onClick={() => setIsAmritaCampus(false)}
+										className={toggleBtnClass(isAmritaCampus === false)}
+									>
+										No
+									</motion.button>
+								</div>
+							</motion.div>
+
+							{/* College Name */}
 							<motion.div
 								initial={{ opacity: 0, y: 30 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: 0.8 }}
+								className="flex flex-col items-center gap-3 w-full max-w-md"
+							>
+								<span className="text-2xl">College Name</span>
+								<input
+									type="text"
+									value={collegeName}
+									onChange={(e) => setCollegeName(e.target.value)}
+									placeholder="Enter your college name"
+									className="w-full px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                    placeholder:text-zinc-500 focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                    outline-none transition-all duration-300 text-shadow-none"
+								/>
+							</motion.div>
+
+							{/* College Roll Number */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.85 }}
+								className="flex flex-col items-center gap-3 w-full max-w-md"
+							>
+								<span className="text-2xl">College Roll Number</span>
+								<input
+									type="text"
+									value={collegeRollNumber}
+									onChange={(e) => setCollegeRollNumber(e.target.value)}
+									placeholder="Enter your roll number"
+									className="w-full px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                    placeholder:text-zinc-500 focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                    outline-none transition-all duration-300 text-shadow-none"
+								/>
+							</motion.div>
+
+							{/* Room Preference */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.9 }}
 								className="flex flex-col items-center gap-4 w-full"
 							>
-								<span className="text-2xl">Select Type</span>
+								<span className="text-2xl">Room Preference</span>
 								<div className="flex gap-6 max-sm:flex-col items-center">
 									<motion.button
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
 										type="button"
-										onClick={() => setAccommodationType("single")}
-										className={`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${accommodationType === "single"
-											? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
-											: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
-											}`}
+										onClick={() => setRoomPreference("single")}
+										className={toggleBtnClass(roomPreference === "single")}
 									>
 										Single Occupancy
 									</motion.button>
@@ -151,26 +303,79 @@ function RouteComponent() {
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
 										type="button"
-										onClick={() => setAccommodationType("shared")}
-										className={`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${accommodationType === "shared"
-											? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
-											: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
-											}`}
+										onClick={() => setRoomPreference("shared")}
+										className={toggleBtnClass(roomPreference === "shared")}
 									>
 										4 Sharing
 									</motion.button>
 								</div>
 							</motion.div>
 
+							{/* Check-in Date & Time */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.95 }}
+								className="flex flex-col items-center gap-3 w-full max-w-md"
+							>
+								<span className="text-2xl">Check-in</span>
+								<div className="flex gap-4 w-full max-sm:flex-col">
+									<input
+										type="date"
+										value={checkInDate}
+										onChange={(e) => setCheckInDate(e.target.value)}
+										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                      focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                      outline-none transition-all duration-300 text-shadow-none"
+									/>
+									<input
+										type="time"
+										value={checkInTime}
+										onChange={(e) => setCheckInTime(e.target.value)}
+										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                      focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                      outline-none transition-all duration-300 text-shadow-none"
+									/>
+								</div>
+							</motion.div>
+
+							{/* Check-out Date & Time */}
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 1.0 }}
+								className="flex flex-col items-center gap-3 w-full max-w-md"
+							>
+								<span className="text-2xl">Check-out</span>
+								<div className="flex gap-4 w-full max-sm:flex-col">
+									<input
+										type="date"
+										value={checkOutDate}
+										onChange={(e) => setCheckOutDate(e.target.value)}
+										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                      focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                      outline-none transition-all duration-300 text-shadow-none"
+									/>
+									<input
+										type="time"
+										value={checkOutTime}
+										onChange={(e) => setCheckOutTime(e.target.value)}
+										className="flex-1 px-4 py-2 bg-black/40 border-2 border-cyan-400/50 text-zinc-200 text-lg font-sans
+                      focus:border-cyan-400 focus:shadow-[0_0_10px_#22d3ee66]
+                      outline-none transition-all duration-300 text-shadow-none"
+									/>
+								</div>
+							</motion.div>
+
 							<motion.button
 								initial={{ opacity: 0, scale: 0.5 }}
 								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.5, delay: 1, type: "spring" }}
+								transition={{ duration: 0.5, delay: 1.05, type: "spring" }}
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
 								type="submit"
-								disabled={!gender || !accommodationType}
-								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!gender || !accommodationType
+								disabled={!isFormValid}
+								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!isFormValid
 									? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
 									: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
 									}`}
@@ -316,13 +521,13 @@ function RouteComponent() {
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.95 }}
 									type="submit"
-									disabled={!termsAccepted}
-									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!termsAccepted
+									disabled={!termsAccepted || submitting}
+									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!termsAccepted || submitting
 										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
 										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
 										}`}
 								>
-									SUBMIT
+									{submitting ? "SUBMITTING..." : "SUBMIT"}
 								</motion.button>
 							</div>
 						</form>
