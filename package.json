@@ -35,6 +35,7 @@
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.544.0",
     "ogl": "^1.0.11",
+    "qrcode.react": "^4.2.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

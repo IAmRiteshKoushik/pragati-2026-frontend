@@ -1,33 +1,17 @@
-import { ChevronLeft, ChevronRight, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, QrCode, User, X } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
 import { useTickets } from "@/hooks/useTickets";
-
-// Generates a pseudo-random barcode visual seeded from a string
-function Barcode({ id }: { id: string }) {
-	const bars: number[] = [];
-	let seed = 0;
-	for (let i = 0; i < id.length; i++) seed += id.charCodeAt(i);
-	for (let i = 0; i < 48; i++) {
-		seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
-		bars.push(seed % 4);
-	}
-
-	return (
-		<div className="flex items-stretch gap-px h-14">
-			{bars.map((width, i) => {
-				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
-				if (width === 0) return <div key={`bar-${i}`} className="w-1" />;
-				const barWidth = width === 1 ? "w-0.5" : width === 2 ? "w-1" : "w-1.5";
-				// biome-ignore lint/suspicious/noArrayIndexKey: Barcode bars are static visual elements that never reorder
-				return <div key={`bar-${i}`} className={`${barWidth} bg-white`} />;
-			})}
-		</div>
-	);
-}
+import { useAuthStore } from "@/store/auth.store";
 
 export default function TicketSection() {
 	const { data, isLoading, error } = useTickets();
+	const { user } = useAuthStore();
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [qrModal, setQrModal] = useState<{
+		scheduleId: string;
+		scheduleIndex: number;
+	} | null>(null);
 
 	const handlePrevious = () => {
 		if (!data) return;
@@ -235,6 +219,21 @@ export default function TicketSection() {
 															{schedule.venue}
 														</span>
 													</div>
+
+													{/* QR Code Button */}
+													<button
+														type="button"
+														onClick={() =>
+															setQrModal({
+																scheduleId: schedule.schedule_id || "",
+																scheduleIndex: idx + 1,
+															})
+														}
+														className="mt-3 w-full py-2 bg-[#7c3aed] border border-[#a855f7]/40 rounded-lg flex items-center justify-center gap-2 text-white font-vcr text-xs uppercase tracking-wider hover:bg-[#6d28d9] transition-colors"
+													>
+														<QrCode className="w-4 h-4" />
+														Show QR Code
+													</button>
 												</div>
 											))}
 										</div>
@@ -279,21 +278,34 @@ export default function TicketSection() {
 												{currentTicket.schedules[0].venue}
 											</span>
 										</div>
+
+										{/* QR Code Button - Single Session */}
+										<button
+											type="button"
+											onClick={() =>
+												setQrModal({
+													scheduleId:
+														currentTicket.schedules[0].schedule_id || "",
+													scheduleIndex: 1,
+												})
+											}
+											className="mt-4 w-full py-3 bg-[#7c3aed] border border-[#a855f7]/40 rounded-lg flex items-center justify-center gap-2 text-white font-vcr text-sm uppercase tracking-wider hover:bg-[#6d28d9] transition-colors"
+										>
+											<QrCode className="w-5 h-5" />
+											Show QR Code
+										</button>
 									</>
 								)}
 
-								{/* TICKET NO + BARCODE row */}
-								<div className="flex items-end justify-between py-4 mt-2 gap-4 border-t-2 border-white/10">
-									<div>
+								{/* TICKET NO row */}
+								<div className="flex items-center justify-center py-4 mt-2 border-t-2 border-white/10">
+									<div className="text-center">
 										<span className="text-white/40 font-vcr text-[0.6rem] uppercase tracking-widest block mb-1">
 											Ticket No.
 										</span>
 										<span className="text-retro-cyan font-vcr text-sm md:text-lg tracking-widest">
 											{ticketNumber}
 										</span>
-									</div>
-									<div className="opacity-70">
-										<Barcode id={currentTicket.event_id + ticketNumber} />
 									</div>
 								</div>
 							</div>
@@ -322,6 +334,46 @@ export default function TicketSection() {
 						))}
 					</div>
 				</div>
+
+				{qrModal && (
+					<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+						<button
+							type="button"
+							className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-default"
+							onClick={() => setQrModal(null)}
+							aria-label="Close QR code modal"
+						/>
+						<div className="relative bg-[#1a0033] border-2 border-[#a855f7] rounded-xl p-6 md:p-8 max-w-sm w-full shadow-[0_0_30px_rgba(168,85,247,0.4)]">
+							<button
+								type="button"
+								onClick={() => setQrModal(null)}
+								className="absolute top-3 right-3 p-2 text-white/60 hover:text-white transition-colors"
+								aria-label="Close"
+							>
+								<X className="w-6 h-6" />
+							</button>
+							<div className="text-center">
+								<h3 className="text-white font-vcr text-lg md:text-xl uppercase tracking-widest mb-2">
+									Session {qrModal?.scheduleIndex} QR
+								</h3>
+								<p className="text-retro-cyan/60 font-vcr text-xs mb-4">
+									{currentTicket.event_name}
+								</p>
+								<div className="bg-white p-4 rounded-lg inline-block">
+									<QRCodeSVG
+										value={`${user?.student_id || "unknown"}:${qrModal?.scheduleId || ""}`}
+										size={180}
+										level="M"
+										includeMargin={false}
+									/>
+								</div>
+								<p className="text-white/50 font-vcr text-[10px] mt-4 uppercase tracking-widest">
+									Scan at venue
+								</p>
+							</div>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

@@ -1,7 +1,10 @@
+import { X } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/store/auth.store";
 import { useProfileStore } from "@/store/profileStore";
 import type { PROFILE_CARD_PROPS } from "@/types/profileTypes";
 
@@ -51,6 +54,8 @@ export function ProfileCard({
 	const setIsEditMode = useProfileStore((state) => state.setIsEditMode);
 	const [isEditDisabled, setIsEditDisabled] = useState(false);
 	const [avatarHash, setAvatarHash] = useState<string>("");
+	const { user } = useAuthStore();
+	const [showQrModal, setShowQrModal] = useState(false);
 
 	useEffect(() => {
 		sha256(avatarEmail).then(setAvatarHash);
@@ -137,14 +142,32 @@ export function ProfileCard({
 					</div>
 
 					{/* User Info */}
-					<div className="flex-1 text-center md:text-left">
-						<h2 className="text-3xl md:text-5xl font-bold mb-2 uppercase tracking-tight font-jersey15 text-white drop-shadow-[2px_2px_0px_#a855f7]">
-							{name || "USER PROFILE"}
-						</h2>
-						<p className="text-retro-cyan text-sm md:text-base font-vcr tracking-widest uppercase mb-4 drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
-							{email}
-						</p>
-						<div className="h-0.5 w-full bg-linear-to-r from-transparent via-[#a855f7]/50 to-transparent"></div>
+					<div className="flex-1 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+						<div className="text-center md:text-left">
+							<h2 className="text-3xl md:text-5xl font-bold mb-2 uppercase tracking-tight font-jersey15 text-white drop-shadow-[2px_2px_0px_#a855f7]">
+								{name || "USER PROFILE"}
+							</h2>
+							<p className="text-retro-cyan text-sm md:text-base font-vcr tracking-widest uppercase mb-4 drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
+								{email}
+							</p>
+							<div className="h-0.5 w-full bg-linear-to-r from-transparent via-[#a855f7]/50 to-transparent"></div>
+						</div>
+						{user?.student_id && (
+							<div className="flex flex-col items-center md:items-end">
+								<button
+									type="button"
+									onClick={() => setShowQrModal(true)}
+									className="bg-white p-2 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+								>
+									<QRCodeSVG
+										value={user.student_id}
+										size={100}
+										level="M"
+										includeMargin={false}
+									/>
+								</button>
+							</div>
+						)}
 					</div>
 				</div>
 
@@ -235,6 +258,44 @@ export function ProfileCard({
 					</Button>
 				</div>
 			</div>
+
+			{/* QR Modal */}
+			{showQrModal && user?.student_id && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+					<button
+						type="button"
+						className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-default"
+						onClick={() => setShowQrModal(false)}
+						aria-label="Close QR code modal"
+					/>
+					<div className="relative bg-[#1a0033] border-2 border-[#a855f7] rounded-xl p-6 md:p-8 max-w-sm w-full shadow-[0_0_30px_rgba(168,85,247,0.4)]">
+						<button
+							type="button"
+							onClick={() => setShowQrModal(false)}
+							className="absolute top-3 right-3 p-2 text-white/60 hover:text-white transition-colors"
+							aria-label="Close"
+						>
+							<X className="w-6 h-6" />
+						</button>
+						<div className="text-center">
+							<h3 className="text-white font-vcr text-lg md:text-xl uppercase tracking-widest mb-2">
+								Profile QR
+							</h3>
+							<p className="text-retro-cyan/60 font-vcr text-xs mb-4">
+								{user.student_id}
+							</p>
+							<div className="bg-white p-4 rounded-lg inline-block">
+								<QRCodeSVG
+									value={user.student_id}
+									size={220}
+									level="M"
+									includeMargin={false}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
