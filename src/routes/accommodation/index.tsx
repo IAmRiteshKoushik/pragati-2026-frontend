@@ -84,9 +84,10 @@ function RouteComponent() {
 
 	// Shared button style helpers
 	const toggleBtnClass = (active: boolean) =>
-		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${active
-			? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
-			: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
+		`px-6 py-2 border-2 border-cyan-400 text-xl font-jersey tracking-wide transition-all duration-300 ${
+			active
+				? "bg-cyan-400 text-black shadow-[0_0_15px_#22d3ee] scale-105"
+				: "text-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_#22d3ee66]"
 		}`;
 
 	return (
@@ -154,10 +155,11 @@ function RouteComponent() {
 								<div className="flex gap-12 justify-center">
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "male"
-											? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
-											: "opacity-60 hover:opacity-100 hover:scale-105"
-											}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
+											gender === "male"
+												? "scale-110 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] filter brightness-110"
+												: "opacity-60 hover:opacity-100 hover:scale-105"
+										}`}
 										onClick={() => setGender("male")}
 									>
 										<img
@@ -169,10 +171,11 @@ function RouteComponent() {
 									</motion.div>
 									<motion.div
 										whileHover={{ scale: 1.05 }}
-										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${gender === "female"
-											? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
-											: "opacity-60 hover:opacity-100 hover:scale-105"
-											}`}
+										className={`cursor-pointer flex flex-col items-center gap-2 transition-all duration-300 ${
+											gender === "female"
+												? "scale-110 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)] filter brightness-110"
+												: "opacity-60 hover:opacity-100 hover:scale-105"
+										}`}
 										onClick={() => setGender("female")}
 									>
 										<img
@@ -322,10 +325,11 @@ function RouteComponent() {
 								whileTap={{ scale: 0.95 }}
 								type="submit"
 								disabled={!isFormValid}
-								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!isFormValid
-									? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-									: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-									}`}
+								className={`mt-4 px-10 py-3 text-2xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
+									!isFormValid
+										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+								}`}
 							>
 								PROCEED
 							</motion.button>
@@ -422,10 +426,11 @@ function RouteComponent() {
 								onClick={() => setTermsAccepted(!termsAccepted)}
 							>
 								<div
-									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${termsAccepted
-										? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
-										: "bg-transparent"
-										}`}
+									className={`w-6 h-6 border-2 border-cyan-400 flex items-center justify-center transition-all duration-300 ${
+										termsAccepted
+											? "bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
+											: "bg-transparent"
+									}`}
 								>
 									{termsAccepted && (
 										<svg
@@ -469,10 +474,11 @@ function RouteComponent() {
 									whileTap={{ scale: 0.95 }}
 									type="submit"
 									disabled={!termsAccepted || submitting}
-									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${!termsAccepted || submitting
-										? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
-										: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
-										}`}
+									className={`px-8 py-3 text-xl font-jersey tracking-wider border-2 transition-all duration-300 transform ${
+										!termsAccepted || submitting
+											? "bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed opacity-50"
+											: "bg-purple-600 hover:bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_var(--color-purple-500)] hover:shadow-[0_0_25px_var(--color-purple-400)]"
+									}`}
 								>
 									{submitting ? "SUBMITTING..." : "SUBMIT"}
 								</motion.button>
