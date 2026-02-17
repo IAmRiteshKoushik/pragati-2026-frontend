@@ -400,7 +400,7 @@ export default function EventDetail({
 								{tag}
 							</span>
 						))}
-						{event.is_management && (
+						{event.is_technical && (
 							<span
 								className={`px-3 py-1 text-xs font-joystix uppercase tracking-wider relative shadow-[2px_2px_0_rgba(0,0,0,1)] bg-purple-950 border-2 border-[#7e22ce] text-[#7e22ce]`}
 							>
@@ -560,7 +560,7 @@ export default function EventDetail({
 										{tag}
 									</span>
 								))}
-								{event.is_management && (
+								{event.is_technical && (
 									<span
 										className={`px-3 py-1.5 text-sm font-joystix uppercase tracking-wider relative shadow-[2px_2px_0_rgba(0,0,0,1)] bg-blue-950 border-2 border-[#7e22ce] text-white`}
 									>

@@ -27,7 +27,7 @@ export interface Event {
 	is_group: boolean;
 	tags?: string[];
 	event_type: string;
-	is_management: boolean;
+	is_technical: boolean;
 	event_price: number;
 	is_registered: boolean;
 	isStarred: boolean;
@@ -46,7 +46,7 @@ export interface EventDetails {
 	is_per_head: boolean;
 	rules: string;
 	event_type: string;
-	is_management: boolean;
+	is_technical: boolean;
 	is_group: boolean;
 	max_teamsize: number;
 	min_teamsize: number;

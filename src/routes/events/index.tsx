@@ -123,9 +123,9 @@ function EventsPage() {
 		// Management filter (is_management field)
 		if (managementType) {
 			if (managementType === "management") {
-				result = result.filter((e) => e.is_management);
+				result = result.filter((e) => e.is_technical);
 			} else {
-				result = result.filter((e) => !e.is_management);
+				result = result.filter((e) => !e.is_technical);
 			}
 		}
 
